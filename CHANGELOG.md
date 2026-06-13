@@ -20,6 +20,12 @@ All notable changes to the SnapSpec (Design-md Creator) project will be document
 - **Curated Agent Skills Product Page**: Rewrote the `skills.html` placeholder page into a complete product feature tour explaining the concepts of instructions, best practices, and resources, with live copyable `npx skills add` installation snippets and featured library listings.
   - *Why*: Provides immediate, actionable utility rather than a "Coming soon" roadblock.
   - *User Benefit*: Quick learning curve for setting up multi-agent capabilities.
+- **Ollama Cloud Models Routing**: Fixed the "failed to fetch" CORS issue when querying Ollama by dynamically routing Ollama API calls to `/api/ollama-cloud` (using our Vite server proxy) when an API key is present.
+  - *Why*: Resolves cross-origin query restrictions and enables direct use of the Ollama Cloud Models API.
+  - *User Benefit*: Flawless Ollama Cloud Model execution from the browser dashboard.
+- **Ollama Cloud Presets Locking**: Replaced the outdated Ollama model list with the exact cloud models supported by Ollama: `qwen3-vl:235b-cloud`, `deepseek-v3.1:671b-cloud`, `gpt-oss:20b-cloud`, `gpt-oss:120b-cloud`, `kimi-k2:1t-cloud`, `qwen3-coder:480b-cloud`, and `glm-4.6:cloud`.
+  - *Why*: Keeps user selections relevant to remote Ollama Cloud hosting.
+  - *User Benefit*: Prevents input errors by restricting selections to verified cloud models.
 
 ### Changed
 - **Footer Clean Up**: Removed the harsh outer frame outline (`border-[#2A2A2A] rounded-[24px] bg-[#050505]`) from the main footer to integrate it smoothly into the page backdrop. Added a subtle top border divider.
