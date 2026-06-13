@@ -4,15 +4,54 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skills - Design-md Creator</title>
+    <title>Skills - SnapSpec</title>
     <script type="module" src="/src/main.js"></script>
+    <style>
+      :root {
+        --color-canvas: #050505;
+        --color-surface: #0a0a0a;
+        --color-border: #1a1a1a;
+        --color-text-main: #ffffff;
+        --color-text-muted: #888888;
+        --color-primary: #ffffff;
+        --font-sans: 'Inter', -apple-system, sans-serif;
+      }
+      body {
+        background-color: var(--color-canvas);
+        color: var(--color-text-main);
+        font-family: var(--font-sans);
+        margin: 0;
+      }
+      .code-block {
+        background-color: #0d0d0d;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 16px;
+        font-family: monospace;
+        font-size: 13px;
+        color: #e6e6e6;
+        position: relative;
+        overflow-x: auto;
+      }
+      .skill-card {
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        padding: 24px;
+        transition: border-color 0.3s ease;
+      }
+      .skill-card:hover {
+        border-color: #333333;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-[var(--color-canvas)] text-[var(--color-text-main)] antialiased font-sans selection:bg-[var(--color-primary)] selection:text-white">
+  <body class="antialiased selection:bg-white/10 selection:text-white">
 
-    <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-12 md:pt-8 md:pb-24 px-6">
+    <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-12 px-6">
       
       <!-- App Header -->
-      <header class="w-full max-w-6xl flex justify-between items-center mb-16 animate-enter relative">
+      <header class="w-full max-w-5xl flex justify-between items-center mb-20 relative">
         <a href="/" class="flex items-center gap-3 h-8 hover:opacity-80 transition-opacity">
           <img src="/branding/Icon.png" alt="SnapSpec Icon" class="h-full w-auto object-contain" style="aspect-ratio: 1303/1207;" />
           <span class="hidden sm:block font-bold text-[22px] tracking-tight mt-0.5">SnapSpec</span>
@@ -34,7 +73,7 @@
       </header>
 
       <!-- Mobile Sidebar -->
-      <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a] border-l border-[var(--color-border)] transform translate-x-full transition-transform duration-300 z-50 flex flex-col p-6 shadow-2xl">
+      <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a] border-l border-neutral-900 transform translate-x-full transition-transform duration-300 z-50 flex flex-col p-6 shadow-2xl">
         <div class="flex justify-end mb-8">
           <button id="close-mobile-menu" class="text-[var(--color-text-muted)] hover:text-white">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -50,72 +89,116 @@
       <!-- Mobile Sidebar Overlay -->
       <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
-      <!-- Main Workspace -->
-      <main class="w-full max-w-6xl flex flex-col gap-10 lg:gap-16 items-center my-32 flex-grow">
-        <h1 class="font-heading text-[48px] md:text-[64px] font-bold tracking-tight leading-[1.0] mb-6 text-center">Coming Soon!</h1>
+      <!-- Main Content -->
+      <main class="w-full max-w-4xl flex flex-col gap-16 flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="flex flex-col gap-4 text-left max-w-2xl mt-8">
+          <p class="text-[12px] font-semibold uppercase tracking-wider text-neutral-500">Extending AI Capabilities</p>
+          <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Systematic Agentic Skills</h1>
+          <p class="text-[16px] text-neutral-400 leading-relaxed font-light">
+            Skills are reusable, isolated packages of knowledge designed to extend what AI coding agents can do in your workspace.
+          </p>
+        </section>
+
+        <!-- What Skills Are -->
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xl font-bold text-white tracking-tight">Core Pillars</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="skill-card flex flex-col gap-3">
+              <div class="text-[20px] font-semibold text-white">Instructions</div>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Step-by-step guidance defining how to analyze, scaffold, and implement specific UI and software design models.
+              </p>
+            </div>
+            <div class="skill-card flex flex-col gap-3">
+              <div class="text-[20px] font-semibold text-white">Best Practices</div>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Rigid conventions, styling tokens, error recovery pipelines, and standards preventing common AI coding mistakes.
+              </p>
+            </div>
+            <div class="skill-card flex flex-col gap-3">
+              <div class="text-[20px] font-semibold text-white">Scripts & Docs</div>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Automated build helpers, validation checks, and templates allowing agents to test code before final delivery.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Installation Examples -->
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xl font-bold text-white tracking-tight">Installation Examples</h2>
+          <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <p class="text-sm text-neutral-400 font-light">Install a specific skill from a repository:</p>
+              <div class="code-block select-all cursor-pointer">
+                npx skills add https://github.com/eddiebe147/claude-settings --skill 'Course Creator'
+              </div>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+              <p class="text-sm text-neutral-400 font-light">Install an entire folder of curated skills:</p>
+              <div class="code-block select-all cursor-pointer">
+                npx skills add bergside/awesome-design-skills
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Featured / Planned Skills -->
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xl font-bold text-white tracking-tight">Featured Library</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="border border-neutral-900 bg-[#070707] rounded-xl p-6 flex flex-col gap-2">
+              <h3 class="font-semibold text-white text-base">a11y-audit</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                Performs WCAG accessibility standard checks, scans HTML layouts, and flags color contrast failures.
+              </p>
+            </div>
+            
+            <div class="border border-neutral-900 bg-[#070707] rounded-xl p-6 flex flex-col gap-2">
+              <h3 class="font-semibold text-white text-base">privacy-pii-redactor</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                Locates and redacts personally identifiable information (PII) from logs and environment configurations.
+              </p>
+            </div>
+
+            <div class="border border-neutral-900 bg-[#070707] rounded-xl p-6 flex flex-col gap-2">
+              <h3 class="font-semibold text-white text-base">high-end-visual-design</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                Applies Awwwards-tier UI patterns, nested bezels, fluid transitions, and premium OLED black texture rules.
+              </p>
+            </div>
+
+            <div class="border border-neutral-900 bg-[#070707] rounded-xl p-6 flex flex-col gap-2">
+              <h3 class="font-semibold text-white text-base">security-reviewer</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                Scans codebase inputs for SSRF, injection vectors, hardcoded secrets, and general OWASP compliance.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Future Updates note -->
+        <section class="border-t border-neutral-900 pt-8 pb-12">
+          <div class="flex flex-col gap-2 max-w-xl">
+            <h4 class="font-semibold text-white text-sm">Deliberate Work-in-Progress</h4>
+            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+              We are actively developing the SnapSpec skills framework. In future releases, skills will integrate directly with your IDE workspace configuration.
+            </p>
+          </div>
+        </section>
+
       </main>
 
-      <!-- Footer Section -->
-      <footer class="w-full max-w-6xl mt-auto border border-[#2A2A2A] rounded-[24px] bg-[#050505] p-8 md:p-12 relative overflow-hidden flex flex-col justify-between">
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0 mb-24">
-          <div class="flex flex-col gap-4 max-w-sm">
-            <div class="flex items-center gap-4">
-              <div class="w-8 h-8 rounded-sm border-2 border-white flex flex-wrap p-1 gap-[2px]">
-                <div class="w-[10px] h-[10px] border-t-2 border-l-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-t-2 border-r-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-b-2 border-l-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-b-2 border-r-2 border-white"></div>
-              </div>
-              <p class="text-[14px] text-[var(--color-text-muted)] font-medium leading-snug">SnapSpec turns website screenshots into<br>reusable Design.md blueprints for rapid UI creation.</p>
-            </div>
-          </div>
-          
-          <div class="flex flex-wrap gap-8 lg:gap-12 text-[14px] font-medium">
-            <a href="#" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Terms & Conditions</a>
-            <a href="mailto:yourshezanspot@gmail.com" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Contact Us</a>
-          </div>
-        </div>
-
-        <div class="flex flex-col items-center justify-center mb-24 relative">
-          <div class="font-sans font-bold text-[80px] sm:text-[120px] md:text-[180px] lg:text-[220px] tracking-tight leading-none text-white w-full text-center">
-            SnapSpec
-          </div>
-          <p class="text-[var(--color-text-muted)] text-[14px] sm:text-[16px] font-medium mt-4 lg:absolute lg:right-4 lg:bottom-[-20px]">Made for The Best With Love</p>
-        </div>
-
-        <div class="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-0 border-t border-[#2A2A2A] pt-8">
-          <div class="flex items-center gap-6 text-[14px] font-medium w-full lg:w-1/3">
-            <a href="/skills.html" class="flex items-center gap-2 text-white transition-colors">Skills <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
-            <span class="text-[#2A2A2A]">|</span>
-            <a href="/whats-next.html" class="flex items-center gap-2 hover:text-white transition-colors">What's Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
-          </div>
-
-          <div class="flex flex-col items-center gap-3 w-full lg:w-1/3">
-            <p class="text-[12px] text-[var(--color-text-muted)] uppercase tracking-wider font-semibold">Follow Us On</p>
-            <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-              <a href="https://twitter.com" target="_blank" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
-              <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-              <a href="#" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-6 text-[14px] font-medium justify-end w-full lg:w-1/3">
-            <a href="#" class="hover:text-white transition-colors">How it works</a>
-            <a href="#" class="hover:text-white transition-colors">Features</a>
-            <a href="/changelog.html" class="hover:text-white transition-colors">Changelog</a>
-          </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-[#2A2A2A] text-[13px] text-[var(--color-text-muted)] w-full">
-          <p>Made with love by Shezan × LeadLinked</p>
-          <div class="flex items-center gap-4 mt-4 md:mt-0">
-            <p>© 2026 SnapSpec. All rights reserved.</p>
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors text-white">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-            </button>
-          </div>
+      <!-- Simple Clean Borderless Footer -->
+      <footer class="w-full max-w-4xl border-t border-neutral-900 mt-20 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
+        <p>© 2026 SnapSpec. All rights reserved.</p>
+        <div class="flex gap-6 font-medium">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact</a>
+          <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">GitHub</a>
         </div>
       </footer>
 

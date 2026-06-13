@@ -23,11 +23,30 @@
             <a href="/skills.html" class="hover:text-white transition-colors">Skills</a>
             <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact us</a>
             <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">Github</a>
-            <a href="#" id="open-history-btn" class="hover:text-white transition-colors">History</a>
           </nav>
-          <button id="toggle-config-btn" class="btn-dark-utility hidden md:block">
-            API Settings
-          </button>
+
+          <!-- Secondary Utility Area (Desktop) -->
+          <div class="hidden md:flex items-center gap-2 border-l border-[#2A2A2A] pl-4">
+            <button id="open-history-btn" class="text-[var(--color-text-muted)] hover:text-white transition-colors p-2" title="History">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </button>
+            <button id="toggle-config-btn" class="text-[var(--color-text-muted)] hover:text-white transition-colors p-2" title="API Settings">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+            </button>
+          </div>
           
           <!-- Mobile Hamburger -->
           <button id="mobile-menu-btn" class="md:hidden text-white p-2">
@@ -65,6 +84,21 @@
           <p class="text-[12px] font-medium tracking-widest uppercase text-[var(--color-text-muted)] mb-4">Turn inspiration into blueprints</p>
           <h1 class="font-heading text-[48px] md:text-[64px] font-bold tracking-tight leading-[1.0] mb-6">Turn website screenshots into reusable design blueprints.</h1>
           <p class="text-[16px] text-[var(--color-text-muted)] max-w-md">Upload a screenshot. Generate a Design.md specification. Paste it into your AI coding tool. Build faster.</p>
+          
+          <!-- Works With Trust Line -->
+          <div class="mt-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-[12px] tracking-wide uppercase font-semibold text-[var(--color-text-muted)] opacity-60">
+            <span>Works with</span>
+            <span class="text-[#2A2A2A]">•</span>
+            <span class="hover:text-white transition-colors">Cursor</span>
+            <span class="text-[#2A2A2A]">•</span>
+            <span class="hover:text-white transition-colors">Windsurf</span>
+            <span class="text-[#2A2A2A]">•</span>
+            <span class="hover:text-white transition-colors">Codex</span>
+            <span class="text-[#2A2A2A]">•</span>
+            <span class="hover:text-white transition-colors">Claude Code</span>
+            <span class="text-[#2A2A2A]">•</span>
+            <span class="hover:text-white transition-colors">Antigravity</span>
+          </div>
         </section>
 
         <!-- Upload & Generate Section -->
@@ -112,13 +146,22 @@
 
               <!-- Markdown Output container -->
               <div class="flex-grow bg-[var(--color-canvas)] rounded-lg border border-[var(--color-border)] p-6 relative">
-                <div id="markdown-output-placeholder" class="hidden flex-col gap-3">
-                  <div class="skeleton h-6 w-1/3 mb-4"></div>
-                  <div class="skeleton h-4 w-full"></div>
-                  <div class="skeleton h-4 w-full"></div>
-                  <div class="skeleton h-4 w-5/6 mb-4"></div>
-                  <div class="skeleton h-4 w-full"></div>
-                  <div class="skeleton h-4 w-4/5"></div>
+                <div id="markdown-output-placeholder" class="hidden flex-col gap-4 py-8 items-center justify-center text-center">
+                  <!-- Believable Rotating Status Messages -->
+                  <div class="flex items-center gap-3 mb-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full px-5 py-2.5 shadow-lg">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-primary)] opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--color-primary)]"></span>
+                    </span>
+                    <span id="generation-status-text" class="text-[14px] font-medium text-white tracking-wide">Reading the screenshot...</span>
+                  </div>
+                  <div class="w-full flex flex-col gap-3 opacity-20">
+                    <div class="skeleton h-6 w-1/3 mb-4"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                    <div class="skeleton h-4 w-5/6 mb-4"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                  </div>
                 </div>
                 <div id="markdown-container" class="relative max-h-[400px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
                   <pre id="markdown-output" class="markdown-body"></pre>
@@ -135,76 +178,132 @@
         
         <!-- Demos Section -->
         <section id="demos" class="w-full max-w-5xl mt-24 flex flex-col gap-8 animate-enter stagger-3">
-          <div class="border border-[var(--color-border)] rounded-lg p-10 bg-[var(--color-canvas)] flex flex-col items-center">
-            <h2 class="font-heading text-[32px] font-bold text-white mb-2">Check our demos generated with our tool</h2>
-            <div class="w-full border-t border-[var(--color-border)] my-8"></div>
+          <div class="border border-[var(--color-border)] rounded-2xl p-6 md:p-10 bg-[#050505] flex flex-col items-center shadow-xl">
+            <h2 class="font-heading text-[28px] md:text-[32px] font-bold text-white mb-2 text-center">Explore Demos & Specifications</h2>
+            <p class="text-[14px] text-[var(--color-text-muted)] text-center max-w-md mb-8">See real specifications generated by SnapSpec and their resulting live coded previews.</p>
             
-            <div class="w-full flex flex-col gap-4">
-              <!-- Demo Row Template -->
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">SnapSpec</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/SNAPSPEC-DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
+            <div class="w-full flex flex-col gap-3" id="demos-list-container">
+              <!-- Row 1: SnapSpec -->
+              <div class="demo-row flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">SnapSpec</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/SNAPSPEC-DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
                 </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/snapspec/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
-                </div>
-              </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Noctara</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/rotoris/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
-                </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/rotoris/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/snapspec/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
               </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Pointer</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/cursor/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
+              
+              <!-- Row 2: Noctara -->
+              <div class="demo-row flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Noctara</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/rotoris/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
                 </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/cursor/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
-                </div>
-              </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Sigma</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/figma/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
-                </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/figma/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
-                </div>
-              </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Grammer</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/framer/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
-                </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/framer/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/rotoris/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
               </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Eldron</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/timex/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
+
+              <!-- Row 3: Pointer -->
+              <div class="demo-row flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Pointer</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/cursor/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
                 </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/timex/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/cursor/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
               </div>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[#111] transition-colors gap-4 sm:gap-0">
-                <div class="flex-1 font-semibold text-lg w-full sm:w-auto">Gto</div>
-                <div class="flex-1 text-left sm:text-center font-mono text-sm text-[var(--color-text-muted)] w-full sm:w-auto">
-                  <a href="/demo/attio/DESIGN.md" target="_blank" class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">DESIGN.md</a>
+
+              <!-- Row 4: Sigma -->
+              <div class="demo-row flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Sigma</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/figma/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
                 </div>
-                <div class="flex-1 text-left sm:text-right w-full sm:w-auto">
-                  <a href="/demo/attio/preview.html" target="_blank" class="btn-secondary text-sm px-4 py-2 inline-block">Click to preview</a>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/figma/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Row 5: Grammer -->
+              <div class="demo-row flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Grammer</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/framer/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
+                </div>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/framer/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Row 6: Eldron (Hidden by default) -->
+              <div class="demo-row hidden-demo-row hidden flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Eldron</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/timex/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
+                </div>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/timex/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Row 7: Gto (Hidden by default) -->
+              <div class="demo-row hidden-demo-row hidden flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-xl hover:border-white/20 transition-all gap-4 sm:gap-0">
+                <div class="font-semibold text-white text-[16px] w-full sm:w-auto">Gto</div>
+                <div class="flex-1 text-left sm:text-center w-full sm:w-auto sm:px-6">
+                  <a href="/demo/attio/DESIGN.md" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-[#111] hover:bg-[#1a1a1a] text-[var(--color-text-muted)] hover:text-white border border-[#222] transition-all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>DESIGN.md</span>
+                  </a>
+                </div>
+                <div class="text-left sm:text-right w-full sm:w-auto">
+                  <a href="/demo/attio/preview.html" target="_blank" class="btn-primary text-[13px] px-4 py-2 inline-flex items-center gap-2">
+                    <span>Live Preview</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
               </div>
             </div>
+            
+            <button id="show-more-demos-btn" class="btn-secondary mt-8 text-sm px-6 py-2.5">Show More Demos</button>
           </div>
         </section>
 
@@ -253,7 +352,7 @@
       </main>
 
       <!-- Footer Section -->
-      <footer class="w-full max-w-6xl mt-32 border border-[#2A2A2A] rounded-[24px] bg-[#050505] p-8 md:p-12 relative overflow-hidden flex flex-col justify-between">
+      <footer class="w-full max-w-6xl mt-32 border-t border-[#2A2A2A]/40 pt-16 pb-12 relative overflow-hidden flex flex-col justify-between">
         <div class="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0 mb-24">
           <div class="flex flex-col gap-4 max-w-sm">
             <div class="flex items-center gap-4">
@@ -373,24 +472,37 @@
 
           <!-- Cloud Model Select -->
           <div id="cloud-model-container" class="flex flex-col gap-2">
-            <label class="text-[12px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]" for="cloud-model">Model Name</label>
-            <select id="cloud-model" class="select-minimal">
+            <div class="flex justify-between items-center">
+              <label class="text-[12px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]" for="cloud-model">Model Name</label>
+              <button type="button" id="toggle-custom-model-btn" class="text-[11px] text-[var(--color-primary)] hover:underline font-semibold bg-transparent border-none p-0 cursor-pointer">Use Custom Model</button>
+            </div>
+            <select id="cloud-model" class="select-minimal w-full">
               <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="google/gemini-2.5-pro">Gemini 2.5 Pro</option>
               <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+              <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet</option>
               <option value="openai/gpt-4o">GPT-4o</option>
-              <option value="custom">Custom...</option>
+              <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
             </select>
-            <input type="text" id="custom-cloud-model" class="input-minimal hidden mt-2" placeholder="e.g. google/gemini-pro" autocomplete="off" />
+            <input type="text" id="custom-cloud-model" class="input-minimal hidden mt-2 w-full" placeholder="e.g. meta-llama/llama-3.1-405b" autocomplete="off" />
           </div>
           
           <!-- Ollama Model Input -->
           <div id="ollama-model-container" class="flex flex-col gap-2 hidden">
-            <label class="text-[12px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]" for="ollama-model">Ollama Vision Model</label>
-            <select id="ollama-model" class="select-minimal">
-              <option value="llava">Llava</option>
-              <option value="bakllava">BakLlava</option>
-              <option value="llama3.2-vision">Llama 3.2 Vision</option>
-              <option value="moondream">Moondream</option>
+            <label class="text-[12px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]" for="ollama-model">Ollama Model</label>
+            <select id="ollama-model" class="select-minimal w-full">
+              <option value="kimi-k2.7-code">kimi-k2.7-code</option>
+              <option value="minimax-m3">minimax-m3</option>
+              <option value="gemma4">gemma4</option>
+              <option value="qwen3.5">qwen3.5</option>
+              <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
+              <option value="kimi-k2.6">kimi-k2.6</option>
+              <option value="kimi-k2.5">kimi-k2.5</option>
+              <option value="qwen3-vl">qwen3-vl</option>
+              <option value="ministral-3">ministral-3</option>
+              <option value="devstral-small-2">devstral-small-2</option>
+              <option value="mistral-large-3">mistral-large-3</option>
+              <option value="gemma3">gemma3</option>
             </select>
           </div>
         </div>

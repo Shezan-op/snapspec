@@ -29,6 +29,8 @@ const elements = {
   ollamaModelContainer: document.getElementById('ollama-model-container'),
   ollamaModelInput: document.getElementById('ollama-model'),
   customCloudModelInput: document.getElementById('custom-cloud-model'),
+  toggleCustomModelBtn: document.getElementById('toggle-custom-model-btn'),
+  showMoreDemosBtn: document.getElementById('show-more-demos-btn'),
   
   mobileMenuBtn: document.getElementById('mobile-menu-btn'),
   closeMobileMenuBtn: document.getElementById('close-mobile-menu'),
@@ -65,6 +67,7 @@ const elements = {
   
   // Results output elements
   markdownOutputPlaceholder: document.getElementById('markdown-output-placeholder'),
+  generationStatusText: document.getElementById('generation-status-text'),
   markdownContainer: document.getElementById('markdown-container'),
   markdownFade: document.getElementById('markdown-fade'),
   showMoreBtn: document.getElementById('show-more-btn'),
@@ -110,17 +113,37 @@ function setupMobileMenuOnly() {
   elements.mobileOverlay?.addEventListener('click', closeMobileMenu);
 }
 
+const cloudPresets = [
+  'google/gemini-2.5-flash',
+  'google/gemini-2.5-pro',
+  'anthropic/claude-3.5-sonnet',
+  'anthropic/claude-3.7-sonnet',
+  'openai/gpt-4o',
+  'openai/gpt-4o-mini'
+];
+
 // Load Settings from state to UI
 function loadSavedSettings() {
+  if (!elements.providerSelect) return;
   elements.providerSelect.value = state.provider;
   elements.apiKeyInput.value = state.apiKey;
 
-  if (!['google/gemini-2.5-flash', 'anthropic/claude-3.5-sonnet', 'openai/gpt-4o'].includes(state.cloudModel)) {
-    elements.cloudModelInput.value = 'custom';
-    elements.customCloudModelInput.value = state.cloudModel;
-  } else {
+  if (cloudPresets.includes(state.cloudModel)) {
     elements.cloudModelInput.value = state.cloudModel;
     elements.customCloudModelInput.value = '';
+    elements.cloudModelInput.classList.remove('hidden');
+    elements.customCloudModelInput.classList.add('hidden');
+    if (elements.toggleCustomModelBtn) {
+      elements.toggleCustomModelBtn.textContent = 'Use Custom Model';
+    }
+  } else {
+    elements.cloudModelInput.value = 'google/gemini-2.5-flash';
+    elements.customCloudModelInput.value = state.cloudModel;
+    elements.cloudModelInput.classList.add('hidden');
+    elements.customCloudModelInput.classList.remove('hidden');
+    if (elements.toggleCustomModelBtn) {
+      elements.toggleCustomModelBtn.textContent = 'Use Preset Model';
+    }
   }
   elements.ollamaModelInput.value = state.ollamaModel;
 
@@ -141,12 +164,6 @@ function updateSettingsUI() {
     elements.apiKeyContainer.classList.remove('hidden');
     elements.cloudModelContainer.classList.remove('hidden');
     elements.ollamaModelContainer.classList.add('hidden');
-  }
-
-  if (elements.cloudModelInput.value === 'custom') {
-    elements.customCloudModelInput.classList.remove('hidden');
-  } else {
-    elements.customCloudModelInput.classList.add('hidden');
   }
 }
 
@@ -173,17 +190,31 @@ function setupEventListeners() {
 
   elements.providerSelect.addEventListener('change', updateSettingsUI);
 
+  elements.toggleCustomModelBtn?.addEventListener('click', () => {
+    const isCustomInputHidden = elements.customCloudModelInput.classList.contains('hidden');
+    if (isCustomInputHidden) {
+      elements.customCloudModelInput.classList.remove('hidden');
+      elements.cloudModelInput.classList.add('hidden');
+      elements.toggleCustomModelBtn.textContent = 'Use Preset Model';
+    } else {
+      elements.customCloudModelInput.classList.add('hidden');
+      elements.cloudModelInput.classList.remove('hidden');
+      elements.toggleCustomModelBtn.textContent = 'Use Custom Model';
+    }
+  });
+
   elements.saveConfigBtn.addEventListener('click', () => {
     state.provider = elements.providerSelect.value;
     state.apiKey = elements.apiKeyInput.value.trim();
 
-    if (elements.cloudModelInput.value === 'custom') {
-      state.cloudModel = elements.customCloudModelInput.value.trim() || 'custom';
+    const isCustomModelActive = !elements.customCloudModelInput.classList.contains('hidden');
+    if (isCustomModelActive) {
+      state.cloudModel = elements.customCloudModelInput.value.trim() || 'google/gemini-2.5-flash';
     } else {
       state.cloudModel = elements.cloudModelInput.value.trim() || 'google/gemini-2.5-flash';
     }
 
-    state.ollamaModel = elements.ollamaModelInput.value.trim() || 'llava';
+    state.ollamaModel = elements.ollamaModelInput.value.trim() || 'kimi-k2.7-code';
     
     localStorage.setItem('pf_provider', state.provider);
     localStorage.setItem('pf_api_key', state.apiKey);
@@ -356,6 +387,22 @@ function setupEventListeners() {
         elements.markdownFade.classList.remove('hidden');
         elements.showMoreBtn.textContent = 'Show More';
         elements.markdownContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // Show More Demos Logic
+  if (elements.showMoreDemosBtn) {
+    elements.showMoreDemosBtn.addEventListener('click', () => {
+      const hiddenRows = document.querySelectorAll('.hidden-demo-row');
+      const isExpanded = elements.showMoreDemosBtn.textContent.includes('Less');
+      
+      if (isExpanded) {
+        hiddenRows.forEach(row => row.classList.add('hidden'));
+        elements.showMoreDemosBtn.textContent = 'Show More Demos';
+      } else {
+        hiddenRows.forEach(row => row.classList.remove('hidden'));
+        elements.showMoreDemosBtn.textContent = 'Show Less Demos';
       }
     });
   }
@@ -834,12 +881,50 @@ async function analyzeImage(base64DataUrl) {
   }
 }
 
+// Handle Rotating Status Text
+let loadingStatusInterval = null;
+
+function startLoadingStatusRotation() {
+  if (!elements.generationStatusText) return;
+  
+  const statuses = [
+    'Reading the screenshot',
+    'Detecting layout structure',
+    'Finding the colors',
+    'Understanding the positioning',
+    'Analyzing typography',
+    'Mapping sections',
+    'Writing the Design.md',
+    'Refining output'
+  ];
+  
+  // Shuffle statuses randomly
+  const shuffled = [...statuses].sort(() => Math.random() - 0.5);
+  
+  let index = 0;
+  elements.generationStatusText.textContent = shuffled[0] + '...';
+  
+  if (loadingStatusInterval) clearInterval(loadingStatusInterval);
+  
+  loadingStatusInterval = setInterval(() => {
+    index = (index + 1) % shuffled.length;
+    elements.generationStatusText.textContent = shuffled[index] + '...';
+  }, 2000);
+}
+
+function stopLoadingStatusRotation() {
+  if (loadingStatusInterval) {
+    clearInterval(loadingStatusInterval);
+    loadingStatusInterval = null;
+  }
+}
+
 // Handle Skeleton Loaders & Scanner Line
 function triggerLoadingState(isLoading) {
   state.isAnalyzing = isLoading;
   
   if (isLoading) {
-    elements.resultsPlaceholder.classList.add('hidden');
+    if (elements.resultsPlaceholder) elements.resultsPlaceholder.classList.add('hidden');
     elements.resultsCard.classList.remove('hidden');
     elements.resultsCard.classList.add('flex');
     elements.scannerLine.classList.remove('opacity-0');
@@ -848,6 +933,8 @@ function triggerLoadingState(isLoading) {
     elements.markdownOutputPlaceholder.classList.remove('hidden');
     elements.markdownOutputPlaceholder.classList.add('flex');
     elements.markdownOutput.classList.add('hidden');
+    
+    startLoadingStatusRotation();
   } else {
     elements.scannerLine.classList.add('opacity-0');
     elements.scannerLine.classList.remove('opacity-100', 'animate-pulse');
@@ -855,12 +942,14 @@ function triggerLoadingState(isLoading) {
     elements.markdownOutputPlaceholder.classList.add('hidden');
     elements.markdownOutputPlaceholder.classList.remove('flex');
     elements.markdownOutput.classList.remove('hidden');
+    
+    stopLoadingStatusRotation();
   }
 }
 
 // Render parsed analysis data to DOM
 function renderAnalysisData(markdown) {
-  elements.resultsPlaceholder.classList.add('hidden');
+  if (elements.resultsPlaceholder) elements.resultsPlaceholder.classList.add('hidden');
   elements.resultsCard.classList.remove('hidden');
   elements.resultsCard.classList.add('flex');
   

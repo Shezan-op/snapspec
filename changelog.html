@@ -54,86 +54,49 @@
       <main class="w-full max-w-4xl flex flex-col gap-10 lg:gap-16 items-start my-20 flex-grow mx-auto">
         <h1 class="font-heading text-[48px] md:text-[64px] font-bold tracking-tight leading-[1.0] mb-6">Changelog</h1>
         
-        <div class="flex flex-col gap-12 w-full">
+        <div class="flex flex-col gap-16 w-full">
+          <!-- Release 1.1.0 -->
+          <div class="flex flex-col gap-4 border-l-2 border-white/20 pl-6 relative">
+            <div class="absolute w-3 h-3 bg-white rounded-full -left-[7px] top-2 shadow-[0_0_8px_white]"></div>
+            <h2 class="text-2xl font-bold text-white">v1.1.0 — UI, UX, & Settings Upgrade</h2>
+            <p class="text-[var(--color-text-muted)] text-sm mb-2">June 13, 2026</p>
+            <ul class="list-disc pl-5 flex flex-col gap-3 text-[var(--color-text-main)] text-[14px] font-light leading-relaxed">
+              <li><strong>Natural Loading Statuses:</strong> Added organic, randomized rotating text status updates while generating specifications (no fake progress bars/percentages).</li>
+              <li><strong>Custom LLM Model Support:</strong> Enabled a toggle in API settings to input custom model names for full choice flexibility.</li>
+              <li><strong>Show More Demos:</strong> Redesigned the demo section to show only 5 default items, keeping the above-the-fold layout clean.</li>
+              <li><strong>Distinct Demo Actions:</strong> Visualized the DESIGN.md link as a file badge and the live preview as a prominent primary action button.</li>
+              <li><strong>Skills Page Implementation:</strong> Redesigned <code>skills.html</code> as a true, valuable product specifications overview featuring copyable install commands.</li>
+              <li><strong>Integrated Footers:</strong> Removed harsh boxed outline borders on the main footer, and simplified secondary pages to use a light borderless copyright strip.</li>
+              <li><strong>Preset Models Refresh:</strong> Added Gemini 2.5 Pro, Claude 3.7 Sonnet, and GPT-4o Mini presets, and updated Ollama selections to match current versions.</li>
+              <li><strong>Mobile Preview Auditing:</strong> Certified viewport configurations on all preview HTML files for responsive, standalone PWA layouts.</li>
+            </ul>
+          </div>
+
+          <!-- Release 1.0.0 -->
           <div class="flex flex-col gap-4 border-l-2 border-[#333] pl-6 relative">
-            <div class="absolute w-4 h-4 bg-[var(--color-canvas)] border-2 border-[#666] rounded-full -left-[9px] top-1"></div>
-            <h2 class="text-2xl font-bold">Initial Setup & Enhancements</h2>
-            <p class="text-[var(--color-text-muted)] text-sm mb-2">June 2026</p>
-            <ul class="list-disc pl-5 flex flex-col gap-3 text-[var(--color-text-main)]">
-              <li>Replaced static wordmark image with crisp, scalable live text (`Inter` font, bold) for improved performance and retina-ready display.</li>
+            <div class="absolute w-3 h-3 bg-neutral-600 rounded-full -left-[7px] top-2"></div>
+            <h2 class="text-2xl font-bold text-neutral-300">v1.0.0 — Initial Setup & Enhancements</h2>
+            <p class="text-[var(--color-text-muted)] text-sm mb-2">June 13, 2026</p>
+            <ul class="list-disc pl-5 flex flex-col gap-3 text-[var(--color-text-main)] text-[14px] font-light leading-relaxed">
+              <li>Replaced static wordmark image with crisp, scalable live text (<code>Inter</code> font, bold) for improved performance and retina-ready display.</li>
               <li>Added a "Frequently Asked Questions" (FAQ) section using a clean dropdown/accordion style.</li>
-              <li>Implemented a new "Subscribe" popup modal to capture interest when users copy or download `DESIGN.md` blueprints.</li>
-              <li>Added a "Show More" functionality to the `DESIGN.md` markdown preview container to prevent excessive scrolling.</li>
+              <li>Implemented a new "Subscribe" popup modal to capture interest when users copy or download <code>DESIGN.md</code> blueprints.</li>
+              <li>Added a "Show More" functionality to the <code>DESIGN.md</code> markdown preview container to prevent excessive scrolling.</li>
               <li>Redesigned the footer layout to align with premium design aesthetics.</li>
-              <li>Updated all demo preview links to open in a new tab (`target="_blank"`) to preserve user workflow.</li>
-              <li>Created the `skills.html` placeholder page.</li>
-              <li>Initiated the `changelog.html` page to document ongoing project updates.</li>
+              <li>Updated all demo preview links to open in a new tab (<code>target="_blank"</code>) to preserve user workflow.</li>
+              <li>Created the initial <code>skills.html</code> and <code>changelog.html</code> skeletons.</li>
             </ul>
           </div>
         </div>
       </main>
 
-      <!-- Footer Section -->
-      <footer class="w-full max-w-6xl mt-auto border border-[#2A2A2A] rounded-[24px] bg-[#050505] p-8 md:p-12 relative overflow-hidden flex flex-col justify-between">
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0 mb-24">
-          <div class="flex flex-col gap-4 max-w-sm">
-            <div class="flex items-center gap-4">
-              <div class="w-8 h-8 rounded-sm border-2 border-white flex flex-wrap p-1 gap-[2px]">
-                <div class="w-[10px] h-[10px] border-t-2 border-l-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-t-2 border-r-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-b-2 border-l-2 border-white"></div>
-                <div class="w-[10px] h-[10px] border-b-2 border-r-2 border-white"></div>
-              </div>
-              <p class="text-[14px] text-[var(--color-text-muted)] font-medium leading-snug">SnapSpec turns website screenshots into<br>reusable Design.md blueprints for rapid UI creation.</p>
-            </div>
-          </div>
-          
-          <div class="flex flex-wrap gap-8 lg:gap-12 text-[14px] font-medium">
-            <a href="#" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Terms & Conditions</a>
-            <a href="mailto:yourshezanspot@gmail.com" class="text-[var(--color-text-muted)] hover:text-white transition-colors">Contact Us</a>
-          </div>
-        </div>
-
-        <div class="flex flex-col items-center justify-center mb-24 relative">
-          <div class="font-sans font-bold text-[80px] sm:text-[120px] md:text-[180px] lg:text-[220px] tracking-tight leading-none text-white w-full text-center">
-            SnapSpec
-          </div>
-          <p class="text-[var(--color-text-muted)] text-[14px] sm:text-[16px] font-medium mt-4 lg:absolute lg:right-4 lg:bottom-[-20px]">Made for The Best With Love</p>
-        </div>
-
-        <div class="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-0 border-t border-[#2A2A2A] pt-8">
-          <div class="flex items-center gap-6 text-[14px] font-medium w-full lg:w-1/3">
-            <a href="/skills.html" class="flex items-center gap-2 hover:text-white transition-colors">Skills <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
-            <span class="text-[#2A2A2A]">|</span>
-            <a href="/whats-next.html" class="flex items-center gap-2 hover:text-white transition-colors">What's Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
-          </div>
-
-          <div class="flex flex-col items-center gap-3 w-full lg:w-1/3">
-            <p class="text-[12px] text-[var(--color-text-muted)] uppercase tracking-wider font-semibold">Follow Us On</p>
-            <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-              <a href="https://twitter.com" target="_blank" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
-              <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-              <a href="#" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-6 text-[14px] font-medium justify-end w-full lg:w-1/3">
-            <a href="#" class="hover:text-white transition-colors">How it works</a>
-            <a href="#" class="hover:text-white transition-colors">Features</a>
-            <a href="/changelog.html" class="text-white transition-colors">Changelog</a>
-          </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-[#2A2A2A] text-[13px] text-[var(--color-text-muted)] w-full">
-          <p>Made with love by Shezan × LeadLinked</p>
-          <div class="flex items-center gap-4 mt-4 md:mt-0">
-            <p>© 2026 SnapSpec. All rights reserved.</p>
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="w-10 h-10 rounded-lg border border-[#2A2A2A] flex items-center justify-center hover:bg-[#111] transition-colors text-white">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-            </button>
-          </div>
+      <!-- Simple Clean Borderless Footer -->
+      <footer class="w-full max-w-4xl border-t border-neutral-900 mt-20 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
+        <p>© 2026 SnapSpec. All rights reserved.</p>
+        <div class="flex gap-6 font-medium">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact</a>
+          <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">GitHub</a>
         </div>
       </footer>
 
