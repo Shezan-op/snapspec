@@ -424,7 +424,8 @@ function forceClearImage() {
   // Hide results panel data
   elements.resultsCard.classList.add('hidden');
   elements.resultsCard.classList.remove('flex');
-  elements.resultsPlaceholder.classList.remove('hidden');
+  if (elements.resultsPlaceholder) elements.resultsPlaceholder.classList.remove('hidden');
+  if (elements.resultsPanel) elements.resultsPanel.classList.add('hidden');
   elements.markdownOutput.textContent = '';
   
   if(elements.showMoreBtn) elements.showMoreBtn.classList.add('hidden');
@@ -924,6 +925,10 @@ function triggerLoadingState(isLoading) {
   state.isAnalyzing = isLoading;
   
   if (isLoading) {
+    if (elements.resultsPanel) {
+      elements.resultsPanel.classList.remove('hidden');
+      elements.resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     if (elements.resultsPlaceholder) elements.resultsPlaceholder.classList.add('hidden');
     elements.resultsCard.classList.remove('hidden');
     elements.resultsCard.classList.add('flex');
@@ -949,6 +954,7 @@ function triggerLoadingState(isLoading) {
 
 // Render parsed analysis data to DOM
 function renderAnalysisData(markdown) {
+  if (elements.resultsPanel) elements.resultsPanel.classList.remove('hidden');
   if (elements.resultsPlaceholder) elements.resultsPlaceholder.classList.add('hidden');
   elements.resultsCard.classList.remove('hidden');
   elements.resultsCard.classList.add('flex');
