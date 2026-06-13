@@ -6,7 +6,7 @@ const state = {
   apiKey: localStorage.getItem('pf_api_key') || '',
   cloudModel: localStorage.getItem('pf_cloud_model') || 'google/gemini-2.5-flash',
   customCloudModel: localStorage.getItem('pf_custom_cloud_model') || '',
-  ollamaModel: localStorage.getItem('pf_ollama_model') || 'llava',
+  ollamaModel: localStorage.getItem('pf_ollama_model') || 'qwen3-vl:235b-cloud',
   history: JSON.parse(localStorage.getItem('pf_history') || '[]'),
   currentImage: null, // File
   currentImageBase64: null,
@@ -214,7 +214,7 @@ function setupEventListeners() {
       state.cloudModel = elements.cloudModelInput.value.trim() || 'google/gemini-2.5-flash';
     }
 
-    state.ollamaModel = elements.ollamaModelInput.value.trim() || 'kimi-k2.7-code';
+    state.ollamaModel = elements.ollamaModelInput.value.trim() || 'qwen3-vl:235b-cloud';
     
     localStorage.setItem('pf_provider', state.provider);
     localStorage.setItem('pf_api_key', state.apiKey);
@@ -822,11 +822,11 @@ async function analyzeImage(base64DataUrl) {
 
       } else if (state.provider === 'ollama') {
         const headers = { 'Content-Type': 'application/json' };
+        let endpointUrl = 'http://localhost:11434';
         if (state.apiKey) {
           headers['Authorization'] = `Bearer ${state.apiKey}`;
+          endpointUrl = '/api/ollama-cloud';
         }
-        // Use /api/chat instead of /api/generate for better compatibility with cloud/vision models
-        let endpointUrl = 'http://localhost:11434';
         
         const response = await fetch(`${endpointUrl}/api/chat`, {
           method: 'POST',
