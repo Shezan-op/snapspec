@@ -85,8 +85,29 @@ const elements = {
 
 // Initialize Application
 function init() {
-  setupEventListeners();
-  loadSavedSettings();
+  if (elements.toggleConfigBtn) {
+    setupEventListeners();
+    loadSavedSettings();
+  } else {
+    setupMobileMenuOnly();
+  }
+}
+
+function setupMobileMenuOnly() {
+  const openMobileMenu = () => {
+    elements.mobileSidebar?.classList.remove('translate-x-full');
+    elements.mobileOverlay?.classList.remove('hidden');
+    setTimeout(() => elements.mobileOverlay?.classList.remove('opacity-0'), 10);
+  };
+  const closeMobileMenu = () => {
+    elements.mobileSidebar?.classList.add('translate-x-full');
+    elements.mobileOverlay?.classList.add('opacity-0');
+    setTimeout(() => elements.mobileOverlay?.classList.add('hidden'), 300);
+  };
+  
+  elements.mobileMenuBtn?.addEventListener('click', openMobileMenu);
+  elements.closeMobileMenuBtn?.addEventListener('click', closeMobileMenu);
+  elements.mobileOverlay?.addEventListener('click', closeMobileMenu);
 }
 
 // Load Settings from state to UI
