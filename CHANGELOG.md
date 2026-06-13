@@ -2,6 +2,16 @@
 
 All notable changes to the SnapSpec (Design-md Creator) project will be documented in this file.
 
+## [1.1.1] - 2026-06-14
+
+### Added
+- **Default Ollama Cloud Config**: Initialized the default API provider to Ollama and populated the API Key field with a default test key.
+- **Inline Error State Container**: Introduced `#markdown-output-error` inside the markdown preview card. Instead of silently resetting the application and deleting the uploaded screenshot on error, the tool now displays failure details directly inside the results card with a "Retry Generation" action.
+
+### Changed
+- **Zero-loss Error Handling**: Removed `forceClearImage` from the generation error catch block, preserving the uploaded screenshot and preview container so users can fix settings or retry.
+- **Footer Bottom Spacing Reduction**: Trimmed extra margins and padding-bottom from the landing page footer and outer wrapper to remove the empty space at the absolute bottom of the page.
+
 ## [1.1.0] - 2026-06-13
 
 ### Added

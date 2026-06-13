@@ -2,8 +2,8 @@ import './style.css';
 
 // Global App State
 const state = {
-  provider: localStorage.getItem('pf_provider') || 'openrouter',
-  apiKey: localStorage.getItem('pf_api_key') || '',
+  provider: localStorage.getItem('pf_provider') || 'ollama',
+  apiKey: localStorage.getItem('pf_api_key') || '698257caf3494895bdc672f6cfb336fe.IbkFNXoNG5n7eeJvyeIdGdOT',
   cloudModel: localStorage.getItem('pf_cloud_model') || 'google/gemini-2.5-flash',
   customCloudModel: localStorage.getItem('pf_custom_cloud_model') || '',
   ollamaModel: localStorage.getItem('pf_ollama_model') || 'qwen3-vl:235b-cloud',
@@ -75,6 +75,9 @@ const elements = {
   clearBtn: document.getElementById('clear-btn'),
   copyMarkdownBtn: document.getElementById('copy-markdown-btn'),
   downloadMarkdownBtn: document.getElementById('download-markdown-btn'),
+  markdownOutputError: document.getElementById('markdown-output-error'),
+  errorMessageText: document.getElementById('error-message-text'),
+  retryGenerationBtn: document.getElementById('retry-generation-btn'),
   
   // Subscribe Modal Elements
   subscribeModal: document.getElementById('subscribe-modal'),
@@ -261,6 +264,12 @@ function setupEventListeners() {
       analyzeImage(state.currentImageBase64);
     } else {
       showToast('Please upload an image first.');
+    }
+  });
+
+  elements.retryGenerationBtn?.addEventListener('click', () => {
+    if (state.currentImageBase64) {
+      analyzeImage(state.currentImageBase64);
     }
   });
 
@@ -862,8 +871,7 @@ async function analyzeImage(base64DataUrl) {
       console.error(`Analysis attempt ${attempt} failed:`, error);
       if (attempt >= MAX_RETRIES) {
         showToast(`Error: ${error.message}`);
-        forceClearImage();
-        triggerLoadingState(false);
+        triggerLoadingState(false, error);
         return;
       }
       showToast(`Error connecting. Retrying... (${attempt}/${MAX_RETRIES})`);
@@ -921,7 +929,7 @@ function stopLoadingStatusRotation() {
 }
 
 // Handle Skeleton Loaders & Scanner Line
-function triggerLoadingState(isLoading) {
+function triggerLoadingState(isLoading, error = null) {
   state.isAnalyzing = isLoading;
   
   if (isLoading) {
@@ -938,6 +946,10 @@ function triggerLoadingState(isLoading) {
     elements.markdownOutputPlaceholder.classList.remove('hidden');
     elements.markdownOutputPlaceholder.classList.add('flex');
     elements.markdownOutput.classList.add('hidden');
+    if (elements.markdownOutputError) {
+      elements.markdownOutputError.classList.add('hidden');
+      elements.markdownOutputError.classList.remove('flex');
+    }
     
     startLoadingStatusRotation();
   } else {
@@ -946,7 +958,23 @@ function triggerLoadingState(isLoading) {
     
     elements.markdownOutputPlaceholder.classList.add('hidden');
     elements.markdownOutputPlaceholder.classList.remove('flex');
-    elements.markdownOutput.classList.remove('hidden');
+    
+    if (error) {
+      if (elements.markdownOutputError) {
+        elements.markdownOutputError.classList.remove('hidden');
+        elements.markdownOutputError.classList.add('flex');
+      }
+      if (elements.errorMessageText) {
+        elements.errorMessageText.textContent = error.message || error;
+      }
+      elements.markdownOutput.classList.add('hidden');
+    } else {
+      if (elements.markdownOutputError) {
+        elements.markdownOutputError.classList.add('hidden');
+        elements.markdownOutputError.classList.remove('flex');
+      }
+      elements.markdownOutput.classList.remove('hidden');
+    }
     
     stopLoadingStatusRotation();
   }

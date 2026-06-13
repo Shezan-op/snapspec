@@ -8,7 +8,7 @@
   </head>
   <body class="bg-[var(--color-canvas)] text-[var(--color-text-main)] antialiased font-sans selection:bg-[var(--color-primary)] selection:text-white">
 
-    <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-6 md:pt-8 md:pb-8 px-6">
+    <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-2 md:pt-8 md:pb-2 px-6">
       
       <!-- App Header -->
       <header class="w-full max-w-6xl flex justify-between items-center mb-16 animate-enter relative">
@@ -163,6 +163,17 @@
                     <div class="skeleton h-4 w-full"></div>
                   </div>
                 </div>
+                
+                <!-- Error Container -->
+                <div id="markdown-output-error" class="hidden flex-col gap-4 py-8 items-center justify-center text-center">
+                  <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center mb-2 text-red-500 mx-auto">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  </div>
+                  <h4 class="text-white font-semibold text-lg">Generation Failed</h4>
+                  <p id="error-message-text" class="text-[var(--color-text-muted)] text-sm max-w-md mx-auto"></p>
+                  <button id="retry-generation-btn" class="btn-primary mt-4 text-sm px-6 py-2 mx-auto">Retry Generation</button>
+                </div>
+
                 <div id="markdown-container" class="relative max-h-[400px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
                   <pre id="markdown-output" class="markdown-body"></pre>
                   <div id="markdown-fade" class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--color-canvas)] to-transparent pointer-events-none hidden"></div>
@@ -352,7 +363,7 @@
       </main>
 
       <!-- Footer Section -->
-      <footer class="w-full max-w-6xl mt-32 border-t border-[#2A2A2A]/40 pt-16 pb-2 relative overflow-hidden flex flex-col justify-between">
+      <footer class="w-full max-w-6xl mt-32 border-t border-[#2A2A2A]/40 pt-16 pb-0 relative overflow-hidden flex flex-col justify-between">
         <div class="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0 mb-24">
           <div class="flex flex-col gap-4 max-w-sm">
             <div class="flex items-center gap-4">
