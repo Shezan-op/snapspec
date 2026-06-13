@@ -3,66 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Framer Preview</title>
+  <title>Grammer — Visual Site Builder</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            canvasBg: '#050505',
+            surfaceBg: '#0F0F0F',
+            borderColor: '#1F1F1F',
+            brandBlue: '#0070F3',
+            brandPurple: '#7928CA',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
-    .gradient-text { background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .double-bezel {
+      border: 1px solid #1f1f1f;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+    .bezier-transition {
+      transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
-<body class="antialiased">
-  <nav class="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="font-bold text-xl tracking-tight">Framer</div>
-      <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-        <a href="#" class="hover:text-white transition">Features</a>
-        <a href="#" class="hover:text-white transition">Templates</a>
-        <a href="#" class="hover:text-white transition">Pricing</a>
+<body class="antialiased overflow-x-hidden selection:bg-brandBlue/30 selection:text-white">
+
+  <!-- Header Navigation -->
+  <nav class="fixed top-0 left-0 w-full z-40 bg-canvasBg/80 backdrop-blur-md border-b border-borderColor">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+      <div class="flex items-center gap-10">
+        <a href="#" class="font-extrabold text-xl tracking-tight text-white flex items-center gap-2">
+          <span class="w-5 h-5 bg-white text-black rounded flex items-center justify-center text-[10px] font-black">G</span>
+          Grammer
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm text-neutral-400">
+          <a href="#" class="hover:text-white duration-300">Features</a>
+          <a href="#" class="hover:text-white duration-300">Templates</a>
+          <a href="#" class="hover:text-white duration-300">Pricing</a>
+          <a href="#" class="hover:text-white duration-300">Ecosystem</a>
+        </div>
       </div>
-      <button class="bg-white text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">Start for free</button>
+      <button class="bg-white text-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-neutral-200 transition-colors">
+        Start for free
+      </button>
     </div>
   </nav>
 
-  <section class="max-w-4xl mx-auto px-6 pt-32 pb-20 text-center">
-    <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-8 gradient-text">Design websites.<br>Publish faster.</h1>
-    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">Build visually, ship globally. The web design tool for professionals who demand speed and creative freedom.</p>
-    <div class="flex justify-center gap-4">
-      <button class="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">Start for free</button>
-      <button class="bg-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition">Watch video</button>
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 max-w-7xl mx-auto flex flex-col items-center text-center gap-8">
+    <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight leading-[1.05] text-white max-w-4xl">
+      Design websites.<br>Publish faster.
+    </h1>
+    <p class="text-neutral-400 text-sm md:text-lg max-w-xl leading-relaxed font-light">
+      Grammer is the layout design platform built to bridge the gap between Figma vector boards and production ready web pages.
+    </p>
+    <div class="flex gap-4">
+      <button class="bg-white text-black font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-100 transition-colors">
+        Start building
+      </button>
+      <button class="border border-borderColor bg-white/5 text-white font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
+        Watch Demo
+      </button>
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-6 pb-32">
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(255,255,255,0.1)]">
-      <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop" alt="Web Design Interface" class="w-full h-auto object-cover aspect-[16/10]">
+  <!-- Masonry Showcase Grid -->
+  <section class="px-6 max-w-7xl mx-auto mb-32">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="border border-borderColor bg-surfaceBg rounded-[2rem] p-2 flex flex-col gap-3 group">
+        <div class="rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900">
+          <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" alt="Showcase 1" />
+        </div>
+        <div class="px-3 pb-3 flex justify-between items-center text-xs text-neutral-400">
+          <span>Creative Agency</span>
+          <span class="text-neutral-600">↙</span>
+        </div>
+      </div>
+      
+      <div class="border border-borderColor bg-surfaceBg rounded-[2rem] p-2 flex flex-col gap-3 group">
+        <div class="rounded-2xl overflow-hidden aspect-square bg-neutral-900">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" alt="Showcase 2" />
+        </div>
+        <div class="px-3 pb-3 flex justify-between items-center text-xs text-neutral-400">
+          <span>SaaS Landing</span>
+          <span class="text-neutral-600">↙</span>
+        </div>
+      </div>
+
+      <div class="border border-borderColor bg-surfaceBg rounded-[2rem] p-2 flex flex-col gap-3 group">
+        <div class="rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" alt="Showcase 3" />
+        </div>
+        <div class="px-3 pb-3 flex justify-between items-center text-xs text-neutral-400">
+          <span>Architect Portfolio</span>
+          <span class="text-neutral-600">↙</span>
+        </div>
+      </div>
+
+      <div class="border border-borderColor bg-surfaceBg rounded-[2rem] p-2 flex flex-col gap-3 group">
+        <div class="rounded-2xl overflow-hidden aspect-square bg-neutral-900">
+          <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" alt="Showcase 4" />
+        </div>
+        <div class="px-3 pb-3 flex justify-between items-center text-xs text-neutral-400">
+          <span>E-commerce</span>
+          <span class="text-neutral-600">↙</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-6 py-20">
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-        <div class="h-12 w-12 bg-blue-500/20 rounded-xl mb-6 flex items-center justify-center">
-           <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+  <!-- Two-Column Product Creation Section -->
+  <section class="py-32 px-6 border-t border-borderColor max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="flex flex-col gap-6 items-start">
+      <span class="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-bold">CREATOR ENGINE</span>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Design layouts, dynamically.</h2>
+      <p class="text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+        Access comprehensive vector tools, responsive flex rows, custom sizing cards, and advanced animation layouts. Everything compiled natively to clean HTML and CSS.
+      </p>
+      <a href="#" class="text-white text-xs font-semibold uppercase tracking-wider hover:underline flex items-center gap-1">
+        Learn about vector design &rarr;
+      </a>
+    </div>
+    <div class="border border-borderColor bg-surfaceBg rounded-[2rem] p-3 shadow-2xl">
+      <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-black border border-borderColor p-6 font-mono text-xs aspect-video flex flex-col gap-4 justify-between relative">
+        <div class="flex justify-between items-center border-b border-borderColor pb-3">
+          <span class="text-neutral-500">canvas-grid.html</span>
+          <span class="w-2 h-2 rounded-full bg-brandBlue animate-ping"></span>
         </div>
-        <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
-        <p class="text-gray-400">Optimized infrastructure ensures your sites load instantly anywhere in the world.</p>
-      </div>
-      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-        <div class="h-12 w-12 bg-purple-500/20 rounded-xl mb-6 flex items-center justify-center">
-           <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <div class="flex-grow flex items-center justify-center">
+          <div class="w-40 h-24 border border-borderColor rounded-xl bg-neutral-900/50 flex flex-col gap-2 p-3 relative">
+            <div class="w-full h-3 bg-neutral-800 rounded"></div>
+            <div class="w-2/3 h-3 bg-neutral-800 rounded"></div>
+            <div class="w-10 h-10 rounded-full bg-brandPurple/30 absolute right-3 bottom-3 flex items-center justify-center text-[10px] text-brandPurple font-bold">✨</div>
+          </div>
         </div>
-        <h3 class="text-xl font-bold mb-3">Stunning Visuals</h3>
-        <p class="text-gray-400">Access advanced styling controls to create pixel-perfect, responsive layouts.</p>
-      </div>
-      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-        <div class="h-12 w-12 bg-green-500/20 rounded-xl mb-6 flex items-center justify-center">
-           <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-        </div>
-        <h3 class="text-xl font-bold mb-3">Global SEO</h3>
-        <p class="text-gray-400">Built-in optimization ensures your pages rank high on all major search engines.</p>
+        <span class="text-[10px] text-neutral-600">Published to grammer.app/canvas</span>
       </div>
     </div>
   </section>
+
+  <!-- Tool Consolidation / Dashboard -->
+  <section class="py-32 px-6 bg-[#090909]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="order-2 lg:order-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border border-borderColor bg-surfaceBg rounded-3xl p-6 flex flex-col justify-between min-h-[220px]">
+          <div class="flex flex-col gap-4">
+            <span class="text-[10px] font-mono text-brandBlue uppercase">Analytics Dashboard</span>
+            <h4 class="font-bold text-white text-lg">SEO Performance</h4>
+            <div class="w-full h-2 bg-neutral-800 rounded overflow-hidden">
+              <div class="w-4/5 h-full bg-brandBlue"></div>
+            </div>
+          </div>
+          <span class="text-xs text-neutral-400">92% score optimization</span>
+        </div>
+        
+        <div class="border border-borderColor bg-surfaceBg rounded-3xl p-6 flex flex-col justify-between min-h-[220px]">
+          <div class="flex flex-col gap-4">
+            <span class="text-[10px] font-mono text-brandPurple uppercase">Publish System</span>
+            <h4 class="font-bold text-white text-lg">Global CDN</h4>
+            <div class="flex gap-2">
+              <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              <span class="text-[10px] text-neutral-400">12 ms response time</span>
+            </div>
+          </div>
+          <span class="text-xs text-neutral-400">Deployed globally</span>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2 flex flex-col gap-6 items-start">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-bold">CONSOLIDATED SYSTEMS</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Consolidate your tools</h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+          Replace layout tools, hosting providers, CDNs, and SEO plugins. Grammer handles vector designs, content management systems, and serverless edge delivery out of the box.
+        </p>
+        <a href="#" class="text-white text-xs font-semibold uppercase tracking-wider hover:underline flex items-center gap-1">
+          Learn about publication features &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="border border-borderColor bg-[#080808] rounded-[2rem] p-8 md:p-16 flex flex-col lg:flex-row gap-12 justify-between items-center relative overflow-hidden group">
+      <div class="absolute -top-20 -right-20 w-64 h-64 bg-brandBlue/10 rounded-full blur-[100px] group-hover:bg-brandBlue/20 duration-300"></div>
+      <div class="flex flex-col gap-6 max-w-xl">
+        <span class="text-brandBlue text-5xl font-serif">“</span>
+        <p class="text-neutral-300 text-xl md:text-2xl leading-relaxed italic">
+          "With Grammer, we design complex, micro-interactive websites in hours instead of days. The speed of layout iteration is unmatched."
+        </p>
+        <div class="flex items-center gap-3 border-t border-borderColor pt-6 mt-6">
+          <div class="w-10 h-10 rounded-full bg-neutral-800 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" class="object-cover w-full h-full" alt="User avatar" />
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-white">David Miller</h4>
+            <p class="text-[11px] text-neutral-500">Creative Lead, Replicate</p>
+          </div>
+        </div>
+      </div>
+      <div class="border border-borderColor bg-surfaceBg rounded-2xl p-2 w-full lg:w-[400px]">
+        <div class="rounded-xl overflow-hidden aspect-[4/3] bg-neutral-900">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Performance dashboard" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mega Footer -->
+  <footer class="bg-black text-white py-20 px-6 border-t border-borderColor">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
+      <div class="col-span-2">
+        <div class="font-extrabold text-xl tracking-tight text-white mb-6 flex items-center gap-2">
+          <span class="w-5 h-5 bg-white text-black rounded flex items-center justify-center text-[10px] font-black">G</span>
+          Grammer
+        </div>
+        <p class="text-neutral-500 text-xs leading-relaxed max-w-xs mb-6 font-light">
+          Grammer is the collaborative visual design tool built to accelerate digital product and layout engineering.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Platform</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">Design engine</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Animations</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Templates</a>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Company</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">About</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Careers</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Blog</a>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Resources</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">Community</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Documentation</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Support</a>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto border-t border-borderColor pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
+      <p>© 2026 Grammer. Built visually.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white duration-300">Privacy Policy</a>
+        <a href="#" class="hover:text-white duration-300">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>

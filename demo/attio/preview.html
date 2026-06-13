@@ -3,76 +3,331 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attio Preview</title>
+  <title>Gto — CRM Built for the Next Era</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brandBlue: '#0070F3',
+            brandGreen: '#10B981',
+            canvasBg: '#FAFAFA',
+            borderColor: '#EAEAEA',
+            primaryText: '#111111',
+            mutedText: '#666666',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #fafafa; color: #111111; }
+    body {
+      background-color: #FAFAFA;
+      color: #111111;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .grid-lines {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    }
+    .bezier-transition {
+      transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
-<body class="antialiased">
-  <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="font-bold text-xl tracking-tight">Attio</div>
-      <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-        <a href="#" class="hover:text-black transition">Product</a>
-        <a href="#" class="hover:text-black transition">Solutions</a>
-        <a href="#" class="hover:text-black transition">Pricing</a>
+<body class="antialiased overflow-x-hidden selection:bg-black/10">
+
+  <!-- Section 1. Utility Banner -->
+  <div class="w-full bg-black text-white text-center py-2 text-[10px] tracking-[0.2em] font-medium uppercase border-b border-white/10">
+    Now live: Multi-region workspaces and database connections
+  </div>
+
+  <!-- Section 2. Main Navigation -->
+  <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-borderColor">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+      <div class="flex items-center gap-10">
+        <a href="#" class="font-extrabold text-xl tracking-tight text-primaryText flex items-center gap-2">
+          <span class="w-5 h-5 bg-black text-white rounded flex items-center justify-center text-[10px] font-black">G</span>
+          Gto
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-[14px] text-mutedText font-medium">
+          <a href="#" class="hover:text-black duration-300">Product</a>
+          <a href="#" class="hover:text-black duration-300">Solutions</a>
+          <a href="#" class="hover:text-black duration-300">Docs</a>
+          <a href="#" class="hover:text-black duration-300">Pricing</a>
+        </div>
       </div>
-      <div class="flex gap-4 items-center">
-        <a href="#" class="text-sm font-medium hover:text-gray-600 hidden md:block">Log in</a>
-        <button class="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">Start for free</button>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-sm text-mutedText hover:text-black duration-300">Sign In</a>
+        <button class="bg-black text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-neutral-800 transition-colors">
+          Start for free
+        </button>
       </div>
     </div>
   </nav>
 
-  <section class="max-w-5xl mx-auto px-6 pt-40 pb-20 text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-sm font-medium mb-8 border border-gray-200">
-      <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-      Introducing Automations
-    </div>
-    <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">CRM built for<br>the next era.</h1>
-    <p class="text-xl text-gray-500 mb-10 max-w-2xl mx-auto">A fully customizable workspace for your team to build the exact CRM they need, driven by live data.</p>
-    <div class="flex justify-center gap-4">
-      <button class="bg-black text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-gray-800 transition shadow-lg shadow-black/10">Start building free</button>
-      <button class="bg-white text-black px-6 py-3 rounded-lg text-lg font-medium border border-gray-200 hover:bg-gray-50 transition shadow-sm">Talk to sales</button>
-    </div>
-  </section>
+  <!-- Hero Section -->
+  <main class="grid-lines">
+    <section class="max-w-7xl mx-auto px-6 pt-32 pb-16 flex flex-col items-center text-center gap-8">
+      <span class="text-[10px] tracking-[0.2em] uppercase text-black font-bold rounded-full bg-black/5 border border-black/10 px-3 py-1 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brandBlue animate-pulse"></span>
+        CRM built for the next era
+      </span>
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-primaryText max-w-4xl">
+        A customizable database<br>for your team.
+      </h1>
+      <p class="text-mutedText text-sm md:text-lg max-w-xl leading-relaxed font-light">
+        Deploy objects, link pipelines, and build the custom workflows your organization demands to manage connections.
+      </p>
+      <div class="flex gap-4">
+        <button class="bg-black text-white font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-800 transition-colors">
+          Start building free
+        </button>
+        <button class="border border-borderColor bg-white text-black font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-50 transition-colors">
+          Talk to sales
+        </button>
+      </div>
+    </section>
 
-  <section class="max-w-6xl mx-auto px-6 pb-32">
-    <div class="rounded-2xl overflow-hidden border border-gray-200 shadow-2xl bg-white p-2">
-      <div class="rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" alt="CRM Dashboard" class="w-full h-auto object-cover aspect-[16/9]">
+    <!-- Product Showcase (CRM UI mockup) -->
+    <section class="px-6 max-w-6xl mx-auto mb-20">
+      <div class="border border-borderColor bg-white rounded-[2rem] p-3 shadow-sm">
+        <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-white border border-borderColor p-4 font-mono text-xs flex flex-col gap-4">
+          <!-- CRM Window Controls -->
+          <div class="flex justify-between items-center border-b border-borderColor pb-3">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+            </div>
+            <div class="flex gap-2">
+              <span class="bg-neutral-100 text-neutral-600 text-[10px] px-2 py-0.5 rounded border border-borderColor">gto.app/workspace</span>
+            </div>
+          </div>
+          <!-- CRM content -->
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-[350px]">
+            <!-- Sidebar -->
+            <div class="hidden lg:flex flex-col gap-4 border-r border-borderColor pr-4 text-[11px] text-mutedText">
+              <div class="font-bold uppercase tracking-wider text-black">Workspace</div>
+              <div class="flex items-center gap-2 text-black font-semibold"><span class="w-2 h-2 rounded-full bg-black"></span> Contacts</div>
+              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-neutral-200"></span> Companies</div>
+              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-neutral-200"></span> Deals</div>
+              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-neutral-200"></span> Tasks</div>
+            </div>
+            <!-- Data table -->
+            <div class="lg:col-span-3 flex flex-col gap-4">
+              <div class="flex justify-between items-center text-xs text-neutral-400">
+                <span class="font-bold text-black text-sm">Active Contacts</span>
+                <button class="bg-black text-white text-[10px] px-3 py-1 rounded hover:bg-neutral-800">Add Object</button>
+              </div>
+              
+              <div class="border border-borderColor rounded-xl overflow-hidden bg-white text-[11px]">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-neutral-50 border-b border-borderColor text-neutral-600">
+                      <th class="p-3">Name</th>
+                      <th class="p-3">Company</th>
+                      <th class="p-3">Status</th>
+                      <th class="p-3">Source</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-borderColor">
+                    <tr>
+                      <td class="p-3 font-semibold text-black">Sara Conner</td>
+                      <td class="p-3">Airbnb</td>
+                      <td class="p-3"><span class="bg-brandGreen/10 border border-brandGreen/20 text-brandGreen px-2 py-0.5 rounded text-[9px] font-bold">Active</span></td>
+                      <td class="p-3">Inbound</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-semibold text-black">James Carter</td>
+                      <td class="p-3">Notion</td>
+                      <td class="p-3"><span class="bg-brandBlue/10 border border-brandBlue/20 text-brandBlue px-2 py-0.5 rounded text-[9px] font-bold">Proposal</span></td>
+                      <td class="p-3">Outbound</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-semibold text-black">David Miller</td>
+                      <td class="p-3">Replicate</td>
+                      <td class="p-3"><span class="bg-neutral-100 border border-borderColor text-neutral-600 px-2 py-0.5 rounded text-[9px] font-bold">Lead</span></td>
+                      <td class="p-3">Partner</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="bg-white border-t border-gray-200 py-32">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-      <div>
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">Build your ideal data model</h2>
-        <p class="text-lg text-gray-500 mb-8">Stop conforming to rigid legacy tools. Create custom objects, attributes, and relationships that map perfectly to how your business actually works.</p>
-        <ul class="space-y-6">
-          <li class="flex items-start gap-4">
-            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">1</div>
-            <div>
-              <div class="font-semibold text-lg mb-1">Custom Objects</div>
-              <div class="text-gray-500">Create entirely new data entities beyond just contacts and companies.</div>
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">2</div>
-            <div>
-              <div class="font-semibold text-lg mb-1">Real-time Sync</div>
-              <div class="text-gray-500">Connect your product database directly into your CRM views.</div>
-            </div>
-          </li>
-        </ul>
+    <!-- Section 5. Customer Logo Strip -->
+    <section class="border-y border-borderColor py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-xs text-mutedText uppercase tracking-widest mb-8">Powering workflows across hypergrowth teams</p>
+        <div class="flex flex-wrap justify-center gap-12 md:gap-20 items-center opacity-40 grayscale">
+          <span class="font-bold text-black text-lg">Airbnb</span>
+          <span class="font-bold text-black text-lg">Notion</span>
+          <span class="font-bold text-black text-lg">Linear</span>
+          <span class="font-bold text-black text-lg">Stripe</span>
+          <span class="font-bold text-black text-lg">Slack</span>
+        </div>
       </div>
-      <div class="rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-square object-cover" alt="Data Model">
+    </section>
+
+    <!-- Section 6. Faint grid spacing -->
+    <section class="py-20 flex justify-center">
+      <div class="w-[1px] h-20 bg-borderColor"></div>
+    </section>
+
+    <!-- Product Architecture / Bento workflow -->
+    <section class="max-w-7xl mx-auto px-6 py-20 border-t border-borderColor">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="flex flex-col gap-4">
+          <span class="text-[10px] tracking-[0.2em] uppercase text-brandBlue font-bold">INTEGRATED ECOSYSTEM</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-primaryText">Flexible CRM workflows</h2>
+          <p class="text-mutedText text-sm leading-relaxed font-light">
+            Gto links your CRM directly with your live database structures, populating views and fields automatically as customers interact.
+          </p>
+        </div>
+        
+        <!-- Center Column (pipeline dashboard cards) -->
+        <div class="border border-borderColor bg-white rounded-3xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="flex justify-between items-center text-xs border-b border-borderColor pb-3">
+            <span class="font-semibold text-black">Active Pipeline</span>
+            <span class="text-brandBlue font-semibold">$124,000</span>
+          </div>
+          <div class="flex flex-col gap-3">
+            <div class="border border-borderColor rounded-xl p-3 flex justify-between items-center text-xs">
+              <span class="font-bold text-black">Proposal Sent</span>
+              <span class="text-neutral-500">Airbnb</span>
+            </div>
+            <div class="border border-borderColor rounded-xl p-3 flex justify-between items-center text-xs">
+              <span class="font-bold text-black">Deal Won</span>
+              <span class="text-neutral-500">Notion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column (diagrammatic lists) -->
+        <div class="border border-borderColor bg-white rounded-3xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="text-xs font-semibold text-black border-b border-borderColor pb-3">Integration Webhooks</div>
+          <div class="grid grid-cols-3 gap-2">
+            <span class="bg-[#EA4335]/10 border border-[#EA4335]/20 text-[#EA4335] text-[9px] font-bold px-2 py-1 rounded text-center">Gmail</span>
+            <span class="bg-[#4A154B]/10 border border-[#4A154B]/20 text-[#4A154B] text-[9px] font-bold px-2 py-1 rounded text-center">Slack</span>
+            <span class="bg-[#0077B5]/10 border border-[#0077B5]/20 text-[#0077B5] text-[9px] font-bold px-2 py-1 rounded text-center">LinkedIn</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secondary CTA Band -->
+    <section class="bg-white border-y border-borderColor py-20 px-6">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+        <div>
+          <h2 class="text-3xl font-extrabold text-primaryText mb-4">Start managing pipelines live</h2>
+          <p class="text-mutedText text-sm max-w-lg font-light leading-relaxed">Join teams of all sizes using Gto to customize sales, customer success, and operations.</p>
+        </div>
+        <div class="flex gap-4">
+          <button class="bg-black text-white font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-800 transition-colors">Start Free</button>
+          <button class="border border-borderColor bg-white text-black font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-50 transition-colors">Talk to sales</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Infrastructure Section -->
+    <section class="max-w-7xl mx-auto px-6 py-32 border-b border-borderColor">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16 text-center lg:text-left">
+        <div>
+          <span class="text-mutedText text-xs uppercase tracking-wider">Workspace uptime</span>
+          <h3 class="text-4xl font-extrabold text-primaryText mt-2">99.99%</h3>
+        </div>
+        <div>
+          <span class="text-mutedText text-xs uppercase tracking-wider">Sync Latency</span>
+          <h3 class="text-4xl font-extrabold text-primaryText mt-2">&lt; 100 ms</h3>
+        </div>
+        <div>
+          <span class="text-mutedText text-xs uppercase tracking-wider">API requests / day</span>
+          <h3 class="text-4xl font-extrabold text-primaryText mt-2">10M+</h3>
+        </div>
+        <div>
+          <span class="text-mutedText text-xs uppercase tracking-wider">Security encryption</span>
+          <h3 class="text-4xl font-extrabold text-primaryText mt-2">AES-256</h3>
+        </div>
+      </div>
+      <!-- Growth Curve Dotted Graphic -->
+      <div class="border border-borderColor bg-white rounded-3xl p-6 aspect-[16/6] flex flex-col justify-between relative overflow-hidden shadow-sm">
+        <div class="text-[10px] font-mono text-mutedText">API Traffic growth / 30d</div>
+        <div class="flex-grow flex items-end justify-center relative">
+          <!-- Vector line path represent curve -->
+          <svg class="w-full h-full text-brandBlue absolute bottom-0 left-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 90 Q 25 80, 50 50 T 100 10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3"/>
+          </svg>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-mutedText mt-4 font-mono">
+          <span>June 1</span>
+          <span>June 30</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-32 text-center px-6">
+      <div class="max-w-3xl mx-auto flex flex-col gap-6 items-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-primaryText">Get started with Gto today.</h2>
+        <p class="text-mutedText text-sm max-w-md font-light leading-relaxed">Sign up to build the perfect CRM workspace for your operations.</p>
+        <button class="bg-black text-white font-semibold text-xs tracking-wider uppercase px-8 py-3.5 rounded-full hover:bg-neutral-800 transition-colors mt-4">
+          Create Free Workspace
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mega Footer (Reversed black theme) -->
+  <footer class="bg-black text-white py-20 px-6 border-t border-neutral-800">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
+      <div class="col-span-2">
+        <div class="font-extrabold text-xl tracking-tight text-white mb-6 flex items-center gap-2">
+          <span class="w-5 h-5 bg-white text-black rounded flex items-center justify-center text-[10px] font-black">G</span>
+          Gto
+        </div>
+        <p class="text-neutral-400 text-xs leading-relaxed max-w-xs mb-6 font-light">
+          Gto is the CRM workspace designed for hypergrowth teams to build custom workflows without structural rigidness.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Platform</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">Custom Objects</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Automations</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Pricing</a>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Solutions</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">Sales Ops</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">CS Ops</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Developers</a>
+      </div>
+      <div class="flex flex-col gap-4 text-xs text-neutral-400">
+        <h5 class="text-white font-semibold mb-2">Resources</h5>
+        <a href="#" class="hover:text-white transition-colors duration-300">Documentation</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Support</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Security</a>
       </div>
     </div>
-  </section>
+    <div class="max-w-7xl mx-auto border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500">
+      <p>© 2026 Gto. Built for developers.</p>
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white duration-300">Privacy Policy</a>
+        <a href="#" class="hover:text-white duration-300">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>

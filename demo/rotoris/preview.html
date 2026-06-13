@@ -3,63 +3,495 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rotoris Preview</title>
+  <title>Rotoris Preview — Luxury Timepieces</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brandGreen: '#00C9A7',
+            gold: '#D4AF37',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .bezier-transition {
+      transition: all 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
-<body class="antialiased">
-  <nav class="absolute w-full z-50">
-    <div class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center border-b border-white/10">
-      <div class="hidden md:flex gap-10 text-xs tracking-[0.2em] uppercase text-gray-400">
-        <a href="#" class="hover:text-white transition-colors duration-500">Timepieces</a>
-        <a href="#" class="hover:text-white transition-colors duration-500">Maison</a>
-        <a href="#" class="hover:text-white transition-colors duration-500">Boutiques</a>
-      </div>
-      <div class="font-normal text-3xl tracking-[0.3em] uppercase serif mx-auto absolute left-1/2 -translate-x-1/2 text-white">ROTORIS</div>
-      <div class="flex gap-8 text-xs tracking-[0.2em] uppercase text-gray-400">
-        <a href="#" class="hover:text-white transition-colors duration-500">Search</a>
-        <a href="#" class="hover:text-white transition-colors duration-500">Account</a>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" class="hidden lg:block fixed w-8 h-8 rounded-full border border-white/20 pointer-events-none -translate-x-1/2 -translate-y-1/2 z-50 mix-blend-difference bezier-transition"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 w-full z-40 bg-black/40 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+      <!-- Left: Hamburger -->
+      <button class="text-white hover:text-brandGreen transition-colors duration-300">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <line x1="4" y1="8" x2="20" y2="8"></line>
+          <line x1="4" y1="16" x2="20" y2="16"></line>
+        </svg>
+      </button>
+
+      <!-- Center: Brand Wordmark -->
+      <a href="#" class="font-serif text-2xl tracking-[0.4em] uppercase text-white hover:text-brandGreen duration-500 absolute left-1/2 -translate-x-1/2">
+        ROTORIS
+      </a>
+
+      <!-- Right: Utility Icons -->
+      <div class="flex items-center gap-6 text-white/80">
+        <button class="hover:text-white transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+        <button class="hover:text-white transition-colors relative">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="absolute -top-2 -right-2 bg-brandGreen text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
       </div>
     </div>
   </nav>
 
-  <section class="relative h-screen flex items-end pb-24">
-    <img src="https://images.unsplash.com/photo-1548171915-e7afaca0078b?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Rotoris Masterpiece">
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-    <div class="relative z-10 w-full text-center">
-      <h2 class="text-sm tracking-[0.4em] uppercase text-gray-400 mb-6">The New Collection</h2>
-      <h1 class="text-5xl md:text-7xl font-normal mb-10 italic serif text-white">Mastery of Time</h1>
-      <button class="bg-transparent border border-white text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-colors duration-500">Discover</button>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div class="absolute inset-0 bg-black z-0">
+      <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 scale-105 transition-transform duration-[10000ms] hover:scale-100" alt="Rotoris Classic" />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_80%)]"></div>
     </div>
-  </section>
-
-  <section class="bg-black py-32">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <p class="text-xl md:text-2xl text-gray-300 leading-relaxed font-light mb-12">
-        "A Rotoris is not merely kept; it is curated. Forged in darkness, illuminated by engineering, and destined to outlast its wearer."
+    
+    <div class="relative z-10 text-center max-w-4xl px-6 flex flex-col items-center gap-6 mt-12">
+      <span class="text-[10px] tracking-[0.3em] uppercase text-brandGreen font-medium rounded-full bg-brandGreen/10 border border-brandGreen/20 px-3 py-1">ROTORIS MAISON</span>
+      <h1 class="font-serif text-5xl md:text-8xl tracking-tight leading-none text-white italic">Mastery of Time</h1>
+      <p class="text-white/60 font-light max-w-xl mx-auto text-sm md:text-base leading-relaxed tracking-wide">
+        Where architectural precision meets horizontal horological heritage. Encased in sapphire, driven by perpetuity.
       </p>
-      <div class="w-[1px] h-24 bg-white/20 mx-auto"></div>
+      
+      <!-- Primary CTA button-in-button layout -->
+      <button class="group mt-6 flex items-center gap-4 bg-white text-black pl-6 pr-2 py-2.5 rounded-full font-medium text-xs tracking-[0.15em] uppercase hover:bg-neutral-100 active:scale-[0.98] transition-all duration-300">
+        Discover Pieces
+        <span class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:translate-x-1 group-hover:-translate-y-[1px] transition-transform duration-300">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </span>
+      </button>
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-6 py-20">
-    <div class="grid md:grid-cols-2 gap-0 items-center border border-white/10">
-      <div class="p-16 md:p-24 flex flex-col justify-center items-start bg-[#0a0a0a]">
-        <h3 class="text-sm tracking-[0.3em] uppercase text-gray-500 mb-6">Complications</h3>
-        <h2 class="text-4xl font-normal mb-8 serif">The Perpetual Tourbillon</h2>
-        <p class="text-gray-400 font-light leading-relaxed mb-10">
-          Over 400 components meticulously assembled by hand. Our signature complication defies gravity, encased entirely in sapphire crystal.
-        </p>
-        <button class="text-xs tracking-[0.2em] uppercase text-white border-b border-white pb-1 hover:text-gray-400 hover:border-gray-400 transition-colors duration-500">Explore the Movement</button>
+  <!-- 3. Featured Release Section -->
+  <section class="py-32 bg-black px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20 flex flex-col gap-4">
+        <span class="text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium">LATEST ANNOUNCEMENTS</span>
+        <h2 class="font-serif text-4xl md:text-6xl font-normal text-white">The Perpetual Release</h2>
       </div>
-      <div class="h-full">
-        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" alt="Watch Mechanics">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Card 1 -->
+        <div class="group border border-white/5 bg-[#050505] rounded-[2rem] p-3 transition-all duration-700 hover:border-white/10 hover:bg-[#080808]">
+          <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-[#0c0c0c] relative aspect-[4/5] flex items-center justify-center p-8">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000" alt="The Chronos" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+              <div>
+                <h3 class="font-serif text-2xl font-semibold text-white">The Oreste</h3>
+                <p class="text-xs text-white/50 mt-1">42mm Steel Case / Leather Strap</p>
+              </div>
+              <span class="text-xs font-serif text-brandGreen font-medium italic border-b border-brandGreen/20 pb-0.5">CHF 12,400</span>
+            </div>
+          </div>
+          <div class="p-6 flex items-center justify-between border-t border-white/5 mt-2">
+            <div class="flex items-center gap-3">
+              <div class="flex -space-x-2">
+                <img class="w-6 h-6 rounded-full border border-black object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces" alt="Watchmaker" />
+                <img class="w-6 h-6 rounded-full border border-black object-cover" src="https://images.unsplash.com/photo-1628157582853-a796fa650a6a?w=100&h=100&fit=crop&crop=faces" alt="Designer" />
+              </div>
+              <span class="text-[11px] text-white/40 font-medium">Assembled by Hand</span>
+            </div>
+            <span class="text-[10px] tracking-wider text-white/50 uppercase group-hover:text-white transition-colors duration-300">View Specs →</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="group border border-white/5 bg-[#050505] rounded-[2rem] p-3 transition-all duration-700 hover:border-white/10 hover:bg-[#080808]">
+          <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-[#0c0c0c] relative aspect-[4/5] flex items-center justify-center p-8">
+            <img src="https://images.unsplash.com/photo-1548171915-e7afaca0078b?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000" alt="The Oreste" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+              <div>
+                <h3 class="font-serif text-2xl font-semibold text-white">The Chronos</h3>
+                <p class="text-xs text-white/50 mt-1">44mm Gold Case / Skeleton Dial</p>
+              </div>
+              <span class="text-xs font-serif text-brandGreen font-medium italic border-b border-brandGreen/20 pb-0.5">CHF 26,800</span>
+            </div>
+          </div>
+          <div class="p-6 flex items-center justify-between border-t border-white/5 mt-2">
+            <div class="flex items-center gap-3">
+              <div class="flex -space-x-2">
+                <img class="w-6 h-6 rounded-full border border-black object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces" alt="Watchmaker" />
+                <img class="w-6 h-6 rounded-full border border-black object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces" alt="Designer" />
+              </div>
+              <span class="text-[11px] text-white/40 font-medium">Assembled by Hand</span>
+            </div>
+            <span class="text-[10px] tracking-wider text-white/50 uppercase group-hover:text-white transition-colors duration-300">View Specs →</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- 4. Collection Section -->
+  <section class="py-32 bg-[#050505] border-y border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div>
+        <span class="text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium">CURATED VARIETIES</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-normal text-white mt-2">Maison Categories</h2>
+      </div>
+      <a href="#" class="text-brandGreen hover:underline font-medium text-xs tracking-wider uppercase flex items-center gap-1">
+        View All Collections <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Horizontal Carousel Container -->
+    <div class="flex gap-6 overflow-x-auto px-6 md:px-24 custom-scrollbar snap-x snap-mandatory">
+      <!-- Item 1 -->
+      <div class="snap-start flex-shrink-0 w-[280px] md:w-[360px] border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-4 flex flex-col gap-6 relative overflow-hidden group">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-white/10 text-white text-[9px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-full border border-white/10">Bronze Edition</span>
+        </div>
+        <div class="aspect-square rounded-2xl bg-[#141414] flex items-center justify-center p-8 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,134,11,0.1)_0%,transparent_70%)]"></div>
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" class="w-40 h-40 object-contain drop-shadow-2xl group-hover:rotate-6 transition-transform duration-500" alt="Bronze Watch" />
+        </div>
+        <div>
+          <h3 class="font-serif text-2xl text-white">Classic Heritage</h3>
+          <p class="text-white/40 text-xs mt-1">Forged in copper-aluminum alloys.</p>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="snap-start flex-shrink-0 w-[280px] md:w-[360px] border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-4 flex flex-col gap-6 relative overflow-hidden group">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-white/10 text-white text-[9px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-full border border-white/10">Silver Dial</span>
+        </div>
+        <div class="aspect-square rounded-2xl bg-[#141414] flex items-center justify-center p-8 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0%,transparent_70%)]"></div>
+          <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=600&auto=format&fit=crop" class="w-40 h-40 object-contain drop-shadow-2xl group-hover:rotate-6 transition-transform duration-500" alt="Silver Watch" />
+        </div>
+        <div>
+          <h3 class="font-serif text-2xl text-white">Aero Precision</h3>
+          <p class="text-white/40 text-xs mt-1">Minimalist interface for aviators.</p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="snap-start flex-shrink-0 w-[280px] md:w-[360px] border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-4 flex flex-col gap-6 relative overflow-hidden group">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-white/10 text-white text-[9px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-full border border-white/10">Deep Navy</span>
+        </div>
+        <div class="aspect-square rounded-2xl bg-[#141414] flex items-center justify-center p-8 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,191,255,0.05)_0%,transparent_70%)]"></div>
+          <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=600&auto=format&fit=crop" class="w-40 h-40 object-contain drop-shadow-2xl group-hover:rotate-6 transition-transform duration-500" alt="Navy Watch" />
+        </div>
+        <div>
+          <h3 class="font-serif text-2xl text-white">Submariner Dial</h3>
+          <p class="text-white/40 text-xs mt-1">Engineered to withstand deep currents.</p>
+        </div>
+      </div>
+
+      <!-- Item 4 (Partial crop indicating scroll) -->
+      <div class="snap-start flex-shrink-0 w-[280px] md:w-[360px] border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-4 flex flex-col gap-6 relative overflow-hidden group opacity-60">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-white/10 text-white text-[9px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-full border border-white/10">Dark Steel</span>
+        </div>
+        <div class="aspect-square rounded-2xl bg-[#141414] flex items-center justify-center p-8 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_70%)]"></div>
+          <img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?q=80&w=600&auto=format&fit=crop" class="w-40 h-40 object-contain drop-shadow-2xl group-hover:rotate-6 transition-transform duration-500" alt="Dark Watch" />
+        </div>
+        <div>
+          <h3 class="font-serif text-2xl text-white">Eclipse Skeleton</h3>
+          <p class="text-white/40 text-xs mt-1">Complete mechanical translucency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Editorial Storytelling Section -->
+  <section class="py-32 bg-black px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+      <!-- Left Column -->
+      <div class="overflow-hidden rounded-[2rem] border border-white/5 p-2 bg-[#050505]">
+        <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=800&auto=format&fit=crop" class="w-full h-[450px] object-cover rounded-[calc(2rem-0.5rem)] opacity-80" alt="Luxury Details" />
+      </div>
+
+      <!-- Center Column -->
+      <div class="text-center px-4 flex flex-col items-center gap-6 justify-center">
+        <span class="text-gold text-4xl font-serif">“</span>
+        <p class="font-serif text-2xl md:text-3xl italic text-white/95 leading-relaxed">
+          A Rotoris is not merely kept; it is curated. Forged in darkness, illuminated by engineering, and destined to outlast its wearer.
+        </p>
+        <span class="w-6 h-[1px] bg-white/20"></span>
+        <p class="text-white/40 text-xs tracking-wider uppercase">ROTORIS ESSENCE</p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="flex flex-col gap-6">
+        <div class="overflow-hidden rounded-[2rem] border border-white/5 p-2 bg-[#050505] flex gap-4 items-center">
+          <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=300&auto=format&fit=crop" class="w-24 h-24 object-cover rounded-xl opacity-70" alt="Clock Mechanics" />
+          <div>
+            <h4 class="font-serif text-white text-lg font-medium">Sapphire Shell</h4>
+            <p class="text-white/40 text-xs mt-1">High-pressure heat treatments prevent scratching.</p>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden rounded-[2rem] border border-white/5 p-2 bg-[#050505] flex gap-4 items-center">
+          <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?q=80&w=300&auto=format&fit=crop" class="w-24 h-24 object-cover rounded-xl opacity-70" alt="Crafting" />
+          <div>
+            <h4 class="font-serif text-white text-lg font-medium">Mechanical Purity</h4>
+            <p class="text-white/40 text-xs mt-1">Tourbillons calibrated to negate Earth gravity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Friends & Partners Section -->
+  <section class="py-32 bg-[#050505] border-t border-white/5 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-end mb-16">
+        <div>
+          <span class="text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium">OUR AMBASSADORS</span>
+          <h2 class="font-serif text-4xl md:text-5xl font-normal text-white mt-2">Friends & Partners</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Partner 1 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-2.5 flex flex-col gap-4">
+          <div class="rounded-2xl overflow-hidden aspect-[3/4] relative bg-[#141414]">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=faces" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-102 transition-transform duration-500" alt="Marc Aurel" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <h3 class="font-serif text-lg text-white font-medium">Marc Aurel</h3>
+              <p class="text-[10px] text-white/40 mt-0.5">Automotive Designer</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 2 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-2.5 flex flex-col gap-4">
+          <div class="rounded-2xl overflow-hidden aspect-[3/4] relative bg-[#141414]">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=faces" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-102 transition-transform duration-500" alt="Elena Rostova" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <h3 class="font-serif text-lg text-white font-medium">Elena Rostova</h3>
+              <p class="text-[10px] text-white/40 mt-0.5">Maison Curator</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 3 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-2.5 flex flex-col gap-4">
+          <div class="rounded-2xl overflow-hidden aspect-[3/4] relative bg-[#141414]">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=500&fit=crop&crop=faces" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-102 transition-transform duration-500" alt="Julianne Mercer" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <h3 class="font-serif text-lg text-white font-medium">Julianne Mercer</h3>
+              <p class="text-[10px] text-white/40 mt-0.5">Architect</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 4 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-2.5 flex flex-col gap-4">
+          <div class="rounded-2xl overflow-hidden aspect-[3/4] relative bg-[#141414]">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop&crop=faces" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-102 transition-transform duration-500" alt="Vincenzo Cassano" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <h3 class="font-serif text-lg text-white font-medium">Vincenzo Cassano</h3>
+              <p class="text-[10px] text-white/40 mt-0.5">Alpine Climber</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Craftsmanship Showcase Section -->
+  <section class="py-32 bg-black px-6 text-center">
+    <div class="max-w-4xl mx-auto flex flex-col items-center gap-6 mb-20">
+      <span class="text-[10px] tracking-[0.3em] uppercase text-brandGreen font-medium">UNCOMPROMISING PRECISION</span>
+      <h2 class="font-serif text-5xl md:text-7xl font-normal text-white">Choreography of Gravity</h2>
+      <p class="text-white/60 font-light text-sm max-w-lg leading-relaxed">
+        Our proprietary tourbillon movement rotates in multiple axes to guarantee absolute atomic accuracy regardless of orientation.
+      </p>
+    </div>
+
+    <!-- Hero Product image centered -->
+    <div class="max-w-6xl mx-auto overflow-hidden rounded-[2rem] border border-white/5 p-3 bg-[#050505]">
+      <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1800&auto=format&fit=crop" class="w-full h-[600px] object-cover rounded-[calc(2rem-0.5rem)] opacity-80" alt="Mechanical Watch Movement" />
+    </div>
+  </section>
+
+  <!-- 8. Extended Negative Space Region (Acts as pacing mechanism) -->
+  <section class="py-40 bg-black flex flex-col justify-center items-center">
+    <div class="w-[1px] h-32 bg-white/10"></div>
+  </section>
+
+  <!-- 9. Advantage Section -->
+  <section class="py-32 bg-[#050505] border-t border-white/5 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-24">
+        <span class="text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium">SYSTEM DETAILS</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-normal text-white mt-2">Technical Standards</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Card 1 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-6 flex flex-col justify-between aspect-[3/4]">
+          <div class="flex flex-col gap-6">
+            <span class="text-xs text-brandGreen font-mono">01 / CALIBER</span>
+            <h3 class="font-serif text-2xl text-white font-medium">Caliber 9002</h3>
+            <p class="text-white/40 text-xs leading-relaxed">Custom manual tourbillon with 72-hour power reserve indicator.</p>
+          </div>
+          <a href="#" class="text-brandGreen text-[11px] font-medium tracking-wider uppercase group-hover:underline">Explore Specifications →</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-6 flex flex-col justify-between aspect-[3/4]">
+          <div class="flex flex-col gap-6">
+            <span class="text-xs text-brandGreen font-mono">02 / CASING</span>
+            <h3 class="font-serif text-2xl text-white font-medium">Titanium grade 5</h3>
+            <p class="text-white/40 text-xs leading-relaxed">Aerospace-grade titanium alloy ensuring structural lightness.</p>
+          </div>
+          <a href="#" class="text-brandGreen text-[11px] font-medium tracking-wider uppercase group-hover:underline">Explore Specifications →</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-6 flex flex-col justify-between aspect-[3/4]">
+          <div class="flex flex-col gap-6">
+            <span class="text-xs text-brandGreen font-mono">03 / GLASS</span>
+            <h3 class="font-serif text-2xl text-white font-medium">Sapphire dome</h3>
+            <p class="text-white/40 text-xs leading-relaxed">9 Mohs hardness rating for near diamond-level durability.</p>
+          </div>
+          <a href="#" class="text-brandGreen text-[11px] font-medium tracking-wider uppercase group-hover:underline">Explore Specifications →</a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="group border border-white/5 bg-[#0c0c0c] rounded-[2rem] p-6 flex flex-col justify-between aspect-[3/4]">
+          <div class="flex flex-col gap-6">
+            <span class="text-xs text-brandGreen font-mono">04 / STRAP</span>
+            <h3 class="font-serif text-2xl text-white font-medium">Alcantara leather</h3>
+            <p class="text-white/40 text-xs leading-relaxed">Handmade Italian suede straps with titanium deployant buckle.</p>
+          </div>
+          <a href="#" class="text-brandGreen text-[11px] font-medium tracking-wider uppercase group-hover:underline">Explore Specifications →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Emotions in Motion Section (Media gallery) -->
+  <section class="py-32 bg-black px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20">
+        <span class="text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium">VISUAL TENSION</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-normal text-white mt-2">Emotions in Motion</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] border border-white/5 p-2 bg-[#050505]">
+          <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl opacity-60 hover:opacity-90 duration-500" alt="Detail 1" />
+        </div>
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] border border-white/5 p-2 bg-[#050505]">
+          <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl opacity-60 hover:opacity-90 duration-500" alt="Detail 2" />
+        </div>
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] border border-white/5 p-2 bg-[#050505]">
+          <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl opacity-60 hover:opacity-90 duration-500" alt="Detail 3" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Press Logos Section -->
+  <section class="py-20 bg-[#050505] border-t border-white/5 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col items-center gap-10">
+      <span class="text-[9px] tracking-[0.2em] uppercase text-white/30">FEATURED JOURNALISM</span>
+      <div class="flex flex-wrap gap-12 md:gap-20 justify-center items-center opacity-40">
+        <span class="font-serif text-lg md:text-xl font-bold tracking-widest text-white">GQ</span>
+        <span class="font-serif text-lg md:text-xl font-bold tracking-widest text-white">VOGUE</span>
+        <span class="font-serif text-lg md:text-xl font-bold tracking-widest text-white">THE NEW YORK TIMES</span>
+        <span class="font-serif text-lg md:text-xl font-bold tracking-widest text-white">FORBES</span>
+        <span class="font-serif text-lg md:text-xl font-bold tracking-widest text-white">HODINKEE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Footer -->
+  <footer class="bg-black py-20 border-t border-white/5 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="font-serif text-lg tracking-[0.4em] uppercase text-white">ROTORIS</div>
+      
+      <div class="flex flex-wrap gap-8 text-[11px] font-medium tracking-wider uppercase text-white/40">
+        <a href="#" class="hover:text-white transition-colors duration-300">Timepieces</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Maison</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Journal</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors duration-300">Terms & Conditions</a>
+      </div>
+
+      <div class="text-[11px] text-white/30">
+        &copy; 2026 ROTORIS. Made for the few.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Custom Cursor logic
+    const cursor = document.getElementById('custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    
+    document.addEventListener('mousedown', () => {
+      cursor.style.transform = 'scale(0.8) translate(-50%, -50%)';
+    });
+    
+    document.addEventListener('mouseup', () => {
+      cursor.style.transform = 'scale(1) translate(-50%, -50%)';
+    });
+  </script>
 </body>
 </html>

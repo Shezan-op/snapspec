@@ -3,101 +3,303 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sigma (Figma-Inspired) Preview</title>
+  <title>Sigma — Collaborative Interface Design</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brandPurple: '#7B2CBF',
+            brandGreen: '#E9EFD9',
+            brandCyan: '#00F5D4',
+            brandYellow: '#FFDE59',
+            primaryText: '#111111',
+            mutedText: '#666666',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111111; }
+    body {
+      background-color: #FAFAFA;
+      color: #111111;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .double-bezel {
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .bezier-transition {
+      transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
-<body class="antialiased">
+<body class="antialiased overflow-x-hidden selection:bg-brandPurple/20 selection:text-brandPurple">
 
-  <!-- Nav -->
-  <nav class="border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="font-bold text-xl tracking-tight">Sigma</div>
-      <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-        <a href="#" class="hover:text-black">Products</a>
-        <a href="#" class="hover:text-black">Enterprise</a>
-        <a href="#" class="hover:text-black">Pricing</a>
-        <a href="#" class="hover:text-black">Community</a>
+  <!-- Global Header Navigation -->
+  <nav class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+      <div class="flex items-center gap-12">
+        <a href="#" class="font-bold text-xl tracking-tight text-primaryText flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-brandPurple flex items-center justify-center text-xs font-black text-white">S</span>
+          Sigma
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-[14px] text-mutedText font-medium">
+          <a href="#" class="hover:text-black duration-300">Products</a>
+          <a href="#" class="hover:text-black duration-300">Enterprise</a>
+          <a href="#" class="hover:text-black duration-300">Pricing</a>
+          <a href="#" class="hover:text-black duration-300">Community</a>
+        </div>
       </div>
-      <button class="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-800 transition">Get started for free</button>
+      <button class="bg-brandPurple text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-brandPurple/90 active:scale-[0.98] transition-all duration-300">
+        Get started for free
+      </button>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="max-w-4xl mx-auto px-6 pt-32 pb-20 text-center">
-    <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-8">How you design,<br>align, and build</h1>
-    <p class="text-2xl text-gray-600 mb-10 max-w-2xl mx-auto">Sigma is the collaborative interface design tool that connects everyone in the design process.</p>
-    <button class="bg-black text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition">Get started for free</button>
-  </section>
+  <!-- Hero Section -->
+  <main class="pt-32">
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col gap-6 items-start">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-brandPurple font-bold rounded-full bg-brandPurple/10 border border-brandPurple/20 px-3 py-1">SIGMA PLATFORM</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] text-primaryText">
+          How you design, align, and build
+        </h1>
+        <p class="text-mutedText text-base md:text-xl font-light leading-relaxed max-w-xl">
+          Sigma is the collaborative interface design tool that connects everyone in the development process from inception to production.
+        </p>
+        
+        <button class="group flex items-center gap-4 bg-brandPurple text-white pl-6 pr-2 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase hover:bg-brandPurple/90 active:scale-[0.98] transition-all duration-300">
+          Start Designing
+          <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 group-hover:-translate-y-[1px] transition-transform duration-300">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+      </div>
+      
+      <!-- Vector canvas mock (Figma inspired) -->
+      <div class="border border-neutral-200/50 bg-neutral-100 rounded-[2rem] p-3 shadow-sm">
+        <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-white border border-neutral-200 p-6 flex flex-col gap-6 relative min-h-[350px]">
+          <!-- Window Controls -->
+          <div class="flex gap-1.5 border-b border-neutral-100 pb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-200"></span>
+          </div>
+          <!-- Mock Vector Canvas content -->
+          <div class="relative flex-grow flex items-center justify-center">
+            <!-- Main Artboard -->
+            <div class="w-48 h-32 border-2 border-brandPurple rounded-lg flex items-center justify-center bg-brandPurple/5 relative">
+              <span class="text-[10px] text-brandPurple font-semibold uppercase tracking-widest absolute -top-5 left-0">Artboard 1</span>
+              <div class="w-8 h-8 rounded bg-brandPurple/20 flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-brandPurple"><path d="M12 2v20M2 12h20"/></svg>
+              </div>
+              <!-- Floating user avatars & vectors -->
+              <div class="absolute -right-3 -top-3 w-8 h-8 rounded-full border-2 border-white bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold shadow-md">A</div>
+              <div class="absolute -left-3 -bottom-3 w-8 h-8 rounded-full border-2 border-white bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-md">M</div>
+            </div>
+            
+            <!-- Comment badge -->
+            <div class="absolute right-4 bottom-4 bg-white border border-neutral-200 rounded-full px-3 py-1 shadow-md text-[10px] flex items-center gap-1.5 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandPurple animate-pulse"></span>
+              "Should we make the corners softer?"
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Hero Mockup -->
-  <section class="max-w-7xl mx-auto px-6 pb-32">
-    <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
-      <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000&auto=format&fit=crop" alt="UI Design Interface" class="w-full h-auto object-cover aspect-video">
-    </div>
-  </section>
+    <!-- Customer Logo Strip -->
+    <section class="border-y border-neutral-200 py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-xs text-mutedText uppercase tracking-widest mb-8">Trusted by creative teams everywhere</p>
+        <div class="flex flex-wrap justify-center gap-12 md:gap-20 items-center opacity-40 grayscale">
+          <span class="font-bold text-black text-lg">Airbnb</span>
+          <span class="font-bold text-black text-lg">Notion</span>
+          <span class="font-bold text-black text-lg">Linear</span>
+          <span class="font-bold text-black text-lg">Stripe</span>
+          <span class="font-bold text-black text-lg">Slack</span>
+        </div>
+      </div>
+    </section>
 
-  <!-- Trust Logos -->
-  <section class="border-t border-b border-gray-200 py-16">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <p class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">Trusted by teams at</p>
-      <div class="flex flex-wrap justify-center gap-12 opacity-50 grayscale">
-        <span class="text-xl font-bold">Stripe</span>
-        <span class="text-xl font-bold">Airbnb</span>
-        <span class="text-xl font-bold">Notion</span>
-        <span class="text-xl font-bold">Linear</span>
-        <span class="text-xl font-bold">Vercel</span>
+    <!-- Product Introduction Section & Tabs -->
+    <section class="max-w-7xl mx-auto px-6 py-32">
+      <div class="max-w-3xl mb-16">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-brandPurple font-bold">ALL-IN-ONE SOLUTION</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-primaryText mt-2 mb-6">Designed for co-creation.</h2>
+        <p class="text-mutedText text-base md:text-lg font-light leading-relaxed">
+          From brainstorming vector frames to final design handoffs, Sigma provides a unified interface for cross-functional alignment.
+        </p>
       </div>
-    </div>
-  </section>
 
-  <!-- Features Grid -->
-  <section class="max-w-7xl mx-auto px-6 py-32">
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Co-create in one space</h2>
-        <p class="text-xl text-gray-600 mb-8">Work together in real-time. Leave comments, iterate faster, and never worry about version control again.</p>
-        <a href="#" class="text-blue-600 font-semibold text-lg hover:underline">Explore design features &rarr;</a>
+      <!-- Category Tabs (Interactions) -->
+      <div class="flex border-b border-neutral-200 mb-12 gap-8 overflow-x-auto">
+        <button class="border-b-2 border-brandPurple pb-4 text-sm font-semibold text-brandPurple px-2 whitespace-nowrap">01. Vector Design</button>
+        <button class="border-b-2 border-transparent pb-4 text-sm font-medium text-mutedText hover:text-black px-2 whitespace-nowrap">02. Prototyping</button>
+        <button class="border-b-2 border-transparent pb-4 text-sm font-medium text-mutedText hover:text-black px-2 whitespace-nowrap">03. Design Systems</button>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" alt="Collaboration" class="w-full h-full object-cover aspect-[4/3]">
-      </div>
-    </div>
-    
-    <div class="grid md:grid-cols-2 gap-16 items-center mt-32">
-      <div class="order-2 md:order-1 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-        <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000&auto=format&fit=crop" alt="Component System" class="w-full h-full object-cover aspect-[4/3]">
-      </div>
-      <div class="order-1 md:order-2">
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Scale your design system</h2>
-        <p class="text-xl text-gray-600 mb-8">Build reusable components and styles that automatically sync across all your team's projects.</p>
-        <a href="#" class="text-blue-600 font-semibold text-lg hover:underline">Explore design systems &rarr;</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-50 border-t border-gray-200 py-20">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
-      <div>
-        <div class="font-bold text-lg tracking-tight mb-6">Sigma</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h3 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Co-create in one space</h3>
+          <p class="text-mutedText text-sm md:text-base leading-relaxed mb-6 font-light">
+            Bring designers, developers, and writers together in real-time. Review comments, push layouts, and iterate instantly without sync bottlenecks.
+          </p>
+          <a href="#" class="text-brandPurple text-xs font-semibold uppercase tracking-wider hover:underline flex items-center gap-1">
+            Explore Vector Features &rarr;
+          </a>
+        </div>
+        <div class="border border-neutral-200/50 bg-neutral-100 rounded-3xl p-3 shadow-sm">
+          <div class="rounded-2xl overflow-hidden bg-white border border-neutral-200 aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-90" alt="Co-creation team" />
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col gap-4 text-gray-600">
-        <div class="font-semibold text-black mb-2">Use Cases</div>
-        <a href="#" class="hover:text-black">UI Design</a>
-        <a href="#" class="hover:text-black">UX Design</a>
-        <a href="#" class="hover:text-black">Prototyping</a>
+    </section>
+
+    <!-- Soft Sage Highlight area -->
+    <section class="bg-[#E8EDD8] py-32 px-6">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 border border-neutral-200/30 bg-white/45 rounded-3xl p-3">
+          <div class="rounded-2xl overflow-hidden bg-white border border-neutral-200 aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-90" alt="Design System UI" />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 flex flex-col gap-6 items-start">
+          <span class="text-[10px] tracking-[0.2em] uppercase text-brandPurple font-bold">SYSTEM CONTROL</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-primaryText">Scale your design system</h2>
+          <p class="text-mutedText text-sm md:text-base leading-relaxed font-light">
+            Build reusable components and styles that automatically sync across all your team's projects. Create structured layouts with ease.
+          </p>
+          <a href="#" class="text-brandPurple text-xs font-semibold uppercase tracking-wider hover:underline flex items-center gap-1">
+            Learn about Systems &rarr;
+          </a>
+        </div>
       </div>
-      <div class="flex flex-col gap-4 text-gray-600">
-        <div class="font-semibold text-black mb-2">Resources</div>
-        <a href="#" class="hover:text-black">Blog</a>
-        <a href="#" class="hover:text-black">Best Practices</a>
-        <a href="#" class="hover:text-black">Support</a>
+    </section>
+
+    <!-- Testimonials (Quotation marks in accent colors) -->
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="border border-neutral-200/50 bg-white rounded-3xl p-8 flex flex-col gap-6 shadow-sm relative overflow-hidden">
+          <span class="text-brandCyan text-6xl font-serif absolute -top-2 -right-2 opacity-25">“</span>
+          <p class="text-mutedText text-lg leading-relaxed italic">
+            "Sigma completely redesigned our product handoff process. We no longer write specification documents — we design them live."
+          </p>
+          <div class="flex items-center gap-3 border-t border-neutral-100 pt-4">
+            <div class="w-10 h-10 rounded-full bg-neutral-200 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" class="object-cover w-full h-full" alt="User avatar" />
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-primaryText">Sara Conner</h4>
+              <p class="text-[11px] text-mutedText">VP of Design, Airbnb</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-neutral-200/50 bg-white rounded-3xl p-8 flex flex-col gap-6 shadow-sm relative overflow-hidden">
+          <span class="text-brandYellow text-6xl font-serif absolute -top-2 -right-2 opacity-25">“</span>
+          <p class="text-mutedText text-lg leading-relaxed italic">
+            "We build UI systems that automatically scale. Sigma lets us control design tokens dynamically from one centralized space."
+          </p>
+          <div class="flex items-center gap-3 border-t border-neutral-100 pt-4">
+            <div class="w-10 h-10 rounded-full bg-neutral-200 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="object-cover w-full h-full" alt="User avatar" />
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-primaryText">James Carter</h4>
+              <p class="text-[11px] text-mutedText">Lead Designer, Notion</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- Template Marketplace (Bento Gallery) -->
+    <section class="py-32 px-6 bg-neutral-100 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="text-[10px] tracking-[0.2em] uppercase text-mutedText font-semibold">SIGMA TEMPLATES</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-primaryText mt-2">Get started with Figma-Inspired templates</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white border border-neutral-200/50 rounded-2xl overflow-hidden p-3 shadow-sm flex flex-col gap-3 group">
+            <div class="rounded-xl overflow-hidden aspect-[4/3] bg-neutral-100">
+              <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" alt="UI Kit" />
+            </div>
+            <h4 class="font-bold text-sm text-primaryText">Mobile App UI Kit</h4>
+            <p class="text-xs text-mutedText">Clean iOS layouts with nested components.</p>
+          </div>
+          
+          <div class="bg-white border border-neutral-200/50 rounded-2xl overflow-hidden p-3 shadow-sm flex flex-col gap-3 group">
+            <div class="rounded-xl overflow-hidden aspect-[4/3] bg-neutral-100">
+              <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" alt="Wireframe" />
+            </div>
+            <h4 class="font-bold text-sm text-primaryText">Bento Grid Template</h4>
+            <p class="text-xs text-mutedText">Modern website layouts for SaaS platforms.</p>
+          </div>
+
+          <div class="bg-white border border-neutral-200/50 rounded-2xl overflow-hidden p-3 shadow-sm flex flex-col gap-3 group">
+            <div class="rounded-xl overflow-hidden aspect-[4/3] bg-neutral-100">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" alt="System" />
+            </div>
+            <h4 class="font-bold text-sm text-primaryText">SaaS Component Library</h4>
+            <p class="text-xs text-mutedText">A comprehensive set of inputs and cards.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mega Footer (Solid Black Background) -->
+    <footer class="bg-black text-white py-20 px-6 border-t border-neutral-800">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12">
+        <div class="col-span-2">
+          <div class="font-bold text-xl tracking-tight text-white mb-6 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-brandPurple flex items-center justify-center text-xs font-black text-white">S</span>
+            Sigma
+          </div>
+          <p class="text-neutral-400 text-xs leading-relaxed max-w-xs mb-6">
+            Sigma is the web-based design system tool, helping modern design organizations build digital interfaces in real-time.
+          </p>
+        </div>
+        <div class="flex flex-col gap-4 text-xs text-neutral-400">
+          <h5 class="text-white font-semibold mb-2">Use Cases</h5>
+          <a href="#" class="hover:text-white transition-colors duration-300">UI/UX Design</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Prototyping</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Wireframing</a>
+        </div>
+        <div class="flex flex-col gap-4 text-xs text-neutral-400">
+          <h5 class="text-white font-semibold mb-2">Company</h5>
+          <a href="#" class="hover:text-white transition-colors duration-300">About</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Careers</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Contact</a>
+        </div>
+        <div class="flex flex-col gap-4 text-xs text-neutral-400">
+          <h5 class="text-white font-semibold mb-2">Resources</h5>
+          <a href="#" class="hover:text-white transition-colors duration-300">Community</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Best Practices</a>
+          <a href="#" class="hover:text-white transition-colors duration-300">Help Center</a>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500">
+        <p>© 2026 Sigma. All rights reserved.</p>
+        <div class="flex gap-4 mt-4 md:mt-0">
+          <a href="#" class="hover:text-white duration-300">Privacy Policy</a>
+          <a href="#" class="hover:text-white duration-300">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
 </body>
 </html>

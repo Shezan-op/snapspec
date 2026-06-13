@@ -3,154 +3,270 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pointer (Cursor-Inspired) Preview</title>
+  <title>Pointer — The AI Code Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            brandOrange: '#FF5A00',
+            editorBg: '#0D0C0B',
+            canvasBg: '#060504',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg: #0A0A0A;
-      --surface: #121212;
-      --border: #222222;
-      --text: #ffffff;
-      --text-muted: #888888;
-      --accent: #FF5A00;
-    }
     body {
-      margin: 0;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
+      background-color: #060504;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    h1, h2, h3 {
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    /* Top Navigation bar */
-    .nav-bar {
-      width: 100%;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      padding: 16px 0;
-    }
-    .nav-container {
-      max-width: 1000px;
-      width: 100%;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .nav-logo {
-      font-weight: 600;
-      font-size: 16px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    .nav-links a:hover {
-      color: var(--text);
-    }
-    .btn-primary {
-      background: #ffffff;
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: 500;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .hero {
-      max-width: 800px;
-      margin: 100px auto 60px;
-      text-align: center;
-      padding: 0 24px;
-    }
-    .hero h1 {
-      font-size: 56px;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      font-weight: 600;
-    }
-    .hero p {
-      font-size: 20px;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
-    .btn-large {
-      background: var(--text);
-      color: var(--bg);
-      padding: 14px 28px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 500;
-      border: none;
-      cursor: pointer;
-    }
-    .mockup-container {
-      max-width: 1000px;
-      margin: 0 auto 100px;
-      padding: 0 24px;
-    }
-    .mockup {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-family: monospace;
-      font-size: 14px;
-    }
-    .accent-text {
-      color: var(--accent);
+    .bezier-transition {
+      transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
 </head>
-<body>
-  <div class="nav-bar">
-    <div class="nav-container">
-      <div class="nav-logo">Pointer</div>
-      <div class="nav-links">
-        <a href="#">Features</a>
-        <a href="#">Pricing</a>
-        <a href="#">Changelog</a>
+<body class="antialiased overflow-x-hidden selection:bg-brandOrange/30 selection:text-white">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 w-full z-40 bg-canvasBg/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+      <div class="flex items-center gap-8">
+        <a href="#" class="font-bold text-lg tracking-tight text-white flex items-center gap-2">
+          <span class="w-5 h-5 bg-brandOrange rounded flex items-center justify-center text-[10px] font-black text-black">P</span>
+          Pointer
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm text-neutral-400">
+          <a href="#" class="hover:text-white duration-300">Features</a>
+          <a href="#" class="hover:text-white duration-300">Pricing</a>
+          <a href="#" class="hover:text-white duration-300">Changelog</a>
+        </div>
       </div>
-      <button class="btn-primary">Download</button>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-sm text-neutral-400 hover:text-white duration-300">Sign In</a>
+        <button class="bg-white text-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-neutral-200 transition-colors">
+          Download
+        </button>
+      </div>
     </div>
-  </div>
+  </nav>
 
-  <div class="hero">
-    <h1>The code editor for <br>the <span class="accent-text">AI</span> age.</h1>
-    <p>Built to make you extraordinarily productive, Pointer is the best way to code with AI.</p>
-    <div class="hero-buttons">
-      <button class="btn-large">Download for Windows</button>
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center gap-8">
+    <span class="text-[10px] tracking-[0.2em] uppercase text-brandOrange font-semibold rounded-full bg-brandOrange/10 border border-brandOrange/20 px-3 py-1">THE FUTURE OF SOFTWARE DEVELOPMENT</span>
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-none text-white max-w-4xl">
+      The code editor for <br>the <span class="text-brandOrange">AI</span> age.
+    </h1>
+    <p class="text-neutral-400 text-sm md:text-lg max-w-xl leading-relaxed font-light">
+      Built to make you extraordinarily productive, Pointer is the best way to write, debug, and ship software with artificial intelligence.
+    </p>
+    <div class="flex gap-4">
+      <button class="bg-white text-black font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-neutral-100 transition-colors">
+        Download for Windows
+      </button>
+      <button class="border border-white/10 bg-white/5 text-white font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
+        Read Docs
+      </button>
     </div>
-  </div>
+  </section>
 
-  <div class="mockup-container">
-    <div class="mockup">
-      // Product screenshot goes here
+  <!-- Hero Product Showcase (Double Bezel Layout) -->
+  <section class="px-6 max-w-6xl mx-auto mb-32">
+    <div class="border border-white/5 bg-white/5 rounded-[2rem] p-3 shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
+      <div class="rounded-[calc(2rem-0.375rem)] overflow-hidden bg-editorBg border border-white/10 p-4 font-mono text-xs flex flex-col gap-4">
+        <!-- Editor Topbar -->
+        <div class="flex justify-between items-center border-b border-white/5 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-4 text-[10px] text-neutral-500">src/components/auth-hook.ts</span>
+          </div>
+          <span class="text-[10px] text-neutral-600">Pointer v1.4.0</span>
+        </div>
+        <!-- Editor Main Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 min-h-[400px]">
+          <!-- Sidebar -->
+          <div class="hidden lg:flex flex-col gap-2 border-r border-white/5 pr-4 text-neutral-500">
+            <div class="text-[10px] uppercase tracking-wider text-neutral-600 font-semibold mb-2">Workspace</div>
+            <div class="text-white font-medium flex items-center gap-2"><span class="text-brandOrange">⚡</span> components/</div>
+            <div class="pl-4 hover:text-white cursor-pointer">auth-hook.ts</div>
+            <div class="pl-4 hover:text-white cursor-pointer">button.tsx</div>
+            <div class="pl-4 hover:text-white cursor-pointer">input-field.tsx</div>
+            <div class="text-neutral-600 font-medium flex items-center gap-2 mt-4">⚡ hooks/</div>
+            <div class="text-neutral-600 font-medium flex items-center gap-2">⚡ pages/</div>
+          </div>
+          <!-- Code pane -->
+          <div class="lg:col-span-3 flex flex-col gap-3 relative">
+            <div class="text-neutral-400 leading-6">
+              <span class="text-purple-400">import</span> { useState, useEffect } <span class="text-purple-400">from</span> <span class="text-green-400">'react'</span>;<br>
+              <span class="text-purple-400">import</span> { useAuth } <span class="text-purple-400">from</span> <span class="text-green-400">'@/hooks/auth'</span>;<br><br>
+              <span class="text-blue-400">export function</span> <span class="text-yellow-300">useSessionToken</span>() {<br>
+              &nbsp;&nbsp;<span class="text-blue-400">const</span> [token, setToken] = <span class="text-yellow-300">useState</span>&lt;string | null&gt;(<span class="text-blue-400">null</span>);<br>
+              &nbsp;&nbsp;<span class="text-blue-400">const</span> { session } = <span class="text-yellow-300">useAuth</span>();
+            </div>
+
+            <!-- Floating AI Prompt box (Interactive) -->
+            <div class="absolute top-[80px] left-4 right-4 bg-[#141312] border border-brandOrange/40 p-4 rounded-xl shadow-2xl flex flex-col gap-3">
+              <div class="flex justify-between items-center text-[10px] text-neutral-400">
+                <span class="font-semibold text-brandOrange flex items-center gap-1">⚡ Pointer AI Prompt</span>
+                <span>Ctrl + K</span>
+              </div>
+              <input type="text" class="bg-black/50 border border-white/10 rounded-md px-3 py-2 text-white outline-none placeholder:text-neutral-600" value="Refactor token state to cache token locally and handle expiration" />
+              <div class="flex justify-between items-center mt-2">
+                <div class="flex gap-2">
+                  <span class="bg-brandOrange/10 border border-brandOrange/20 text-brandOrange text-[9px] px-2 py-0.5 rounded">Fast Mode</span>
+                  <span class="bg-neutral-800 text-neutral-400 text-[9px] px-2 py-0.5 rounded">GPT-4o</span>
+                </div>
+                <button class="bg-brandOrange text-white text-[10px] font-semibold px-3 py-1 rounded hover:bg-brandOrange/80">Generate</button>
+              </div>
+            </div>
+            
+            <div class="text-neutral-600 leading-6 mt-32">
+              &nbsp;&nbsp;<span class="text-purple-400">return</span> { token, loading: !token };<br>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- 4. Logo Strip -->
+  <section class="py-20 border-y border-white/5 bg-white/[0.01]">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-xs text-neutral-500 uppercase tracking-widest mb-10">Trusted by Developers at the World's Leading Tech Teams</p>
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-8 justify-items-center items-center opacity-40">
+        <span class="font-bold text-white text-lg tracking-wider">STRIPE</span>
+        <span class="font-bold text-white text-lg tracking-wider">VERCEL</span>
+        <span class="font-bold text-white text-lg tracking-wider">LINEAR</span>
+        <span class="font-bold text-white text-lg tracking-wider">FIGMA</span>
+        <span class="font-bold text-white text-lg tracking-wider">SUPABASE</span>
+        <span class="font-bold text-white text-lg tracking-wider">REPLICATE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Feature Section 01 -->
+  <section class="py-32 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="flex flex-col gap-6 items-start">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-brandOrange font-bold">SMART AUTOCOMPLETE</span>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">Write entire classes, in one tap.</h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+          Pointer predicts your next edits before you make them, autocomplete multi-line blocks, or suggest complex logic updates effortlessly in context.
+        </p>
+        <a href="#" class="text-brandOrange text-sm font-semibold hover:underline flex items-center gap-1">
+          Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="border border-white/5 bg-white/5 rounded-3xl p-3">
+        <div class="rounded-2xl overflow-hidden bg-editorBg p-6 font-mono text-xs border border-white/10 aspect-[4/3] flex flex-col justify-between">
+          <div class="text-neutral-500">
+            <span class="text-blue-400">interface</span> UserConfig {<br>
+            &nbsp;&nbsp;id: string;<br>
+            &nbsp;&nbsp;theme: 'light' | 'dark';<br>
+            }
+          </div>
+          <div class="bg-brandOrange/5 border border-brandOrange/20 p-4 rounded-xl">
+            <span class="text-neutral-400">// Pointer suggest:</span><br>
+            <span class="text-white font-medium">export function loadConfig(userId: string): Promise&lt;UserConfig&gt; {</span><br>
+            <span class="text-white/60">&nbsp;&nbsp;return db.table('configs').get(userId);</span><br>
+            <span class="text-white font-medium">}</span>
+          </div>
+          <span class="text-[10px] text-neutral-500 text-right">Press [Tab] to accept</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Feature Section 02 -->
+  <section class="py-32 px-6 bg-[#090807]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="order-2 lg:order-1 border border-white/5 bg-white/5 rounded-3xl p-3">
+        <div class="rounded-2xl overflow-hidden bg-editorBg p-6 font-mono text-xs border border-white/10 aspect-[4/3] flex flex-col justify-between">
+          <div class="text-neutral-400 leading-6">
+            <span class="text-red-400">✖ TypeError: Cannot read properties of undefined (reading 'map')</span><br>
+            at fetchUserFeed (feed.ts:12:34)<br>
+            at processFeed (main.ts:8:12)
+          </div>
+          <div class="bg-neutral-900 border border-white/5 p-4 rounded-xl">
+            <span class="text-brandOrange font-semibold">⚡ Pointer AI:</span> Fix the Map undefined error by adding a safe optional chaining operator or verifying that feed response data contains items array.
+          </div>
+          <button class="bg-brandOrange text-white text-[10px] font-semibold py-1.5 px-3 rounded w-max">Apply Fix</button>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 flex flex-col gap-6 items-start">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-brandOrange font-bold">COMPILER ASSIST</span>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">Fix compile errors in real time.</h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+          Pointer automatically scans your terminal compile logs and terminal errors. With one click, it patches your file structure and corrects the issue instantly.
+        </p>
+        <a href="#" class="text-brandOrange text-sm font-semibold hover:underline flex items-center gap-1">
+          Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Capabilities Bento Grid -->
+  <section class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-20">
+      <span class="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-semibold">FEATURES</span>
+      <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white mt-2">Engineered for absolute speed.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="border border-white/5 bg-[#090807] rounded-3xl p-8 flex flex-col gap-4 relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brandOrange/10 rounded-full blur-2xl group-hover:bg-brandOrange/20 duration-300"></div>
+        <span class="text-xl font-bold text-white">Natural Chat</span>
+        <p class="text-neutral-400 text-xs leading-relaxed">Chat with your entire codebase. Ask complex architecture questions and get comprehensive markdown answers.</p>
+      </div>
+
+      <div class="border border-white/5 bg-[#090807] rounded-3xl p-8 flex flex-col gap-4 relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brandOrange/10 rounded-full blur-2xl group-hover:bg-brandOrange/20 duration-300"></div>
+        <span class="text-xl font-bold text-white">Local Privacy</span>
+        <p class="text-neutral-400 text-xs leading-relaxed">Run entirely offline with custom local LLMs to safeguard your workspace's proprietary repository data.</p>
+      </div>
+
+      <div class="border border-white/5 bg-[#090807] rounded-3xl p-8 flex flex-col gap-4 relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brandOrange/10 rounded-full blur-2xl group-hover:bg-brandOrange/20 duration-300"></div>
+        <span class="text-xl font-bold text-white">Git Integration</span>
+        <p class="text-neutral-400 text-xs leading-relaxed">Write pull requests and commit descriptions automatically directly from the sidebar based on diff scans.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Footer -->
+  <footer class="bg-black py-20 border-t border-white/5 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="font-bold text-white tracking-tight flex items-center gap-2">
+        <span class="w-5 h-5 bg-brandOrange rounded flex items-center justify-center text-[10px] font-black text-black">P</span>
+        Pointer
+      </div>
+      
+      <div class="flex flex-wrap gap-8 text-[11px] font-medium tracking-wider uppercase text-neutral-500">
+        <a href="#" class="hover:text-white duration-300">Features</a>
+        <a href="#" class="hover:text-white duration-300">Pricing</a>
+        <a href="#" class="hover:text-white duration-300">Docs</a>
+        <a href="#" class="hover:text-white duration-300">Privacy Policy</a>
+      </div>
+
+      <div class="text-[11px] text-neutral-600">
+        &copy; 2026 Pointer. Designed for the AI Era.
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
