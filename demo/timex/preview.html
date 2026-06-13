@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timex Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: #1a1a1a; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="border-b border-gray-200 bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+      <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest text-gray-500">
+        <a href="#" class="hover:text-black">Men</a>
+        <a href="#" class="hover:text-black">Women</a>
+        <a href="#" class="hover:text-black">Collections</a>
+      </div>
+      <div class="font-bold text-3xl tracking-widest uppercase serif">Timex</div>
+      <div class="flex gap-6 text-sm uppercase tracking-widest text-gray-500">
+        <a href="#" class="hover:text-black">Search</a>
+        <a href="#" class="hover:text-black">Cart (0)</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative h-[80vh] flex items-center justify-center">
+    <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Watch">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative z-10 text-center text-white">
+      <p class="text-sm uppercase tracking-[0.3em] mb-4">The Heritage Collection</p>
+      <h1 class="text-6xl md:text-8xl font-bold mb-8 italic">Timeless Elegance</h1>
+      <button class="bg-white text-black px-8 py-3 text-sm uppercase tracking-widest hover:bg-gray-100 transition">Shop Now</button>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 py-24">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">Craftsmanship</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Every timepiece is assembled with precision and care, honoring a tradition that spans over a century of horological excellence.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <img src="https://images.unsplash.com/photo-1587836374828-cb4387df3c7c?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-[3/4] object-cover mb-6" alt="Detail">
+        <h3 class="text-2xl font-bold mb-2">Mechanical Mastery</h3>
+        <p class="text-gray-500">Exposed movements reveal the beating heart of our flagship automatic chronographs.</p>
+      </div>
+      <div class="md:mt-24">
+        <img src="https://images.unsplash.com/photo-1548171915-e7afaca0078b?q=80&w=1000&auto=format&fit=crop" class="w-full aspect-[3/4] object-cover mb-6" alt="Leather">
+        <h3 class="text-2xl font-bold mb-2">Premium Materials</h3>
+        <p class="text-gray-500">Surgical-grade stainless steel and hand-stitched Italian leather form the foundation.</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

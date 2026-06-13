@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotoris Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="antialiased">
+  <nav class="absolute w-full z-50">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center border-b border-white/10">
+      <div class="hidden md:flex gap-10 text-xs tracking-[0.2em] uppercase text-gray-400">
+        <a href="#" class="hover:text-white transition-colors duration-500">Timepieces</a>
+        <a href="#" class="hover:text-white transition-colors duration-500">Maison</a>
+        <a href="#" class="hover:text-white transition-colors duration-500">Boutiques</a>
+      </div>
+      <div class="font-normal text-3xl tracking-[0.3em] uppercase serif mx-auto absolute left-1/2 -translate-x-1/2 text-white">ROTORIS</div>
+      <div class="flex gap-8 text-xs tracking-[0.2em] uppercase text-gray-400">
+        <a href="#" class="hover:text-white transition-colors duration-500">Search</a>
+        <a href="#" class="hover:text-white transition-colors duration-500">Account</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="relative h-screen flex items-end pb-24">
+    <img src="https://images.unsplash.com/photo-1548171915-e7afaca0078b?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Rotoris Masterpiece">
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+    <div class="relative z-10 w-full text-center">
+      <h2 class="text-sm tracking-[0.4em] uppercase text-gray-400 mb-6">The New Collection</h2>
+      <h1 class="text-5xl md:text-7xl font-normal mb-10 italic serif text-white">Mastery of Time</h1>
+      <button class="bg-transparent border border-white text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-colors duration-500">Discover</button>
+    </div>
+  </section>
+
+  <section class="bg-black py-32">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="text-xl md:text-2xl text-gray-300 leading-relaxed font-light mb-12">
+        "A Rotoris is not merely kept; it is curated. Forged in darkness, illuminated by engineering, and destined to outlast its wearer."
+      </p>
+      <div class="w-[1px] h-24 bg-white/20 mx-auto"></div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-0 items-center border border-white/10">
+      <div class="p-16 md:p-24 flex flex-col justify-center items-start bg-[#0a0a0a]">
+        <h3 class="text-sm tracking-[0.3em] uppercase text-gray-500 mb-6">Complications</h3>
+        <h2 class="text-4xl font-normal mb-8 serif">The Perpetual Tourbillon</h2>
+        <p class="text-gray-400 font-light leading-relaxed mb-10">
+          Over 400 components meticulously assembled by hand. Our signature complication defies gravity, encased entirely in sapphire crystal.
+        </p>
+        <button class="text-xs tracking-[0.2em] uppercase text-white border-b border-white pb-1 hover:text-gray-400 hover:border-gray-400 transition-colors duration-500">Explore the Movement</button>
+      </div>
+      <div class="h-full">
+        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" alt="Watch Mechanics">
+      </div>
+    </div>
+  </section>
+</body>
+</html>

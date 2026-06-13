@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Framer Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #000000; color: #ffffff; }
+    .gradient-text { background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="antialiased">
+  <nav class="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="font-bold text-xl tracking-tight">Framer</div>
+      <div class="hidden md:flex gap-6 text-sm font-medium text-gray-400">
+        <a href="#" class="hover:text-white transition">Features</a>
+        <a href="#" class="hover:text-white transition">Templates</a>
+        <a href="#" class="hover:text-white transition">Pricing</a>
+      </div>
+      <button class="bg-white text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">Start for free</button>
+    </div>
+  </nav>
+
+  <section class="max-w-4xl mx-auto px-6 pt-32 pb-20 text-center">
+    <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-8 gradient-text">Design websites.<br>Publish faster.</h1>
+    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">Build visually, ship globally. The web design tool for professionals who demand speed and creative freedom.</p>
+    <div class="flex justify-center gap-4">
+      <button class="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">Start for free</button>
+      <button class="bg-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition">Watch video</button>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 pb-32">
+    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(255,255,255,0.1)]">
+      <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop" alt="Web Design Interface" class="w-full h-auto object-cover aspect-[16/10]">
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
+        <div class="h-12 w-12 bg-blue-500/20 rounded-xl mb-6 flex items-center justify-center">
+           <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
+        <p class="text-gray-400">Optimized infrastructure ensures your sites load instantly anywhere in the world.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
+        <div class="h-12 w-12 bg-purple-500/20 rounded-xl mb-6 flex items-center justify-center">
+           <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Stunning Visuals</h3>
+        <p class="text-gray-400">Access advanced styling controls to create pixel-perfect, responsive layouts.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
+        <div class="h-12 w-12 bg-green-500/20 rounded-xl mb-6 flex items-center justify-center">
+           <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Global SEO</h3>
+        <p class="text-gray-400">Built-in optimization ensures your pages rank high on all major search engines.</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
