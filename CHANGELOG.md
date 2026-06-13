@@ -28,6 +28,12 @@ All notable changes to the SnapSpec (Design-md Creator) project will be document
   - *User Benefit*: Prevents input errors by restricting selections to verified cloud models.
 
 ### Changed
+- **Instant Output Panel Visibility**: Updated the layout manager to immediately display the results panel (displaying skeletons and rotating messages) and smoothly scroll to it when the user triggers generation.
+  - *Why*: Prevents user confusion by proving that the generator is active and working instantly.
+  - *User Benefit*: Clear visual cues and direct focus redirection on generation launch.
+- **Tighter Spacing & Padding**: Trimmed excess margin and padding from the homepage footer and base application container.
+  - *Why*: Reduces blank vertical gaps at the bottom of the landing page.
+  - *User Benefit*: A much cleaner page termination matching the premium design spec.
 - **Footer Clean Up**: Removed the harsh outer frame outline (`border-[#2A2A2A] rounded-[24px] bg-[#050505]`) from the main footer to integrate it smoothly into the page backdrop. Added a subtle top border divider.
   - *Why*: Softens visual rhythm and establishes premium modern card hierarchy.
   - *User Benefit*: Cleaner page termination and elevated aesthetic quality.
