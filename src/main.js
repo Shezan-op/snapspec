@@ -93,7 +93,6 @@ const elements = {
 function init() {
   initClickSpark();
   initCardNav();
-  initTrueFocus();
   initBorderGlow();
   initFolder();
   initBlurText();
@@ -1048,81 +1047,6 @@ function showToast(message) {
   toastTimeout = setTimeout(() => {
     elements.toastMsgBox.classList.add('hidden');
   }, 3000);
-}
-
-// TrueFocus Animation Logic
-function initTrueFocus() {
-  const container = document.getElementById('footer-logo-focus');
-  const frame = document.getElementById('focus-frame');
-  if (!container || !frame) return;
-
-  const words = container.querySelectorAll('.focus-word');
-  if (words.length === 0) return;
-
-  let currentIndex = 0;
-  const blurAmount = 6;
-  const animationDuration = 0.5; // in seconds
-  const pauseBetweenAnimations = 1.2; // in seconds
-
-  function updateFocus() {
-    const activeWord = words[currentIndex];
-    if (!activeWord) return;
-
-    // 1. Update filters and opacity of all words
-    words.forEach((word, index) => {
-      if (index === currentIndex) {
-        word.style.filter = 'blur(0px)';
-        word.style.opacity = '1';
-      } else {
-        word.style.filter = `blur(${blurAmount}px)`;
-        word.style.opacity = '0.45'; // dim inactive words for high contrast focus
-      }
-    });
-
-    // 2. Position the focus frame relative to container coordinates
-    const containerRect = container.getBoundingClientRect();
-    const activeRect = activeWord.getBoundingClientRect();
-
-    const x = activeRect.left - containerRect.left;
-    const y = activeRect.top - containerRect.top;
-    const width = activeRect.width;
-    const height = activeRect.height;
-
-    frame.style.transform = `translate(${x}px, ${y}px)`;
-    frame.style.width = `${width}px`;
-    frame.style.height = `${height}px`;
-    frame.style.opacity = '1';
-  }
-
-  // Auto animation interval
-  let interval = setInterval(() => {
-    currentIndex = (currentIndex + 1) % words.length;
-    updateFocus();
-  }, (animationDuration + pauseBetweenAnimations) * 1000);
-
-  // Hover handlers
-  words.forEach((word, index) => {
-    word.addEventListener('mouseenter', () => {
-      clearInterval(interval);
-      currentIndex = index;
-      updateFocus();
-    });
-    
-    word.addEventListener('mouseleave', () => {
-      // Resume auto play
-      clearInterval(interval);
-      interval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % words.length;
-        updateFocus();
-      }, (animationDuration + pauseBetweenAnimations) * 1000);
-    });
-  });
-
-  // Handle window resizing
-  window.addEventListener('resize', updateFocus);
-
-  // Initial draw
-  setTimeout(updateFocus, 100);
 }
 
 // ClickSpark Animation Logic
