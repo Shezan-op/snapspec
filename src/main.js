@@ -89,6 +89,10 @@ function init() {
   initClickSpark();
   initCardNav();
   initTrueFocus();
+  initBorderGlow();
+  initFolder();
+  initBlurText();
+  initScrollReveal();
   
   // Handle URL open actions for settings/history redirects
   const params = new URLSearchParams(window.location.search);
@@ -1413,6 +1417,208 @@ function initCardNav() {
     if (isExpanded) {
       gsap.set(navEl, { height: calculateHeight() });
     }
+  });
+}
+
+// BorderGlow Animation Logic
+function initBorderGlow() {
+  const cards = document.querySelectorAll('.border-glow-card');
+  
+  cards.forEach(card => {
+    const onPointerMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const width = rect.width;
+      const height = rect.height;
+      
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const dx = e.clientX - (rect.left + centerX);
+      const dy = e.clientY - (rect.top + centerY);
+      const angleRad = Math.atan2(dy, dx);
+      let angleDeg = (angleRad * 180) / Math.PI + 90;
+      if (angleDeg < 0) angleDeg += 360;
+      
+      const distLeft = x;
+      const distRight = width - x;
+      const distTop = y;
+      const distBottom = height - y;
+      
+      const minDist = Math.min(distLeft, distRight, distTop, distBottom);
+      const isInside = x >= 0 && x <= width && y >= 0 && y <= height;
+      
+      let proximity = 0;
+      if (isInside) {
+        const maxEdgeDist = Math.min(centerX, centerY);
+        proximity = Math.max(0, 100 * (1 - minDist / maxEdgeDist));
+      } else {
+        const dxOutside = Math.max(0, rect.left - e.clientX, e.clientX - rect.right);
+        const dyOutside = Math.max(0, rect.top - e.clientY, e.clientY - rect.bottom);
+        const distOutside = Math.sqrt(dxOutside * dxOutside + dyOutside * dyOutside);
+        
+        const maxInfluenceDist = 150;
+        proximity = Math.max(0, 100 * (1 - distOutside / maxInfluenceDist));
+      }
+      
+      card.style.setProperty('--edge-proximity', proximity);
+      card.style.setProperty('--cursor-angle', `${angleDeg}deg`);
+    };
+    
+    const onPointerLeave = () => {
+      card.style.setProperty('--edge-proximity', '0');
+    };
+    
+    document.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      
+      const threshold = 150;
+      if (
+        e.clientX >= rect.left - threshold &&
+        e.clientX <= rect.right + threshold &&
+        e.clientY >= rect.top - threshold &&
+        e.clientY <= rect.bottom + threshold
+      ) {
+        onPointerMove(e);
+      } else {
+        onPointerLeave();
+      }
+    });
+  });
+}
+
+// Folder Brand Selector Animation Logic
+function initFolder() {
+  const container = document.getElementById('interactive-folder-container');
+  const folderWrapper = container?.querySelector('.folder-wrapper');
+  const folder = container?.querySelector('.folder');
+  const papers = container?.querySelectorAll('.paper');
+  
+  if (!container || !folderWrapper || !folder) return;
+  
+  const openFolder = () => {
+    folderWrapper.classList.add('hovered');
+    folder.classList.add('open');
+    container.classList.add('folder-open');
+  };
+  
+  const closeFolder = () => {
+    folderWrapper.classList.remove('hovered');
+    folder.classList.remove('open');
+    container.classList.remove('folder-open');
+  };
+  
+  folderWrapper.addEventListener('mouseenter', openFolder);
+  folderWrapper.addEventListener('mouseleave', closeFolder);
+  
+  papers.forEach(paper => {
+    paper.addEventListener('pointermove', (e) => {
+      const rect = paper.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      
+      const dx = px - cx;
+      const dy = py - cy;
+      
+      const strength = 12;
+      const magnetX = (dx / cx) * strength;
+      const magnetY = (dy / cy) * strength;
+      
+      paper.style.setProperty('--magnet-x', `${magnetX}px`);
+      paper.style.setProperty('--magnet-y', `${magnetY}px`);
+    });
+    
+    paper.addEventListener('pointerleave', () => {
+      paper.style.setProperty('--magnet-x', '0px');
+      paper.style.setProperty('--magnet-y', '0px');
+    });
+  });
+}
+
+// BlurText Entrance Animation Logic
+function initBlurText() {
+  const elements = document.querySelectorAll('.blur-text');
+  elements.forEach((el) => {
+    if (el.classList.contains('ready')) return;
+    
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+    
+    el.innerHTML = '';
+    
+    words.forEach((word, index) => {
+      const span = document.createElement('span');
+      span.className = 'blur-word';
+      span.textContent = word;
+      span.style.transitionDelay = `${index * 0.05}s`;
+      el.appendChild(span);
+      
+      if (index < words.length - 1) {
+        el.appendChild(document.createTextNode(' '));
+      }
+    });
+    
+    el.classList.add('ready');
+    
+    requestAnimationFrame(() => {
+      const spans = el.querySelectorAll('.blur-word');
+      spans.forEach(span => span.classList.add('animate'));
+    });
+  });
+}
+
+// ScrollReveal Word Stagger Logic using GSAP ScrollTrigger
+function initScrollReveal() {
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  } else {
+    console.warn('GSAP or ScrollTrigger not loaded yet.');
+    return;
+  }
+  
+  const elements = document.querySelectorAll('.scroll-reveal');
+  elements.forEach((el) => {
+    if (el.classList.contains('scroll-reveal-ready')) return;
+    
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+    el.innerHTML = '';
+    
+    words.forEach((word, index) => {
+      const span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = word;
+      gsap.set(span, { opacity: 0.15, filter: 'blur(3px)' });
+      el.appendChild(span);
+      
+      if (index < words.length - 1) {
+        el.appendChild(document.createTextNode(' '));
+      }
+    });
+    
+    el.classList.add('scroll-reveal-ready');
+    
+    const wordSpans = el.querySelectorAll('.word');
+    
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        end: 'bottom 60%',
+        scrub: 0.5
+      }
+    }).to(wordSpans, {
+      opacity: 1,
+      filter: 'blur(0px)',
+      stagger: 0.1,
+      duration: 1,
+      ease: 'power1.out'
+    });
   });
 }
 

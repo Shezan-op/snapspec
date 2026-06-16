@@ -544,5 +544,417 @@
   }
 }
 
+/* BorderGlow CSS */
+.border-glow-card {
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+  --edge-sensitivity: 30;
+  --color-sensitivity: calc(var(--edge-sensitivity) + 20);
+  --border-radius: 28px;
+  --glow-padding: 40px;
+  --cone-spread: 25;
+
+  position: relative;
+  border-radius: var(--border-radius);
+  isolation: isolate;
+  transform: translate3d(0, 0, 0.01px);
+  display: grid;
+  border: 1px solid rgb(255 255 255 / 15%);
+  background: var(--card-bg, #120F17);
+  overflow: visible;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 1px 2px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px,
+    rgba(0, 0, 0, 0.1) 0px 4px 8px,
+    rgba(0, 0, 0, 0.1) 0px 8px 16px,
+    rgba(0, 0, 0, 0.1) 0px 16px 32px,
+    rgba(0, 0, 0, 0.1) 0px 32px 64px;
+}
+
+.border-glow-card::before,
+.border-glow-card::after,
+.border-glow-card > .edge-light {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: opacity 0.25s ease-out;
+  z-index: -1;
+}
+
+.border-glow-card:not(:hover):not(.sweep-active)::before,
+.border-glow-card:not(:hover):not(.sweep-active)::after,
+.border-glow-card:not(:hover):not(.sweep-active) > .edge-light {
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+}
+
+/* colored mesh-gradient border */
+.border-glow-card::before {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--card-bg, #120F17) 0 100%) padding-box,
+    linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box,
+    var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)) border-box,
+    var(--gradient-base, linear-gradient(#c299ff 0 100%)) border-box;
+
+  opacity: calc((var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
+
+  mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center,
+      black calc(var(--cone-spread) * 1%),
+      transparent calc((var(--cone-spread) + 15) * 1%),
+      transparent calc((100 - var(--cone-spread) - 15) * 1%),
+      black calc((100 - var(--cone-spread)) * 1%)
+    );
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center,
+      black calc(var(--cone-spread) * 1%),
+      transparent calc((var(--cone-spread) + 15) * 1%),
+      transparent calc((100 - var(--cone-spread) - 15) * 1%),
+      black calc((100 - var(--cone-spread)) * 1%)
+    );
+}
+
+/* colored mesh-gradient background fill near edges */
+.border-glow-card::after {
+  border: 1px solid transparent;
+  background:
+    var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-three, radial-gradient(at 8% 6%, hsla(136, 100%, 78%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-four, radial-gradient(at 41% 38%, hsla(192, 100%, 64%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-five, radial-gradient(at 86% 85%, hsla(186, 100%, 74%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-six, radial-gradient(at 82% 18%, hsla(52, 100%, 65%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-seven, radial-gradient(at 51% 4%, hsla(12, 100%, 72%, 1) 0px, transparent 50%)) padding-box,
+    var(--gradient-base, linear-gradient(#c299ff 0 100%)) padding-box;
+
+  mask-image:
+    linear-gradient(to bottom, black, black),
+    radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
+    radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
+    conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, black, black),
+    radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
+    radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
+    radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
+    conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
+
+  mask-composite: subtract, add, add, add, add, add;
+  -webkit-mask-composite: source-out, destination-over, destination-over, destination-over, destination-over, destination-over;
+  opacity: calc(var(--fill-opacity, 0.5) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));
+  mix-blend-mode: soft-light;
+}
+
+/* outer glow layer */
+.border-glow-card > .edge-light {
+  inset: calc(var(--glow-padding) * -1);
+  pointer-events: none;
+  z-index: 1;
+
+  mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%
+    );
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--cursor-angle) at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%
+    );
+
+  opacity: calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));
+  mix-blend-mode: plus-lighter;
+}
+
+.border-glow-card > .edge-light::before {
+  content: "";
+  position: absolute;
+  inset: var(--glow-padding);
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--glow-color, hsl(40deg 80% 80% / 100%)),
+    inset 0 0 1px 0 var(--glow-color-60, hsl(40deg 80% 80% / 60%)),
+    inset 0 0 3px 0 var(--glow-color-50, hsl(40deg 80% 80% / 50%)),
+    inset 0 0 6px 0 var(--glow-color-40, hsl(40deg 80% 80% / 40%)),
+    inset 0 0 15px 0 var(--glow-color-30, hsl(40deg 80% 80% / 30%)),
+    inset 0 0 25px 2px var(--glow-color-20, hsl(40deg 80% 80% / 20%)),
+    inset 0 0 50px 2px var(--glow-color-10, hsl(40deg 80% 80% / 10%)),
+    0 0 1px 0 var(--glow-color-60, hsl(40deg 80% 80% / 60%)),
+    0 0 3px 0 var(--glow-color-50, hsl(40deg 80% 80% / 50%)),
+    0 0 6px 0 var(--glow-color-40, hsl(40deg 80% 80% / 40%)),
+    0 0 15px 0 var(--glow-color-30, hsl(40deg 80% 80% / 30%)),
+    0 0 25px 2px var(--glow-color-20, hsl(40deg 80% 80% / 20%)),
+    0 0 50px 2px var(--glow-color-10, hsl(40deg 80% 80% / 10%));
+}
+
+.border-glow-inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Folder Brand Selector CSS */
+#interactive-folder-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  overflow: visible;
+}
+
+#folder-instruction-heading {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s var(--ease-out-premium), transform 0.5s var(--ease-out-premium);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+#interactive-folder-container.folder-open #folder-instruction-heading {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.folder-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 90px;
+  transition: all 0.3s var(--ease-out-premium);
+  animation: floatFolder 4s ease-in-out infinite;
+}
+
+@keyframes floatFolder {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.folder-wrapper.hovered {
+  animation-play-state: paused;
+}
+
+.folder {
+  transition: all 0.3s var(--ease-out-premium);
+  cursor: pointer;
+  position: relative;
+}
+
+.folder-wrapper:hover .folder:not(.open) {
+  transform: translateY(-8px);
+}
+
+.folder-wrapper:hover .folder:not(.open) .paper {
+  transform: translate(-50%, 0%);
+}
+
+.folder-wrapper:hover .folder:not(.open) .folder__front {
+  transform: skew(15deg) scaleY(0.6);
+}
+
+.folder-wrapper:hover .folder:not(.open) .right {
+  transform: skew(-15deg) scaleY(0.6);
+}
+
+.folder.open {
+  transform: translateY(-8px);
+}
+
+.folder.open .folder__front {
+  transform: skew(15deg) scaleY(0.6);
+}
+
+.folder.open .right {
+  transform: skew(-15deg) scaleY(0.6);
+}
+
+.folder__back {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  background: var(--folder-back-color, #1a1a1a);
+  border-radius: 0px 10px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.folder__back::after {
+  position: absolute;
+  z-index: 0;
+  bottom: 98%;
+  left: 0;
+  content: '';
+  width: 36px;
+  height: 12px;
+  background: var(--folder-back-color, #1a1a1a);
+  border-radius: 5px 5px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.folder__front {
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background: var(--folder-color, #222222);
+  border-radius: 5px 10px 10px 10px;
+  transform-origin: bottom;
+  transition: all 0.3s var(--ease-out-premium);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.folder__front.right {
+  z-index: 4;
+}
+
+/* Blown-out Papers */
+.paper {
+  position: absolute;
+  z-index: 2;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, 10%) scale(0.3);
+  width: 170px;
+  height: 120px;
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Open positions for papers */
+.folder.open .paper {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Staggered transition delays for papers on open */
+.folder.open .paper:nth-child(1) {
+  transform: translate(calc(-50% + var(--tx, -200px)), calc(-50% + var(--ty, -150px))) rotate(var(--rot, -12deg)) scale(1);
+}
+.folder.open .paper:nth-child(2) {
+  transform: translate(calc(-50% + var(--tx, 80px)), calc(-50% + var(--ty, -150px))) rotate(var(--rot, 12deg)) scale(1);
+}
+.folder.open .paper:nth-child(3) {
+  transform: translate(calc(-50% + var(--tx, -60px)), calc(-50% + var(--ty, -230px))) rotate(var(--rot, -5deg)) scale(1);
+}
+.folder.open .paper:nth-child(4) {
+  transform: translate(calc(-50% + var(--tx, -240px)), calc(-50% + var(--ty, -20px))) rotate(var(--rot, -15deg)) scale(1);
+}
+.folder.open .paper:nth-child(5) {
+  transform: translate(calc(-50% + var(--tx, 120px)), calc(-50% + var(--ty, -20px))) rotate(var(--rot, 15deg)) scale(1);
+}
+.folder.open .paper:nth-child(6) {
+  transform: translate(calc(-50% + var(--tx, -150px)), calc(-50% + var(--ty, 100px))) rotate(var(--rot, -8deg)) scale(1);
+}
+.folder.open .paper:nth-child(7) {
+  transform: translate(calc(-50% + var(--tx, 30px)), calc(-50% + var(--ty, 100px))) rotate(var(--rot, 8deg)) scale(1);
+}
+
+/* Paper Hover magnification and magnetic transition */
+.folder.open .paper:hover {
+  z-index: 10;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.folder.open .paper:nth-child(1):hover {
+  transform: translate(calc(-50% + var(--tx, -200px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -150px) + var(--magnet-y, 0px))) rotate(var(--rot, -12deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(2):hover {
+  transform: translate(calc(-50% + var(--tx, 80px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -150px) + var(--magnet-y, 0px))) rotate(var(--rot, 12deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(3):hover {
+  transform: translate(calc(-50% + var(--tx, -60px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -230px) + var(--magnet-y, 0px))) rotate(var(--rot, -5deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(4):hover {
+  transform: translate(calc(-50% + var(--tx, -240px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -20px) + var(--magnet-y, 0px))) rotate(var(--rot, -15deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(5):hover {
+  transform: translate(calc(-50% + var(--tx, 120px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -20px) + var(--magnet-y, 0px))) rotate(var(--rot, 15deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(6):hover {
+  transform: translate(calc(-50% + var(--tx, -150px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, 100px) + var(--magnet-y, 0px))) rotate(var(--rot, -8deg)) scale(1.08);
+}
+.folder.open .paper:nth-child(7):hover {
+  transform: translate(calc(-50% + var(--tx, 30px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, 100px) + var(--magnet-y, 0px))) rotate(var(--rot, 8deg)) scale(1.08);
+}
+
+/* Scroll Reveal & Word CSS */
+.scroll-reveal {
+  margin: 20px 0;
+}
+
+.scroll-reveal-text {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.word {
+  display: inline-block;
+  will-change: opacity, filter;
+}
+
+/* Blur Text Entrance Stagger CSS */
+.blur-text {
+  opacity: 0;
+}
+
+.blur-text.ready {
+  opacity: 1;
+}
+
+.blur-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, filter, transform;
+}
+
+.blur-word.animate {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0px);
+}
+
+
 
 
