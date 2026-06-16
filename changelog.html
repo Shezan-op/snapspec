@@ -5,50 +5,86 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Changelog - Design-md Creator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script type="module" src="/src/main.js"></script>
   </head>
   <body class="bg-[var(--color-canvas)] text-[var(--color-text-main)] antialiased font-sans selection:bg-[var(--color-primary)] selection:text-white">
 
     <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-12 md:pt-8 md:pb-24 px-6">
       
-      <!-- App Header -->
-      <header class="w-full max-w-6xl flex justify-between items-center mb-16 animate-enter relative">
-        <a href="/" class="flex items-center gap-3 h-8 hover:opacity-80 transition-opacity">
-          <img src="/branding/Icon.png" alt="SnapSpec Icon" class="h-full w-auto object-contain" style="aspect-ratio: 1303/1207;" />
-          <span class="hidden sm:block font-bold text-[22px] tracking-tight mt-0.5">SnapSpec</span>
-        </a>
-        <div class="flex items-center gap-6">
-          <!-- Desktop Nav -->
-          <nav class="hidden md:flex gap-6 text-[14px] text-[var(--color-text-muted)] font-medium">
-            <a href="/" class="hover:text-white transition-colors">Home</a>
-            <a href="/skills.html" class="hover:text-white transition-colors">Skills</a>
-            <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact us</a>
-            <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">Github</a>
-          </nav>
+      <!-- CardNav Navigation Bar -->
+      <div class="card-nav-container animate-enter">
+        <nav id="card-nav" class="card-nav">
+          <div class="card-nav-top">
+            <div id="hamburger-menu" class="hamburger-menu">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </div>
+            <a href="/" class="logo-container flex items-center gap-2">
+              <img src="/branding/Icon.png" alt="SnapSpec Icon" class="logo h-6 w-auto" />
+              <span class="font-bold text-[18px] tracking-tight mt-0.5 text-white" style="font-family: 'Inter', sans-serif;">SnapSpec</span>
+            </a>
+            <button id="nav-cta-btn" class="card-nav-cta-button">
+              Upload Spec
+            </button>
+          </div>
           
-          <!-- Mobile Hamburger -->
-          <button id="mobile-menu-btn" class="md:hidden text-white p-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-        </div>
-      </header>
-
-      <!-- Mobile Sidebar -->
-      <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a] border-l border-[var(--color-border)] transform translate-x-full transition-transform duration-300 z-50 flex flex-col p-6 shadow-2xl">
-        <div class="flex justify-end mb-8">
-          <button id="close-mobile-menu" class="text-[var(--color-text-muted)] hover:text-white">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-        <nav class="flex flex-col gap-6 text-[16px] text-[var(--color-text-muted)] font-medium">
-          <a href="/" class="hover:text-white transition-colors">Home</a>
-          <a href="/skills.html" class="hover:text-white transition-colors">Skills</a>
-          <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact us</a>
-          <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">Github</a>
+          <div class="card-nav-content" aria-hidden="true">
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Navigation</div>
+              <div class="nav-card-links">
+                <a href="/" class="nav-card-link">
+                  <span>Home</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/skills.html" class="nav-card-link">
+                  <span>Skills</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/changelog.html" class="nav-card-link text-white font-semibold">
+                  <span>Changelog</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/whats-next.html" class="nav-card-link">
+                  <span>What's Next</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+            
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Workspace</div>
+              <div class="nav-card-links">
+                <a href="/?open=history" id="nav-history-link" class="nav-card-link">
+                  <span>History</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/?open=settings" id="nav-settings-link" class="nav-card-link">
+                  <span>API Settings</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+            
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Contact & Social</div>
+              <div class="nav-card-links">
+                <a href="mailto:yourshezanspot@gmail.com" class="nav-card-link">
+                  <span>Email Us</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="nav-card-link">
+                  <span>GitHub Repo</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
-      <!-- Mobile Sidebar Overlay -->
-      <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+      <!-- Spacer to compensate for absolute positioned header -->
+      <div class="h-20 w-full mb-10"></div>
 
       <!-- Main Workspace -->
       <main class="w-full max-w-4xl flex flex-col gap-10 lg:gap-16 items-start my-20 flex-grow mx-auto">

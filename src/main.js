@@ -34,14 +34,7 @@ const elements = {
   toggleCustomModelBtn: document.getElementById('toggle-custom-model-btn'),
   showMoreDemosBtn: document.getElementById('show-more-demos-btn'),
   
-  mobileMenuBtn: document.getElementById('mobile-menu-btn'),
-  closeMobileMenuBtn: document.getElementById('close-mobile-menu'),
-  mobileSidebar: document.getElementById('mobile-sidebar'),
-  mobileOverlay: document.getElementById('mobile-overlay'),
-  mobileToggleConfigBtn: document.getElementById('mobile-toggle-config-btn'),
-  
   openHistoryBtn: document.getElementById('open-history-btn'),
-  mobileOpenHistoryBtn: document.getElementById('mobile-open-history-btn'),
   historySaveModal: document.getElementById('history-save-modal'),
   historySaveName: document.getElementById('history-save-name'),
   btnSaveHistory: document.getElementById('btn-save-history'),
@@ -93,31 +86,37 @@ const elements = {
 
 // Initialize Application
 function init() {
+  initClickSpark();
+  initCardNav();
   initTrueFocus();
   
+  // Handle URL open actions for settings/history redirects
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('open') === 'settings') {
+    setTimeout(() => {
+      const settingsModal = document.getElementById('settings-modal');
+      if (settingsModal) {
+        settingsModal.classList.remove('opacity-0', 'pointer-events-none');
+        settingsModal.querySelector('.modal-glass').classList.remove('scale-95');
+        settingsModal.querySelector('.modal-glass').classList.add('scale-100');
+      }
+    }, 300);
+  } else if (params.get('open') === 'history') {
+    setTimeout(() => {
+      const historyViewModal = document.getElementById('history-view-modal');
+      if (historyViewModal) {
+        renderHistoryList();
+        historyViewModal.classList.remove('opacity-0', 'pointer-events-none');
+        historyViewModal.querySelector('.modal-glass').classList.remove('scale-95');
+        historyViewModal.querySelector('.modal-glass').classList.add('scale-100');
+      }
+    }, 300);
+  }
+
   if (elements.toggleConfigBtn) {
     setupEventListeners();
     loadSavedSettings();
-  } else {
-    setupMobileMenuOnly();
   }
-}
-
-function setupMobileMenuOnly() {
-  const openMobileMenu = () => {
-    elements.mobileSidebar?.classList.remove('translate-x-full');
-    elements.mobileOverlay?.classList.remove('hidden');
-    setTimeout(() => elements.mobileOverlay?.classList.remove('opacity-0'), 10);
-  };
-  const closeMobileMenu = () => {
-    elements.mobileSidebar?.classList.add('translate-x-full');
-    elements.mobileOverlay?.classList.add('opacity-0');
-    setTimeout(() => elements.mobileOverlay?.classList.add('hidden'), 300);
-  };
-  
-  elements.mobileMenuBtn?.addEventListener('click', openMobileMenu);
-  elements.closeMobileMenuBtn?.addEventListener('click', closeMobileMenu);
-  elements.mobileOverlay?.addEventListener('click', closeMobileMenu);
 }
 
 const cloudPresets = [
@@ -284,25 +283,7 @@ function setupEventListeners() {
 
   elements.cloudModelInput.addEventListener('change', updateSettingsUI);
 
-  // Mobile Menu
-  const openMobileMenu = () => {
-    elements.mobileSidebar.classList.remove('translate-x-full');
-    elements.mobileOverlay.classList.remove('hidden');
-    setTimeout(() => elements.mobileOverlay.classList.remove('opacity-0'), 10);
-  };
-  const closeMobileMenu = () => {
-    elements.mobileSidebar.classList.add('translate-x-full');
-    elements.mobileOverlay.classList.add('opacity-0');
-    setTimeout(() => elements.mobileOverlay.classList.add('hidden'), 300);
-  };
-  
-  elements.mobileMenuBtn.addEventListener('click', openMobileMenu);
-  elements.closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
-  elements.mobileOverlay.addEventListener('click', closeMobileMenu);
-  elements.mobileToggleConfigBtn.addEventListener('click', () => {
-    closeMobileMenu();
-    elements.toggleConfigBtn.click();
-  });
+
 
   // History Save Intercept
   elements.clearBtn.addEventListener('click', () => {
@@ -339,14 +320,12 @@ function setupEventListeners() {
   const openHistoryView = (e) => {
     e.preventDefault();
     renderHistoryList();
-    if(window.innerWidth < 768) closeMobileMenu();
     elements.historyViewModal.classList.remove('opacity-0', 'pointer-events-none');
     elements.historyViewModal.querySelector('.modal-glass').classList.remove('scale-95');
     elements.historyViewModal.querySelector('.modal-glass').classList.add('scale-100');
   };
   
   elements.openHistoryBtn.addEventListener('click', openHistoryView);
-  elements.mobileOpenHistoryBtn.addEventListener('click', openHistoryView);
   
   const closeHistoryView = () => {
     elements.historyViewModal.classList.add('opacity-0', 'pointer-events-none');
@@ -1208,6 +1187,233 @@ function initTrueFocus() {
 
   // Initial draw
   setTimeout(updateFocus, 100);
+}
+
+// ClickSpark Animation Logic
+function initClickSpark() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'click-spark-canvas';
+  Object.assign(canvas.style, {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100vw',
+    height: '100vh',
+    pointerEvents: 'none',
+    zIndex: '99999',
+    userSelect: 'none',
+    display: 'block'
+  });
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  const sparks = [];
+  const sparkColor = '#ffffff';
+  const sparkSize = 12;
+  const sparkRadius = 24;
+  const sparkCount = 8;
+  const duration = 450; // ms
+
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 100);
+  });
+  resizeCanvas();
+
+  const easeOut = t => t * (2 - t);
+
+  window.addEventListener('click', (e) => {
+    // Avoid spawning sparks if click is on select elements or settings dropdown
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') return;
+
+    const x = e.clientX;
+    const y = e.clientY;
+    const now = performance.now();
+
+    for (let i = 0; i < sparkCount; i++) {
+      sparks.push({
+        x,
+        y,
+        angle: (2 * Math.PI * i) / sparkCount,
+        startTime: now
+      });
+    }
+  });
+
+  function animate(timestamp) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const spark = sparks[i];
+      const elapsed = timestamp - spark.startTime;
+
+      if (elapsed >= duration) {
+        sparks.splice(i, 1);
+        continue;
+      }
+
+      const progress = elapsed / duration;
+      const eased = easeOut(progress);
+
+      const distance = eased * sparkRadius;
+      const lineLength = sparkSize * (1 - eased);
+
+      const x1 = spark.x + distance * Math.cos(spark.angle);
+      const y1 = spark.y + distance * Math.sin(spark.angle);
+      const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+      const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+
+      ctx.strokeStyle = sparkColor;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+// CardNav Animation Logic
+function initCardNav() {
+  const navEl = document.getElementById('card-nav');
+  const hamburger = document.getElementById('hamburger-menu');
+  const contentEl = navEl?.querySelector('.card-nav-content');
+  const cards = navEl?.querySelectorAll('.nav-card');
+  const ctaBtn = document.getElementById('nav-cta-btn');
+  
+  if (!navEl || !hamburger || !contentEl) return;
+
+  let isExpanded = false;
+  let tl = null;
+
+  const calculateHeight = () => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) {
+      const topBar = 60;
+      const padding = 16;
+      let totalHeight = 0;
+      cards.forEach(card => {
+        totalHeight += card.offsetHeight + 8; // card height + gap
+      });
+      return topBar + totalHeight + padding;
+    }
+    return 260; // desktop height
+  };
+
+  const createTimeline = () => {
+    // Reset layout
+    gsap.set(navEl, { height: 60, overflow: 'hidden' });
+    gsap.set(cards, { y: 50, opacity: 0 });
+
+    const newTl = gsap.timeline({ paused: true });
+
+    newTl.to(navEl, {
+      height: calculateHeight,
+      duration: 0.4,
+      ease: 'power3.out'
+    });
+
+    newTl.to(cards, {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power3.out',
+      stagger: 0.08
+    }, '-=0.1');
+
+    return newTl;
+  };
+
+  tl = createTimeline();
+
+  const toggleMenu = () => {
+    if (!isExpanded) {
+      hamburger.classList.add('open');
+      navEl.classList.add('open');
+      isExpanded = true;
+      contentEl.setAttribute('aria-hidden', 'false');
+      // Re-create timeline to get fresh heights
+      tl.kill();
+      tl = createTimeline();
+      tl.play();
+    } else {
+      hamburger.classList.remove('open');
+      navEl.classList.remove('open');
+      isExpanded = false;
+      contentEl.setAttribute('aria-hidden', 'true');
+      tl.reverse();
+    }
+  };
+
+  hamburger.addEventListener('click', toggleMenu);
+
+  // Close menu on click outside
+  document.addEventListener('click', (e) => {
+    if (isExpanded && !navEl.contains(e.target)) {
+      toggleMenu();
+    }
+  });
+
+  // Handle CTA Click (Scroll to Upload Zone or redirect to home)
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
+      const uploadZone = document.getElementById('upload-zone');
+      if (uploadZone) {
+        uploadZone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        window.location.href = '/';
+      }
+    });
+  }
+
+  // Handle Settings and History links in Nav Card
+  const settingsLink = document.getElementById('nav-settings-link');
+  const historyLink = document.getElementById('nav-history-link');
+
+  if (settingsLink) {
+    settingsLink.addEventListener('click', (e) => {
+      const settingsModal = document.getElementById('settings-modal');
+      if (settingsModal) {
+        e.preventDefault();
+        toggleMenu();
+        settingsModal.classList.remove('opacity-0', 'pointer-events-none');
+        settingsModal.querySelector('.modal-glass').classList.remove('scale-95');
+        settingsModal.querySelector('.modal-glass').classList.add('scale-100');
+      }
+    });
+  }
+
+  if (historyLink) {
+    historyLink.addEventListener('click', (e) => {
+      const historyViewModal = document.getElementById('history-view-modal');
+      if (historyViewModal) {
+        e.preventDefault();
+        toggleMenu();
+        renderHistoryList();
+        historyViewModal.classList.remove('opacity-0', 'pointer-events-none');
+        historyViewModal.querySelector('.modal-glass').classList.remove('scale-95');
+        historyViewModal.querySelector('.modal-glass').classList.add('scale-100');
+      }
+    });
+  }
+
+  // Handle Resize
+  window.addEventListener('resize', () => {
+    if (isExpanded) {
+      gsap.set(navEl, { height: calculateHeight() });
+    }
+  });
 }
 
 // Run app init
