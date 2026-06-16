@@ -1,6 +1,41 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+function getHtmlEntries() {
+  const pages = {
+    main: resolve(__dirname, 'index.html'),
+  };
+  
+  // Find top-level HTML files
+  const files = fs.readdirSync(__dirname);
+  for (const file of files) {
+    if (file.endsWith('.html') && file !== 'index.html') {
+      const name = file.replace(/\.html$/, '');
+      pages[name] = resolve(__dirname, file);
+    }
+  }
+  
+  // Find preview.html files in demo subdirectories
+  const demoDir = resolve(__dirname, 'demo');
+  if (fs.existsSync(demoDir)) {
+    const demos = fs.readdirSync(demoDir);
+    for (const demo of demos) {
+      const previewPath = resolve(demoDir, demo, 'preview.html');
+      if (fs.existsSync(previewPath)) {
+        pages[`demo/${demo}/preview`] = previewPath;
+      }
+    }
+  }
+  
+  return pages;
+}
 
 export default defineConfig({
   plugins: [
@@ -26,6 +61,11 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    rollupOptions: {
+      input: getHtmlEntries()
+    }
+  },
   server: {
     proxy: {
       '/api/ollama-cloud': {

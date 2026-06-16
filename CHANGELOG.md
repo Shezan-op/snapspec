@@ -2,6 +2,17 @@
 
 All notable changes to the SnapSpec (Design-md Creator) project will be documented in this file.
 
+## [1.2.0] - 2026-06-17
+
+### Added
+- **Interactive 3D FAQ Grid**: Replaced the standard FAQ details accordion with a dynamic, cards-flipping grid. The first card shows its answer (orange background, minus icon) by default, and others flip smoothly when clicked or navigated via keyboard focus. Simplified the header to a clean title.
+- **See More Gallery Page**: Added a "See More Demos" action under the folder leading to a dedicated page (`demos.html`) displaying all 8 design-md demos in a responsive border-glow card grid.
+- **Cravburger Preview Page**: Designed the complete fast-food branding mock page for Cravburger at `demo/cravburger/preview.html`, implementing custom SVG interactive monster mascots, collage rotated cards, and wavy color dividers.
+- **Shining Text Footer Component**: Created a reusable `components/footer.html` template showcasing a glossy linear gradient text shine animation across the large "SnapSpec" brand wordmark.
+
+### Changed
+- **Demos Folder Cleanup**: Streamlined the virtual demos folder on the homepage to blowout only 3 brand papers (SnapSpec, Rotoris, Figma), increasing performance. Relocated and adjusted the instructions heading z-index so it is fully visible.
+
 ## [1.1.1] - 2026-06-16
 
 ### Added

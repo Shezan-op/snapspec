@@ -93,6 +93,7 @@ function init() {
   initFolder();
   initBlurText();
   initScrollReveal();
+  initFAQ();
   
   // Handle URL open actions for settings/history redirects
   const params = new URLSearchParams(window.location.search);
@@ -1618,6 +1619,20 @@ function initScrollReveal() {
       stagger: 0.1,
       duration: 1,
       ease: 'power1.out'
+    });
+  });
+}
+
+// FAQ Card Keyboard/Click Trigger Logic
+function initFAQ() {
+  const cards = document.querySelectorAll('.faq-card');
+  cards.forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
     });
   });
 }

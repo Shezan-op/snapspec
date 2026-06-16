@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Demos - SnapSpec</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-[var(--color-canvas)] text-[var(--color-text-main)] antialiased font-sans selection:bg-[var(--color-primary)] selection:text-white">
+
+    <div id="app" class="min-h-[100dvh] flex flex-col items-center pt-6 pb-12 md:pt-8 md:pb-24 px-6">
+      
+      <!-- CardNav Navigation Bar -->
+      <div class="card-nav-container animate-enter">
+        <nav id="card-nav" class="card-nav">
+          <div class="card-nav-top">
+            <div id="hamburger-menu" class="hamburger-menu">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </div>
+            <a href="/" class="logo-container flex items-center gap-2">
+              <img src="/branding/Icon.png" alt="SnapSpec Icon" class="logo h-6 w-auto" />
+              <span class="font-bold text-[18px] tracking-tight mt-0.5 text-white" style="font-family: 'Inter', sans-serif;">SnapSpec</span>
+            </a>
+            <button id="nav-cta-btn" class="card-nav-cta-button">
+              Upload Spec
+            </button>
+          </div>
+          
+          <div class="card-nav-content" aria-hidden="true">
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Navigation</div>
+              <div class="nav-card-links">
+                <a href="/" class="nav-card-link">
+                  <span>Home</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/skills.html" class="nav-card-link">
+                  <span>Skills</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/changelog.html" class="nav-card-link">
+                  <span>Changelog</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/whats-next.html" class="nav-card-link">
+                  <span>What's Next</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+            
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Workspace</div>
+              <div class="nav-card-links">
+                <a href="/?open=history" id="nav-history-link" class="nav-card-link">
+                  <span>History</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="/?open=settings" id="nav-settings-link" class="nav-card-link">
+                  <span>API Settings</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+            
+            <div class="nav-card bg-[rgba(10,10,10,0.8)]">
+              <div class="nav-card-label text-white">Contact & Social</div>
+              <div class="nav-card-links">
+                <a href="mailto:yourshezanspot@gmail.com" class="nav-card-link">
+                  <span>Email Us</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+                <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="nav-card-link">
+                  <span>GitHub Repo</span>
+                  <svg class="nav-card-link-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Spacer to compensate for absolute positioned header -->
+      <div class="h-20 w-full mb-10"></div>
+
+      <!-- Main Workspace -->
+      <main class="w-full max-w-5xl flex flex-col gap-10 lg:gap-16 items-start my-20 flex-grow mx-auto">
+        <div class="flex flex-col gap-2">
+          <p class="text-[12px] font-medium tracking-widest uppercase text-[var(--color-text-muted)]">Coded Gallery</p>
+          <h1 class="font-heading text-[48px] md:text-[64px] font-bold tracking-tight leading-[1.0] mb-6 blur-text">All Demos & Specs</h1>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+          <!-- Card 1: SnapSpec -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 270 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">SPEC DESIGN</span>
+                <h3 class="text-2xl font-bold text-white mt-4">SnapSpec</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">Self-documenting specification generator tool for reverse-engineering design systems from screenshots.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/SNAPSPEC-DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/snapspec/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Rotoris -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 340 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">LUXURY BRAND</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Rotoris Maison</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A luxury timepiece catalog featuring high-end typography, dark theme offsets, and product details.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/rotoris/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/rotoris/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Figma -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 190 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">DESIGN PLATFORM</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Figma</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A mockup reconstruction of the design canvas platform with clean vector lines and bento widgets.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/figma/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/figma/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Cravburger -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 40 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">PLAYFUL FAST FOOD</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Cravburger</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">An aggressive food collage brand landing page featuring wavy color blocks, mascot doodles, and floating ingredients.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/cravburger/cravburger.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/cravburger/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Cursor -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 140 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">AI IDE EDITOR</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Cursor</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A highly technical IDE design layout showcasing modern dark layouts and code-completion views.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/cursor/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/cursor/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Framer -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 290 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">WEB BUILDER</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Framer</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A website builder marketing page layout featuring clean glass card grids and fluid scroll designs.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/framer/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/framer/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 7: Timex -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 80 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">PRECISION CLOCK</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Timex</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A minimalist layout reconstruction of classic watch styles focusing on pure grid layout elements.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/timex/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/timex/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 8: Attio -->
+          <div class="border-glow-card border-none bg-transparent" style="--card-bg: var(--color-surface); --border-radius: 16; --glow-color: 220 80 80; --fill-opacity: 0.25;">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner p-8 border border-[var(--color-border)] bg-[var(--color-surface)] rounded-2xl flex flex-col justify-between h-full relative group">
+              <div>
+                <span class="text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[var(--color-text-muted)] font-mono">SLICK TECH CRM</span>
+                <h3 class="text-2xl font-bold text-white mt-4">Attio CRM</h3>
+                <p class="text-[var(--color-text-muted)] leading-relaxed mt-2 text-sm">A highly modern CRM platform landing page focusing on dynamic dashboard elements and grid layouts.</p>
+              </div>
+              <div class="flex gap-4 mt-8">
+                <a href="/demo/attio/DESIGN.md" target="_blank" class="btn-secondary flex-1 text-center py-2 text-xs font-semibold">View Spec</a>
+                <a href="/demo/attio/preview.html" target="_blank" class="btn-primary flex-1 text-center py-2 text-xs font-semibold">Live Preview</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Simple Clean Borderless Footer -->
+      <footer class="w-full max-w-5xl border-t border-neutral-900 mt-20 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
+        <p>© 2026 SnapSpec. All rights reserved.</p>
+        <div class="flex gap-6 font-medium">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <a href="mailto:yourshezanspot@gmail.com" class="hover:text-white transition-colors">Contact</a>
+          <a href="https://github.com/Shezan-op/snapspec" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>

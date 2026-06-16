@@ -195,8 +195,7 @@
 
             </div>
           </div>
-        </section>
-        
+        </section>        <!-- Demos Section -->
         <section id="demos" class="w-full max-w-5xl mt-24 flex flex-col gap-8 animate-enter stagger-3">
           <div class="border-glow-card border-none bg-transparent w-full" style="--card-bg: #050505; --border-radius: 16; --glow-color: 270 80 80; --fill-opacity: 0.1;">
             <span class="edge-light"></span>
@@ -239,21 +238,7 @@
                         </div>
                       </div>
 
-                      <!-- Paper 3: Cursor -->
-                      <div class="paper" style="--tx: -60px; --ty: -230px; --rot: -5deg;">
-                        <div class="paper-content flex flex-col h-full justify-between p-4">
-                          <div>
-                            <div class="text-[14px] font-bold text-white tracking-tight">Cursor</div>
-                            <div class="text-[10px] text-neutral-400 font-light mt-1">AI IDE Editor</div>
-                          </div>
-                          <div class="flex gap-2">
-                            <a href="/demo/cursor/DESIGN.md" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-white border border-white/10 transition-all font-medium">Spec</a>
-                            <a href="/demo/cursor/preview.html" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/10 hover:bg-white/20 text-[10px] text-white font-medium transition-all">Live</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Paper 4: Figma -->
+                      <!-- Paper 3: Figma -->
                       <div class="paper" style="--tx: -240px; --ty: -20px; --rot: -15deg;">
                         <div class="paper-content flex flex-col h-full justify-between p-4">
                           <div>
@@ -267,98 +252,100 @@
                         </div>
                       </div>
 
-                      <!-- Paper 5: Framer -->
-                      <div class="paper" style="--tx: 120px; --ty: -20px; --rot: 15deg;">
-                        <div class="paper-content flex flex-col h-full justify-between p-4">
-                          <div>
-                            <div class="text-[14px] font-bold text-white tracking-tight">Framer</div>
-                            <div class="text-[10px] text-neutral-400 font-light mt-1">Web Builder</div>
-                          </div>
-                          <div class="flex gap-2">
-                            <a href="/demo/framer/DESIGN.md" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-white border border-white/10 transition-all font-medium">Spec</a>
-                            <a href="/demo/framer/preview.html" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/10 hover:bg-white/20 text-[10px] text-white font-medium transition-all">Live</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Paper 6: Timex -->
-                      <div class="paper" style="--tx: -150px; --ty: 100px; --rot: -8deg;">
-                        <div class="paper-content flex flex-col h-full justify-between p-4">
-                          <div>
-                            <div class="text-[14px] font-bold text-white tracking-tight">Timex</div>
-                            <div class="text-[10px] text-neutral-400 font-light mt-1">Precision Clock</div>
-                          </div>
-                          <div class="flex gap-2">
-                            <a href="/demo/timex/DESIGN.md" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-white border border-white/10 transition-all font-medium">Spec</a>
-                            <a href="/demo/timex/preview.html" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/10 hover:bg-white/20 text-[10px] text-white font-medium transition-all">Live</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Paper 7: Attio -->
-                      <div class="paper" style="--tx: 30px; --ty: 100px; --rot: 8deg;">
-                        <div class="paper-content flex flex-col h-full justify-between p-4">
-                          <div>
-                            <div class="text-[14px] font-bold text-white tracking-tight">Attio</div>
-                            <div class="text-[10px] text-neutral-400 font-light mt-1">Slick Tech CRM</div>
-                          </div>
-                          <div class="flex gap-2">
-                            <a href="/demo/attio/DESIGN.md" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/5 hover:bg-white/10 text-[10px] text-white border border-white/10 transition-all font-medium">Spec</a>
-                            <a href="/demo/attio/preview.html" target="_blank" class="flex-1 text-center py-1.5 rounded bg-white/10 hover:bg-white/20 text-[10px] text-white font-medium transition-all">Live</a>
-                          </div>
-                        </div>
-                      </div>
-
                       <div class="folder__front"></div>
                       <div class="folder__front right"></div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- See More Button -->
+              <div class="flex justify-center mt-6 w-full">
+                <a href="/demos.html" class="btn-secondary text-sm px-6 py-2.5 flex items-center gap-2">
+                  <span>See More Demos</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </div>
-          </div>    </div>
+          </div>
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="w-full max-w-4xl mt-16 flex flex-col gap-6 animate-enter stagger-3">
-          <h2 class="font-heading text-[32px] font-bold text-white mb-6 text-center scroll-reveal">Frequently Asked Questions</h2>
-          <div class="flex flex-col gap-4">
-            <details class="group border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-              <summary class="flex justify-between items-center font-medium text-lg outline-none">
-                Who can use this tool?
-                <span class="transition group-open:rotate-180">
-                  <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
-              </summary>
-              <p class="text-[var(--color-text-muted)] mt-4 leading-relaxed">This tool is designed for developers, UI/UX designers, product managers, and founders who want to rapidly translate visual designs or competitor websites into structured, actionable design tokens and documentation for AI-assisted coding.</p>
-            </details>
-            <details class="group border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-              <summary class="flex justify-between items-center font-medium text-lg outline-none">
-                What is the benefit of DESIGN.md files?
-                <span class="transition group-open:rotate-180">
-                  <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
-              </summary>
-              <p class="text-[var(--color-text-muted)] mt-4 leading-relaxed">A DESIGN.md acts as a structured prompt or context file for AI coding assistants (like Cursor, GitHub Copilot, or Claude). It ensures that the AI adheres strictly to your brand's spacing, colors, typography, and styling rules, resulting in fewer hallucinations and perfect UI consistency.</p>
-            </details>
-            <details class="group border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-              <summary class="flex justify-between items-center font-medium text-lg outline-none">
-                Does this tool store my data?
-                <span class="transition group-open:rotate-180">
-                  <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
-              </summary>
-              <p class="text-[var(--color-text-muted)] mt-4 leading-relaxed">We respect your privacy. Everything is processed directly using your configured API keys (or our free tier endpoints). We do not permanently store your uploaded images or generated markdown files on our servers. Your API keys are saved securely and locally in your browser.</p>
-            </details>
-            <details class="group border border-[var(--color-border)] bg-[var(--color-surface)] rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
-              <summary class="flex justify-between items-center font-medium text-lg outline-none">
-                What can this tool not do?
-                <span class="transition group-open:rotate-180">
-                  <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
-              </summary>
-              <p class="text-[var(--color-text-muted)] mt-4 leading-relaxed">This tool is meant for design system extraction, not full code generation. It will not give you a complete working React or HTML website directly from an image. It produces the architectural blueprint (the DESIGN.md), which you then feed into your AI IDE to generate the actual code.</p>
-            </details>
+        <section id="faq" class="w-full max-w-6xl mt-24 flex flex-col gap-6 animate-enter stagger-3">
+          <h2 class="font-heading text-[32px] font-bold text-white mb-8 text-center">FAQ</h2>
+          
+          <div class="faq-grid">
+            <!-- Card 1 (Flipped by default) -->
+            <div class="faq-card-wrapper">
+              <div class="faq-card flipped" onclick="this.classList.toggle('flipped')">
+                <div class="faq-card-front">
+                  <div class="faq-card-title">Who can use this tool?</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="faq-card-back">
+                  <div class="faq-card-answer">This tool is designed for developers, UI/UX designers, product managers, and founders who want to rapidly translate visual designs or competitor websites into structured, actionable design tokens and documentation for AI-assisted coding.</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="faq-card-wrapper">
+              <div class="faq-card" onclick="this.classList.toggle('flipped')">
+                <div class="faq-card-front">
+                  <div class="faq-card-title">What is the benefit of DESIGN.md files?</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="faq-card-back">
+                  <div class="faq-card-answer">A DESIGN.md acts as a structured prompt or context file for AI coding assistants (like Cursor, GitHub Copilot, or Claude). It ensures that the AI adheres strictly to your brand's spacing, colors, typography, and styling rules, resulting in fewer hallucinations and perfect UI consistency.</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="faq-card-wrapper">
+              <div class="faq-card" onclick="this.classList.toggle('flipped')">
+                <div class="faq-card-front">
+                  <div class="faq-card-title">Does this tool store my data?</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="faq-card-back">
+                  <div class="faq-card-answer">We respect your privacy. Everything is processed directly using your configured API keys (or our free tier endpoints). We do not permanently store your uploaded images or generated markdown files on our servers. Your API keys are saved securely and locally in your browser.</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="faq-card-wrapper">
+              <div class="faq-card" onclick="this.classList.toggle('flipped')">
+                <div class="faq-card-front">
+                  <div class="faq-card-title">What can this tool not do?</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="faq-card-back">
+                  <div class="faq-card-answer">This tool is meant for design system extraction, not full code generation. It will not give you a complete working React or HTML website directly from an image. It produces the architectural blueprint (the DESIGN.md), which you then feed into your AI IDE to generate the actual code.</div>
+                  <div class="faq-icon-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
