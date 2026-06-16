@@ -1,4 +1,9 @@
 import './style.css';
+import { analyzeGoogle } from './providers/google.js';
+import { analyzeClaude } from './providers/claude.js';
+import { analyzeOpenAI } from './providers/openai.js';
+import { analyzeOpenRouter } from './providers/openrouter.js';
+import { analyzeOllama } from './providers/ollama.js';
 
 // Global App State
 const state = {
@@ -756,116 +761,42 @@ async function analyzeImage(base64DataUrl) {
       const base64Data = match[2];
 
       if (state.provider === 'gemini') {
-        const requestBody = {
-          contents: [{
-            parts: [
-              { text: SYSTEM_PROMPT },
-              { inlineData: { mimeType, data: base64Data } }
-            ]
-          }]
-        };
-
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${state.apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
+        markdownText = await analyzeGoogle({
+          apiKey: state.apiKey,
+          mimeType,
+          base64Data,
+          systemPrompt: SYSTEM_PROMPT,
+          model: state.cloudModel
         });
-        
-        if (!response.ok) {
-          let errDetail = `Gemini API error (${response.status})`;
-          try { const errJson = await response.json(); if (errJson.error?.message) errDetail = errJson.error.message; } catch(e){}
-          throw new Error(errDetail);
-        }
-        const resData = await response.json();
-        markdownText = resData.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-      } else if (state.provider === 'openai' || state.provider === 'openrouter') {
-        const url = state.provider === 'openai' 
-          ? 'https://api.openai.com/v1/chat/completions' 
-          : 'https://openrouter.ai/api/v1/chat/completions';
-        
-        const model = state.provider === 'openai' ? (state.cloudModel === 'openai/gpt-4o' ? 'gpt-4o' : state.cloudModel) : state.cloudModel;
-
-        const headers = { 'Content-Type': 'application/json' };
-        if (state.apiKey) {
-          headers['Authorization'] = `Bearer ${state.apiKey}`;
-        }
-        // Specific headers for OpenRouter
-        if (state.provider === 'openrouter') {
-          headers['HTTP-Referer'] = window.location.href;
-          headers['X-Title'] = 'Design-md Creator';
-        }
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            model: model,
-            messages: [
-              { role: "system", content: "You are an expert design engineer. Always output pure Markdown." },
-              {
-                role: "user",
-                content: [
-                  { type: "text", text: SYSTEM_PROMPT },
-                  { type: "image_url", image_url: { url: base64DataUrl } }
-                ]
-              }
-            ]
-          })
+      } else if (state.provider === 'claude') {
+        markdownText = await analyzeClaude({
+          apiKey: state.apiKey,
+          model: state.cloudModel,
+          base64DataUrl,
+          systemPrompt: SYSTEM_PROMPT
         });
-        
-        if (!response.ok) {
-          let errDetail = `${state.provider} API error (${response.status})`;
-          try { const errJson = await response.json(); if (errJson.error?.message) errDetail = errJson.error.message; } catch(e){}
-          throw new Error(errDetail);
-        }
-        const resData = await response.json();
-        markdownText = resData.choices?.[0]?.message?.content;
-
+      } else if (state.provider === 'openai') {
+        markdownText = await analyzeOpenAI({
+          apiKey: state.apiKey,
+          model: state.cloudModel,
+          base64DataUrl,
+          systemPrompt: SYSTEM_PROMPT
+        });
+      } else if (state.provider === 'openrouter') {
+        markdownText = await analyzeOpenRouter({
+          apiKey: state.apiKey,
+          model: state.cloudModel,
+          base64DataUrl,
+          systemPrompt: SYSTEM_PROMPT
+        });
       } else if (state.provider === 'ollama') {
-        if (!state.ollamaModel) {
-          throw new Error('Please enter an Ollama model name in Settings (e.g. qwen3-vl:235b)');
-        }
-        const headers = { 'Content-Type': 'application/json' };
-        
-        // Determine the endpoint: use user-provided endpoint or default
-        let baseUrl = (state.ollamaEndpoint || 'https://ollama.com').replace(/\/+$/, '');
-        let fetchUrl;
-
-        // If it's the Ollama cloud (ollama.com), proxy through Vite dev server to avoid CORS
-        if (baseUrl.includes('ollama.com')) {
-          fetchUrl = '/api/ollama-cloud/api/chat';
-        } else {
-          fetchUrl = `${baseUrl}/api/chat`;
-        }
-
-        if (state.apiKey) {
-          headers['Authorization'] = `Bearer ${state.apiKey}`;
-        }
-        
-        const response = await fetch(fetchUrl, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            model: state.ollamaModel,
-            messages: [
-              {
-                role: 'user',
-                content: SYSTEM_PROMPT,
-                images: [base64Data]
-              }
-            ],
-            stream: false
-          })
+        markdownText = await analyzeOllama({
+          apiKey: state.apiKey,
+          model: state.ollamaModel,
+          base64Data,
+          systemPrompt: SYSTEM_PROMPT,
+          endpoint: state.ollamaEndpoint
         });
-        
-        if (!response.ok) {
-          let errDetail = `Ollama API error (${response.status})`;
-          try { const errJson = await response.json(); if (errJson.error) errDetail = errJson.error; } catch(e){}
-          throw new Error(errDetail);
-        }
-        const resData = await response.json();
-        markdownText = resData.message?.content;
       }
 
       if (!markdownText) throw new Error('Empty response from model');

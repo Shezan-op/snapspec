@@ -746,8 +746,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 90px;
+  width: 200px;
+  height: 150px;
   transition: all 0.3s var(--ease-out-premium);
   animation: floatFolder 4s ease-in-out infinite;
 }
@@ -798,10 +798,10 @@
 
 .folder__back {
   position: relative;
-  width: 120px;
-  height: 90px;
+  width: 200px;
+  height: 150px;
   background: var(--folder-back-color, #1a1a1a);
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px 14px 14px 14px;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -811,10 +811,10 @@
   bottom: 98%;
   left: 0;
   content: '';
-  width: 36px;
-  height: 12px;
+  width: 60px;
+  height: 20px;
   background: var(--folder-back-color, #1a1a1a);
-  border-radius: 5px 5px 0 0;
+  border-radius: 8px 8px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-left: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -825,7 +825,7 @@
   width: 100%;
   height: 100%;
   background: var(--folder-color, #222222);
-  border-radius: 5px 10px 10px 10px;
+  border-radius: 8px 14px 14px 14px;
   transform-origin: bottom;
   transition: all 0.3s var(--ease-out-premium);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -843,8 +843,8 @@
   bottom: 10%;
   left: 50%;
   transform: translate(-50%, 10%) scale(0.3);
-  width: 170px;
-  height: 120px;
+  width: 220px;
+  height: 155px;
   background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -861,29 +861,7 @@
 .folder.open .paper {
   opacity: 1;
   pointer-events: auto;
-}
-
-/* Staggered transition delays for papers on open */
-.folder.open .paper:nth-child(1) {
-  transform: translate(calc(-50% + var(--tx, -200px)), calc(-50% + var(--ty, -150px))) rotate(var(--rot, -12deg)) scale(1);
-}
-.folder.open .paper:nth-child(2) {
-  transform: translate(calc(-50% + var(--tx, 80px)), calc(-50% + var(--ty, -150px))) rotate(var(--rot, 12deg)) scale(1);
-}
-.folder.open .paper:nth-child(3) {
-  transform: translate(calc(-50% + var(--tx, -60px)), calc(-50% + var(--ty, -230px))) rotate(var(--rot, -5deg)) scale(1);
-}
-.folder.open .paper:nth-child(4) {
-  transform: translate(calc(-50% + var(--tx, -240px)), calc(-50% + var(--ty, -20px))) rotate(var(--rot, -15deg)) scale(1);
-}
-.folder.open .paper:nth-child(5) {
-  transform: translate(calc(-50% + var(--tx, 120px)), calc(-50% + var(--ty, -20px))) rotate(var(--rot, 15deg)) scale(1);
-}
-.folder.open .paper:nth-child(6) {
-  transform: translate(calc(-50% + var(--tx, -150px)), calc(-50% + var(--ty, 100px))) rotate(var(--rot, -8deg)) scale(1);
-}
-.folder.open .paper:nth-child(7) {
-  transform: translate(calc(-50% + var(--tx, 30px)), calc(-50% + var(--ty, 100px))) rotate(var(--rot, 8deg)) scale(1);
+  transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) rotate(var(--rot, 0deg)) scale(1);
 }
 
 /* Paper Hover magnification and magnetic transition */
@@ -891,28 +869,7 @@
   z-index: 10;
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.3);
-}
-
-.folder.open .paper:nth-child(1):hover {
-  transform: translate(calc(-50% + var(--tx, -200px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -150px) + var(--magnet-y, 0px))) rotate(var(--rot, -12deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(2):hover {
-  transform: translate(calc(-50% + var(--tx, 80px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -150px) + var(--magnet-y, 0px))) rotate(var(--rot, 12deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(3):hover {
-  transform: translate(calc(-50% + var(--tx, -60px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -230px) + var(--magnet-y, 0px))) rotate(var(--rot, -5deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(4):hover {
-  transform: translate(calc(-50% + var(--tx, -240px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -20px) + var(--magnet-y, 0px))) rotate(var(--rot, -15deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(5):hover {
-  transform: translate(calc(-50% + var(--tx, 120px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, -20px) + var(--magnet-y, 0px))) rotate(var(--rot, 15deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(6):hover {
-  transform: translate(calc(-50% + var(--tx, -150px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, 100px) + var(--magnet-y, 0px))) rotate(var(--rot, -8deg)) scale(1.08);
-}
-.folder.open .paper:nth-child(7):hover {
-  transform: translate(calc(-50% + var(--tx, 30px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, 100px) + var(--magnet-y, 0px))) rotate(var(--rot, 8deg)) scale(1.08);
+  transform: translate(calc(-50% + var(--tx, 0px) + var(--magnet-x, 0px)), calc(-50% + var(--ty, 0px) + var(--magnet-y, 0px))) rotate(var(--rot, 0deg)) scale(1.08);
 }
 
 /* Scroll Reveal & Word CSS */
@@ -1001,16 +958,16 @@
 }
 
 .faq-card-front {
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #e2e8f0;
+  background-color: #0b0b0d;
+  color: #ffffff;
+  border: 1px solid #222225;
 }
 
 .faq-card-back {
-  background-color: #f7a02c;
-  color: #000000;
+  background-color: #121215;
+  color: #ffffff;
   transform: rotateY(180deg);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #323238;
 }
 
 .faq-card-title {
@@ -1025,6 +982,7 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 1.5;
+  color: #8a8a8a;
 }
 
 .faq-icon-btn {
@@ -1040,13 +998,13 @@
 }
 
 .faq-card-front .faq-icon-btn {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .faq-card-back .faq-icon-btn {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 

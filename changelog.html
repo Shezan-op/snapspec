@@ -98,11 +98,12 @@
             <h2 class="text-2xl font-bold text-white scroll-reveal">v1.2.0 — 3D FAQ Cards, Reusable Footers, & Cravburger</h2>
             <p class="text-[var(--color-text-muted)] text-sm mb-2">June 17, 2026</p>
             <ul class="list-disc pl-5 flex flex-col gap-3 text-[var(--color-text-main)] text-[14px] font-light leading-relaxed">
-              <li><strong>Interactive 3D FAQ Grid:</strong> Replaced the standard FAQ details accordion with a dynamic, cards-flipping grid. The first card shows its answer (orange background, minus icon) by default, and others flip smoothly when clicked or navigated via keyboard focus. Simplified the header to a clean title.</li>
-              <li><strong>Demos Folder Cleanup:</strong> Streamlined the virtual demos folder on the homepage to blowout only 3 brand papers (SnapSpec, Rotoris, Figma), increasing performance. Relocated and adjusted the instructions heading z-index so it is fully visible.</li>
+              <li><strong>Interactive 3D FAQ Grid:</strong> Replaced the standard FAQ details accordion with a dynamic, cards-flipping grid styled in the project's dark premium glassmorphism theme. The first card is pre-flipped on load to show its answer.</li>
+              <li><strong>Enlarged Symmetrical Demos Folder:</strong> Scaled the demos folder by 1.5x to fill out blank spacing and rearranged the 3 papers (SnapSpec, Rotoris, Figma) to blowout symmetrically (left, straight up, right) using a clean generic CSS variable approach.</li>
               <li><strong>See More Gallery Page:</strong> Added a "See More Demos" action under the folder leading to a dedicated page (<code>demos.html</code>) displaying all 8 design-md demos in a responsive border-glow card grid.</li>
               <li><strong>Cravburger Preview Page:</strong> Designed the complete fast-food branding mock page for Cravburger at <code>demo/cravburger/preview.html</code>, implementing custom SVG interactive monster mascots, collage rotated cards, and wavy color dividers.</li>
-              <li><strong>Shining Text Footer Component:</strong> Created a reusable <code>components/footer.html</code> template showcasing a glossy linear gradient text shine animation across the large "SnapSpec" brand wordmark.</li>
+              <li><strong>Shining Text Footer Component:</strong> Created a reusable <code>components/footer.html</code> template showcasing a glossy linear gradient text shine animation across the large "SnapSpec" brand wordmark, wrapped in a complete HTML/Tailwind skeleton.</li>
+              <li><strong>Modular AI Providers:</strong> Split the generation API endpoints into dedicated ES module files (under <code>src/providers/</code>) for google, claude, openai, openrouter, and ollama to simplify maintenance. Added direct Anthropic Claude provider support.</li>
             </ul>
           </div>
 

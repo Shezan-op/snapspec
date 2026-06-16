@@ -5,13 +5,14 @@ All notable changes to the SnapSpec (Design-md Creator) project will be document
 ## [1.2.0] - 2026-06-17
 
 ### Added
-- **Interactive 3D FAQ Grid**: Replaced the standard FAQ details accordion with a dynamic, cards-flipping grid. The first card shows its answer (orange background, minus icon) by default, and others flip smoothly when clicked or navigated via keyboard focus. Simplified the header to a clean title.
+- **Interactive 3D FAQ Grid**: Replaced the standard FAQ details accordion with a dynamic, cards-flipping grid. Styled in the project's dark premium glassmorphism theme, with the first card pre-flipped showing the answer on load.
 - **See More Gallery Page**: Added a "See More Demos" action under the folder leading to a dedicated page (`demos.html`) displaying all 8 design-md demos in a responsive border-glow card grid.
 - **Cravburger Preview Page**: Designed the complete fast-food branding mock page for Cravburger at `demo/cravburger/preview.html`, implementing custom SVG interactive monster mascots, collage rotated cards, and wavy color dividers.
-- **Shining Text Footer Component**: Created a reusable `components/footer.html` template showcasing a glossy linear gradient text shine animation across the large "SnapSpec" brand wordmark.
+- **Shining Text Footer Component**: Created a reusable `components/footer.html` template showcasing a glossy linear gradient text shine animation across the large "SnapSpec" brand wordmark. Wrapped in a complete HTML/Tailwind skeleton for premium direct rendering.
+- **Modular AI Providers**: Split the generation API endpoints into dedicated ES module files (`src/providers/` for google, claude, openai, openrouter, ollama) to simplify maintenance. Added direct Anthropic Claude provider support.
 
 ### Changed
-- **Demos Folder Cleanup**: Streamlined the virtual demos folder on the homepage to blowout only 3 brand papers (SnapSpec, Rotoris, Figma), increasing performance. Relocated and adjusted the instructions heading z-index so it is fully visible.
+- **Enlarged Symmetrical Demos Folder**: Scaled the virtual demos folder by 1.5x (to 200px x 150px) to fill out empty horizontal spacing and rearranged the 3 papers (SnapSpec, Rotoris, Figma) to blowout symmetrically (left, straight up, right) using a clean generic CSS variable approach.
 
 ## [1.1.1] - 2026-06-16
 
