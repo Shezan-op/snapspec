@@ -2,11 +2,12 @@
 
 All notable changes to the SnapSpec (Design-md Creator) project will be documented in this file.
 
-## [1.1.1] - 2026-06-14
+## [1.1.1] - 2026-06-16
 
 ### Added
 - **Default Ollama Cloud Config**: Initialized the default API provider to Ollama and populated the API Key field with a default test key.
 - **Inline Error State Container**: Introduced `#markdown-output-error` inside the markdown preview card. Instead of silently resetting the application and deleting the uploaded screenshot on error, the tool now displays failure details directly inside the results card with a "Retry Generation" action.
+- **TrueFocus Footer Animation**: Translated and integrated the interactive React `TrueFocus` logo animation from React Bits into our Vanilla JS and CSS pipeline, animating the large footer letters ("Snap" & "Spec") with hover overrides and responsive box-coordinate focus tracking.
 
 ### Changed
 - **Zero-loss Error Handling**: Removed `forceClearImage` from the generation error catch block, preserving the uploaded screenshot and preview container so users can fix settings or retry.

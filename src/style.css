@@ -114,6 +114,11 @@
   transform: scale(0.95);
 }
 
+.btn-compact {
+  padding: 6px 12px !important;
+  font-size: 13px !important;
+}
+
 .bento-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -236,4 +241,75 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+/* TrueFocus CSS */
+.focus-container {
+  position: relative;
+  display: inline-flex;
+  gap: 0.08em;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  outline: none;
+  user-select: none;
+}
+
+.focus-word {
+  position: relative;
+  cursor: pointer;
+  transition: filter 0.5s var(--ease-out-premium), opacity 0.5s var(--ease-out-premium);
+  outline: none;
+  user-select: none;
+}
+
+.focus-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: none;
+  transition: transform 0.5s var(--ease-out-premium), width 0.5s var(--ease-out-premium), height 0.5s var(--ease-out-premium), opacity 0.5s var(--ease-out-premium);
+  will-change: transform, width, height;
+}
+
+.focus-frame .corner {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 4px solid #ffffff;
+  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+  border-radius: 4px;
+  transition: none;
+}
+
+.focus-frame .top-left {
+  top: -12px;
+  left: -12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.focus-frame .top-right {
+  top: -12px;
+  right: -12px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.focus-frame .bottom-left {
+  bottom: -12px;
+  left: -12px;
+  border-right: none;
+  border-top: none;
+}
+
+.focus-frame .bottom-right {
+  bottom: -12px;
+  right: -12px;
+  border-left: none;
+  border-top: none;
+}
+
+
 

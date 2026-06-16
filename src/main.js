@@ -2,11 +2,12 @@ import './style.css';
 
 // Global App State
 const state = {
-  provider: localStorage.getItem('pf_provider') || 'ollama',
-  apiKey: localStorage.getItem('pf_api_key') || '698257caf3494895bdc672f6cfb336fe.IbkFNXoNG5n7eeJvyeIdGdOT',
+  provider: localStorage.getItem('pf_provider') || 'gemini',
+  apiKey: localStorage.getItem('pf_api_key') || '',
   cloudModel: localStorage.getItem('pf_cloud_model') || 'google/gemini-2.5-flash',
   customCloudModel: localStorage.getItem('pf_custom_cloud_model') || '',
-  ollamaModel: localStorage.getItem('pf_ollama_model') || 'qwen3-vl:235b-cloud',
+  ollamaModel: localStorage.getItem('pf_ollama_model') || '',
+  ollamaEndpoint: localStorage.getItem('pf_ollama_endpoint') || 'https://ollama.com',
   history: JSON.parse(localStorage.getItem('pf_history') || '[]'),
   currentImage: null, // File
   currentImageBase64: null,
@@ -28,6 +29,7 @@ const elements = {
   cloudModelInput: document.getElementById('cloud-model'),
   ollamaModelContainer: document.getElementById('ollama-model-container'),
   ollamaModelInput: document.getElementById('ollama-model'),
+  ollamaEndpointInput: document.getElementById('ollama-endpoint'),
   customCloudModelInput: document.getElementById('custom-cloud-model'),
   toggleCustomModelBtn: document.getElementById('toggle-custom-model-btn'),
   showMoreDemosBtn: document.getElementById('show-more-demos-btn'),
@@ -91,6 +93,8 @@ const elements = {
 
 // Initialize Application
 function init() {
+  initTrueFocus();
+  
   if (elements.toggleConfigBtn) {
     setupEventListeners();
     loadSavedSettings();
@@ -122,7 +126,8 @@ const cloudPresets = [
   'anthropic/claude-3.5-sonnet',
   'anthropic/claude-3.7-sonnet',
   'openai/gpt-4o',
-  'openai/gpt-4o-mini'
+  'openai/gpt-4o-mini',
+  'openrouter/free'
 ];
 
 // Load Settings from state to UI
@@ -149,6 +154,7 @@ function loadSavedSettings() {
     }
   }
   elements.ollamaModelInput.value = state.ollamaModel;
+  if (elements.ollamaEndpointInput) elements.ollamaEndpointInput.value = state.ollamaEndpoint;
 
   updateSettingsUI();
 }
@@ -217,13 +223,15 @@ function setupEventListeners() {
       state.cloudModel = elements.cloudModelInput.value.trim() || 'google/gemini-2.5-flash';
     }
 
-    state.ollamaModel = elements.ollamaModelInput.value.trim() || 'qwen3-vl:235b-cloud';
+    state.ollamaModel = elements.ollamaModelInput.value.trim();
+    state.ollamaEndpoint = (elements.ollamaEndpointInput ? elements.ollamaEndpointInput.value.trim() : '') || 'https://ollama.com';
     
     localStorage.setItem('pf_provider', state.provider);
     localStorage.setItem('pf_api_key', state.apiKey);
     localStorage.setItem('pf_cloud_model', state.cloudModel);
     localStorage.setItem('pf_custom_cloud_model', elements.customCloudModelInput.value.trim());
     localStorage.setItem('pf_ollama_model', state.ollamaModel);
+    localStorage.setItem('pf_ollama_endpoint', state.ollamaEndpoint);
     
     closeModal();
     showToast('Settings saved successfully');
@@ -741,7 +749,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // AI API Gateway with Exponential Backoff Retry
 async function analyzeImage(base64DataUrl) {
-  if (state.provider !== 'ollama' && !state.apiKey) {
+  if (!state.apiKey) {
     showToast('Please configure your API key in Settings.');
     elements.settingsModal.classList.remove('opacity-0', 'pointer-events-none');
     elements.settingsModal.querySelector('.modal-glass').classList.remove('scale-95');
@@ -831,14 +839,27 @@ async function analyzeImage(base64DataUrl) {
         markdownText = resData.choices?.[0]?.message?.content;
 
       } else if (state.provider === 'ollama') {
+        if (!state.ollamaModel) {
+          throw new Error('Please enter an Ollama model name in Settings (e.g. qwen3-vl:235b)');
+        }
         const headers = { 'Content-Type': 'application/json' };
-        let endpointUrl = 'http://localhost:11434';
+        
+        // Determine the endpoint: use user-provided endpoint or default
+        let baseUrl = (state.ollamaEndpoint || 'https://ollama.com').replace(/\/+$/, '');
+        let fetchUrl;
+
+        // If it's the Ollama cloud (ollama.com), proxy through Vite dev server to avoid CORS
+        if (baseUrl.includes('ollama.com')) {
+          fetchUrl = '/api/ollama-cloud/api/chat';
+        } else {
+          fetchUrl = `${baseUrl}/api/chat`;
+        }
+
         if (state.apiKey) {
           headers['Authorization'] = `Bearer ${state.apiKey}`;
-          endpointUrl = '/api/ollama-cloud';
         }
         
-        const response = await fetch(`${endpointUrl}/api/chat`, {
+        const response = await fetch(fetchUrl, {
           method: 'POST',
           headers,
           body: JSON.stringify({
@@ -951,6 +972,10 @@ function triggerLoadingState(isLoading, error = null) {
       elements.markdownOutputError.classList.remove('flex');
     }
     
+    // Hide show-more elements during loading so they don't overlay on a blank page
+    if (elements.showMoreBtn) elements.showMoreBtn.classList.add('hidden');
+    if (elements.markdownFade) elements.markdownFade.classList.add('hidden');
+    
     startLoadingStatusRotation();
   } else {
     elements.scannerLine.classList.add('opacity-0');
@@ -968,6 +993,9 @@ function triggerLoadingState(isLoading, error = null) {
         elements.errorMessageText.textContent = error.message || error;
       }
       elements.markdownOutput.classList.add('hidden');
+      // Hide show-more elements on error
+      if (elements.showMoreBtn) elements.showMoreBtn.classList.add('hidden');
+      if (elements.markdownFade) elements.markdownFade.classList.add('hidden');
     } else {
       if (elements.markdownOutputError) {
         elements.markdownOutputError.classList.add('hidden');
@@ -1105,6 +1133,81 @@ function showToast(message) {
   toastTimeout = setTimeout(() => {
     elements.toastMsgBox.classList.add('hidden');
   }, 3000);
+}
+
+// TrueFocus Animation Logic
+function initTrueFocus() {
+  const container = document.getElementById('footer-logo-focus');
+  const frame = document.getElementById('focus-frame');
+  if (!container || !frame) return;
+
+  const words = container.querySelectorAll('.focus-word');
+  if (words.length === 0) return;
+
+  let currentIndex = 0;
+  const blurAmount = 6;
+  const animationDuration = 0.5; // in seconds
+  const pauseBetweenAnimations = 1.2; // in seconds
+
+  function updateFocus() {
+    const activeWord = words[currentIndex];
+    if (!activeWord) return;
+
+    // 1. Update filters and opacity of all words
+    words.forEach((word, index) => {
+      if (index === currentIndex) {
+        word.style.filter = 'blur(0px)';
+        word.style.opacity = '1';
+      } else {
+        word.style.filter = `blur(${blurAmount}px)`;
+        word.style.opacity = '0.45'; // dim inactive words for high contrast focus
+      }
+    });
+
+    // 2. Position the focus frame relative to container coordinates
+    const containerRect = container.getBoundingClientRect();
+    const activeRect = activeWord.getBoundingClientRect();
+
+    const x = activeRect.left - containerRect.left;
+    const y = activeRect.top - containerRect.top;
+    const width = activeRect.width;
+    const height = activeRect.height;
+
+    frame.style.transform = `translate(${x}px, ${y}px)`;
+    frame.style.width = `${width}px`;
+    frame.style.height = `${height}px`;
+    frame.style.opacity = '1';
+  }
+
+  // Auto animation interval
+  let interval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % words.length;
+    updateFocus();
+  }, (animationDuration + pauseBetweenAnimations) * 1000);
+
+  // Hover handlers
+  words.forEach((word, index) => {
+    word.addEventListener('mouseenter', () => {
+      clearInterval(interval);
+      currentIndex = index;
+      updateFocus();
+    });
+    
+    word.addEventListener('mouseleave', () => {
+      // Resume auto play
+      clearInterval(interval);
+      interval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % words.length;
+        updateFocus();
+      }, (animationDuration + pauseBetweenAnimations) * 1000);
+    });
+  });
+
+  // Handle window resizing
+  window.addEventListener('resize', updateFocus);
+
+  // Initial draw
+  setTimeout(updateFocus, 100);
 }
 
 // Run app init
